@@ -6,6 +6,7 @@
 
 package br.unifap.serde.projectvisualizer.actions;
 
+import reconhecedor.Metodo;
 import br.unifap.serde.projectvisualizer.util.ButtonTabComponent;
 import br.unifap.serde.projectvisualizer.entities.FileNode;
 import br.unifap.serde.projectvisualizer.ui.OpenProjectGUI;

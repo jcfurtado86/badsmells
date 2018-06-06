@@ -1,4 +1,4 @@
-package br.unifap.serde.projectvisualizer.actions;
+package reconhecedor;
 
 //teste
 

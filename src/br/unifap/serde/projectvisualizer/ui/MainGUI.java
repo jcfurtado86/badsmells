@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.unifap.serde.projectvisualizer.ui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyVetoException;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.GroupLayout;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
@@ -18,8 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.UIManager;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,32 +31,57 @@ public class MainGUI extends JFrame {
     private JMenuItem jMIAbout;
     private JMenuItem jMIDocumentation;
     private int pos = 0;
+    
+    private final String reconhecerNomeRepositorio = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]+).git";
 
     public MainGUI() {
         initUI();
     }
 
     private void jMenuItemActionPerformed(ActionEvent evt) {
-        JFileChooser jFChooser = new JFileChooser(System.getProperty("user.dir"));
+        JFileChooser jFChooser = new JFileChooser();
         jFChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        int returnValue = jFChooser.showOpenDialog(this);
-
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            OpenProjectGUI projectWindow = new OpenProjectGUI(jFChooser.getSelectedFile());
+             
+        String url = JOptionPane.showInputDialog(null, "URL REPOSITORIO.git");
+        
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        
+        try {
             
-            projectWindow.setLocation(pos * 50, pos++ * 50);
-            
-            jDesktopPane.add(projectWindow);
-         
-            try {
-                projectWindow.setSelected(true);
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+        
+            if (reconhecedor.ClonarRepositorio.clonar(url,nomeRepositorio(url)) ){
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                jFChooser.setSelectedFile(new File(System.getProperty("user.dir")+"\\Repositorio\\"+nomeRepositorio(url)));
+                OpenProjectGUI projectWindow = new OpenProjectGUI(jFChooser.getSelectedFile());
+
+                projectWindow.setLocation(pos * 50, pos++ * 50);
+
+                jDesktopPane.add(projectWindow);
+
+                try {
+                    projectWindow.setSelected(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
-
+        
+        } catch (NullPointerException e) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
+        
+    }
+    
+    private String nomeRepositorio(String url) throws NullPointerException{
+        final Pattern pattern = Pattern.compile(reconhecerNomeRepositorio, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(url);
 
+        while (matcher.find()) {
+            return matcher.group(1);
+        }
+        
+        return "NomeNãoEncontrado";
     }
 
     private void initUI() {
@@ -108,9 +129,6 @@ public class MainGUI extends JFrame {
         this.setVisible(true);
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
 
         
@@ -124,12 +142,6 @@ public class MainGUI extends JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        /*
-        try{
-            UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName());
-        }catch(Exception e){
-            System.out.print(e.getMessage());
-        }*/
         
         java.awt.EventQueue.invokeLater(() -> {
             new MainGUI().setVisible(true);

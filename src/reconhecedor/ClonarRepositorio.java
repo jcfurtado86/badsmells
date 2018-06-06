@@ -7,17 +7,20 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 
 public class ClonarRepositorio {
     
-    public static void main(String[] args) {
-        excluir(new File(System.getProperty("user.dir")+"\\Repositorio"));
-        String repoUrl = "https://github.com/Matheuscsceil/Compilador.git";
-        String cloneDirectoryPath = System.getProperty("user.dir")+"\\Repositorio";
+    public static boolean clonar(String repoUrl, String nomeProjeto){
+        excluir(new File(System.getProperty("user.dir")+"\\Repositorio\\"+nomeProjeto));
+        String cloneDirectoryPath = System.getProperty("user.dir")+"\\Repositorio\\"+nomeProjeto;
         try {
             System.out.println("Clonando");
             Git.cloneRepository().setURI(repoUrl).setDirectory(Paths.get(cloneDirectoryPath).toFile()).call();
             System.out.println("Clonado com sucesso");
+            
+            return true;
         } catch (GitAPIException e) {
-            e.printStackTrace();
+            System.out.println("Falha ao clonar: "+e.getMessage());
+            return false;
         }
+        
     }
     
     public static void excluir(File arq){
