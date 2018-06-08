@@ -9,7 +9,7 @@ public class Reconhecedor {
     
     private final static String regexClasse = "\\s*((public|protected|private)*\\s*(static|abstract)*\\s*(class)+\\s*(.*?)\\s*)\\{\\s*((.\\}?|\\s?)*)\\s*\\}";
     private final static String regexMetodo = "\\s*((public|protected|private)*\\s*(static)*\\s*(.*?)\\s*([A-Za-z0-9]+)\\s*\\((.*?)\\)\\s*(.*?))\\{\\s*((.?|\\r?\\n)*)\\s*\\}";//"\\s*((public|protected|private)+\\s*(static)*\\s*(.*?)\\s*([A-Za-z0-9]+)\\s*\\((.*?)\\)\\s*(.*?))\\{\\s*((.?|\\s?)*)\\s*\\}";
-    private final static String regexChamadaObjeto = "\\s*(.*?) \\s*(.*?)\\s*\\=\\s*(.*?)\\s*\\;|(.*?)\\.(.*?)\\((.*?)\\)(\\;)+";
+    private final static String regexChamadaObjeto = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=\\s*(new)+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\)\\s*\\;|([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+|([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*=+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\(*(.*?)\\)*\\s*\\;+|([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+";
     private final static String regexComentarios = "(//.*)|(?s)/\\*.*?\\*/|//(?s)\\n";
     
     private ArrayList<String> resultadoParcial = new ArrayList<>();
@@ -221,6 +221,30 @@ public class Reconhecedor {
             
             String resultado = "\n--------- INSTANCIA ----------------------------\n";
             resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
+            
+            if(matcher.group(3) != null){
+                resultado = resultado + "Classe: " + matcher.group(1) + "\n";
+                resultado = resultado + "Objeto: " + matcher.group(2) + "\n";
+                resultado = resultado + "Classe Instanciada: " + matcher.group(4) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(5) + "\n";
+            }else if(matcher.group(10) != null){
+                resultado = resultado + "Classe: " + matcher.group(9) + "\n";
+                resultado = resultado + "Atributo estático: " + matcher.group(10) + "\n";
+                resultado = resultado + "Atribuição ou Método: " + matcher.group(11) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(12) + "\n";
+            }else if(matcher.group(7) != null){
+                resultado = resultado + "Objeto: " + matcher.group(6) + "\n";
+                resultado = resultado + "Método estático: " + matcher.group(7) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(8) + "\n";
+            }else{
+                resultado = resultado + "Classe: " + matcher.group(13) + "\n";
+                resultado = resultado + "Objeto: " + matcher.group(14) + "\n";
+                resultado = resultado + "Classe Instanciada: " + matcher.group(15) + "\n";
+                resultado = resultado + "Método estático: " + matcher.group(16) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(17) + "\n";
+            }
+            
+            /*
             resultado = resultado + "Classe: " + matcher.group(1) + "\n";
             resultado = resultado + "Nome do Objeto: " + matcher.group(2) + "\n";
             resultado = resultado + "Instância: " + matcher.group(3) + "\n";
@@ -228,7 +252,7 @@ public class Reconhecedor {
                 resultado = resultado + "Instância: " + "Objeto " + matcher.group(4).replaceFirst("\\s*", "") + " chama método " + matcher.group(5) + " com os seguintes parâmetros: " + matcher.group(6) + "\n";
             }else if(matcher.group(4) != null && matcher.group(5) != null){
                 resultado = resultado + "Objeto " + matcher.group(4).replaceFirst("\\s*", "") + " chama método " + matcher.group(5) + "\n";
-            }
+            }*/
             
             resultadoParcial.add(resultado);
             

@@ -32,7 +32,7 @@ public class MainGUI extends JFrame {
     private JMenuItem jMIDocumentation;
     private int pos = 0;
     
-    private final String reconhecerNomeRepositorio = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]+).git";
+    private final String reconhecerNomeRepositorio = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ-]+).git";
 
     public MainGUI() {
         initUI();
