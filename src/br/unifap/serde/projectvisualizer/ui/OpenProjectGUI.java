@@ -4,6 +4,7 @@ import br.unifap.serde.projectvisualizer.actions.JTreeActions;
 import br.unifap.serde.projectvisualizer.util.CreateChildNodes;
 import br.unifap.serde.projectvisualizer.entities.FileNode;
 import br.unifap.serde.projectvisualizer.util.MyTreeCellRenderer;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -65,7 +66,9 @@ public class OpenProjectGUI extends JInternalFrame {
         jTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         jTree.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
+                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 JTreeActions.jTreeMouseClicked(evt, jTree, jTabbedPane);
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
 

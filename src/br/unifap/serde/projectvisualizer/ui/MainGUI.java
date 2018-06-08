@@ -49,7 +49,7 @@ public class MainGUI extends JFrame {
         try {
             
         
-            if (reconhecedor.ClonarRepositorio.clonar(url,nomeRepositorio(url)) ){
+            if (reconhecedor.ClonarRepositorio.clonar(url,nomeRepositorio(url))){
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 jFChooser.setSelectedFile(new File(System.getProperty("user.dir")+"\\Repositorio\\"+nomeRepositorio(url)));
                 OpenProjectGUI projectWindow = new OpenProjectGUI(jFChooser.getSelectedFile());

@@ -25,6 +25,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import reconhecedor.Reconhecedor;
 
 /**
  *
@@ -54,9 +55,8 @@ public class JTreeActions {
                             JTextArea tempJTA = (JTextArea) tempJSCP.getViewport().getComponent(0);
                             tempJTA.read(input, info.getFile().getName());
                             
-                            
-                            Metodo findMethod = new Metodo();
-                            ArrayList<String> resultado = findMethod.executar(tempJTA.getText());                           
+                            Reconhecedor find = new Reconhecedor();
+                            ArrayList<String> resultado = find.executar(tempJTA.getText());                           
                             String resultadoSaida = "";
                             for(int i=0;i<resultado.size();i++){
                                 resultadoSaida = resultadoSaida + resultado.get(i);
