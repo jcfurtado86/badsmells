@@ -59,8 +59,8 @@ public class ClonarRepositorio {
     public static void excluir(File arq){
         if(arq.isDirectory()){
             File[] arquivos = arq.listFiles();
-            for(int i=0;i<arquivos.length;i++){
-               excluir(arquivos[i]);
+            for (File arquivo : arquivos) {
+                excluir(arquivo);
             }
         }
         arq.delete();

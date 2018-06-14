@@ -13,13 +13,13 @@ public class Reconhecedor {
     private final static String regexChamadaObjeto = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=\\s*(new)+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\)\\s*\\;|([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+|([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*=+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\(*(.*?)\\)*\\s*\\;+|([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+";
     private final static String regexComentarios = "(//.*)|(?s)/\\*.*?\\*/|//(?s)\\n";
     
+    private final ArrayList<String> resultadoParcial = new ArrayList<>();
+    private final ArrayList<String> resultados = new ArrayList<>();
     private static String regex = "(public|protected|private)+\\s*(static)*\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇ<>Ñ_]+)\\s*([A-Za-z0-9_]+)\\s*\\((.*?)\\)\\s*\\{";
     private final static String regexCatch = "catch\\(.*?\\)\\s*\\{";
     private final static String regexChaves = "(\\{)|(\\})";
     private static ArrayDeque<String> pilhaChaves = new ArrayDeque<>();
     
-    private ArrayList<String> resultadoParcial = new ArrayList<>();
-    private ArrayList<String> resultados = new ArrayList<>();
     private int qtdMetodos = 0;
     
     public ArrayList<String> executar(String codigo) {
