@@ -1,5 +1,6 @@
 package reconhecedor;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -12,136 +13,39 @@ public class Reconhecedor {
     private final static String regexChamadaObjeto = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=\\s*(new)+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\)\\s*\\;|([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+|([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*=+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\(*(.*?)\\)*\\s*\\;+|([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=+\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+";
     private final static String regexComentarios = "(//.*)|(?s)/\\*.*?\\*/|//(?s)\\n";
     
+    private static String regex = "(public|protected|private)+\\s*(static)*\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇ<>Ñ_]+)\\s*([A-Za-z0-9_]+)\\s*\\((.*?)\\)\\s*\\{";
+    private final static String regexCatch = "catch\\(.*?\\)\\s*\\{";
+    private final static String regexChaves = "(\\{)|(\\})";
+    private static ArrayDeque<String> pilhaChaves = new ArrayDeque<>();
+    
     private ArrayList<String> resultadoParcial = new ArrayList<>();
     private ArrayList<String> resultados = new ArrayList<>();
     private int qtdMetodos = 0;
     
     public ArrayList<String> executar(String codigo) {
-        /*
-        String enderecoArquivo = "src/reconhecedor/Executar.txt";
-        String texto = "";
-        
-        try{
-            String line = "";
-            BufferedReader entrada = new BufferedReader(new FileReader(enderecoArquivo));
-            while((line = entrada.readLine()) != null){ 
-                texto = texto + line.trim() + "\n";
-            }
-        }catch(IOException e){
-            System.out.println("Arquivo não encontrado: "+e);
-        }
-        */
         String texto = codigo;
-        texto = consertarTexto(texto);
-
-        
-        //System.out.println(texto + "\n---------------------------------------------------------------\n");
-        
         reconhecerClasse(texto); 
         
         return resultadoParcial;
     }
-    
-    public String consertarTexto(String texto){
-        ArrayList<String> forEncontrados = reconhecer_for(texto);
-        ArrayList<String> ifEncontrados = reconhecer_if(texto);
-        ArrayList<String> whileEncontrados = reconhecer_while(texto);
         
-        texto = removerComentariosEremoverDo_While(texto);
-        
-        for(int i=0;i<whileEncontrados.size();i++){
-            texto = texto.replace(whileEncontrados.get(i), whileEncontrados.get(i).substring(0, whileEncontrados.get(i).length()-1));
-        }
-        
-        for(int i=0;i<forEncontrados.size();i++){
-            texto = texto.replace(forEncontrados.get(i), forEncontrados.get(i).substring(0, forEncontrados.get(i).length()-1));
-        }
-        
-        for(int i=0;i<ifEncontrados.size();i++){
-            texto = texto.replace(ifEncontrados.get(i), ifEncontrados.get(i).substring(0, ifEncontrados.get(i).length()-1));
-        }
-        
-        return texto;
-    }
-    
-    public String removerComentariosEremoverDo_While(String texto){
+    public String removerComentarios(String texto){
         Pattern pattern = Pattern.compile(regexComentarios, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(texto);
                 
         while (matcher.find()) {
             texto = texto.replace(matcher.group(0), "");
         }
-        
-        String do_while = "\\}while";
-        pattern = Pattern.compile(do_while, Pattern.MULTILINE);
-        matcher = pattern.matcher(texto);
-        
-        while (matcher.find()) {
-            texto = texto.replace(matcher.group(0), "while");
-        }
-        
+                
         return texto;
     }
-    
-    public ArrayList<String> reconhecer_if(String texto){
-        String regex = "if\\s*(.*?)\\s*\\{\\s*((.*?|\\s?)*)\\s*\\}";
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(texto);
-        
-        ArrayList<String> encontrados = new ArrayList<>();
                 
-        while (matcher.find()) {
-            encontrados.add(matcher.group(0));
-        }
-        
-        return encontrados;
-    }
-    
-    public ArrayList<String> reconhecer_for(String texto){
-        String regex = "for\\s*(.*?)\\s*\\{\\s*((.*?|\\s?)*)\\s*\\}";
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(texto);
-        
-        ArrayList<String> encontrados = new ArrayList<>();
-                
-        while (matcher.find()) {
-            encontrados.add(matcher.group(0));
-        }
-        
-        return encontrados;
-    }
-    
-    public ArrayList<String> reconhecer_while(String texto){
-        String regex = "while\\s*(.*?)\\s*\\{\\s*((.*?|\\s?)*)\\s*\\}";
-        Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(texto);
-        
-        ArrayList<String> encontrados = new ArrayList<>();
-                
-        while (matcher.find()) {
-            encontrados.add(matcher.group(0));
-        }
-        
-        return encontrados;
-    }
-            
     public void reconhecerClasse(String codigo){
         Pattern pattern = Pattern.compile(regexClasse, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(codigo);
         
         while (matcher.find()) {
             qtdMetodos = 0;
-            /*System.out.println("\n----------- INICIO DE CLASSE ------------------------\n");
-            System.out.println(matcher.group(1));
-            System.out.println("Classe: " + matcher.group(5));
-            if(matcher.group(3) != null){
-                System.out.println("Encapsulamento: " + matcher.group(2) + " " + matcher.group(3));
-            }else{
-                System.out.println("Encapsulamento: " + matcher.group(2));
-            }            
-            System.out.println("Qtd. linhas: " + qtdLinhas(matcher.group(6)));
-            System.out.println("\n---------------------------------------------------------------\n");*/
-            
             
             String resultado = "\n----------- INICIO DE CLASSE ------------------------\n";
             resultado = resultado + matcher.group(1) + "\n";
@@ -155,14 +59,13 @@ public class Reconhecedor {
             
             resultadoParcial.add(resultado);
             
-            reconhecerMetodo(matcher.group(6));
+            findMethod(matcher.group(6));
+            //reconhecerMetodo(matcher.group(6));
             
             resultado = "\nA Classe avaliada possui "+qtdMetodos+" métodos";
             resultado = resultado + "\n---------------------------------------------------------------\n";
             resultadoParcial.add(resultado);
-            
-            //System.out.println("A Classe avaliada possui "+qtdMetodos+" métodos");
-            //System.out.println("\n---------------------------------------------------------------\n");                  
+                 
         }
     }
     
@@ -172,18 +75,6 @@ public class Reconhecedor {
         
         while (matcher.find()) {
             qtdMetodos++;
-            /*System.out.println("\n--------- INICIO DE METODO ----------------------------\n");
-            System.out.println(matcher.group(1));
-            System.out.println("Método: " + matcher.group(5));
-            if(matcher.group(3) != null){
-                System.out.println("Encapsulamento: " + matcher.group(2) + " " + matcher.group(3));
-            }else{
-                System.out.println("Encapsulamento: " + matcher.group(2));
-            }
-            System.out.println("Retorno: " + matcher.group(4));
-            System.out.println("Parâmetros: " + matcher.group(6));
-            System.out.println("Qtd. linhas: " + qtdLinhas(matcher.group(8)));
-            System.out.println("\n---------------------------------------------------------------\n");*/
             
             String resultado = "\n--------- INICIO DE METODO ----------------------------\n";
             resultado = resultado + matcher.group(1) + "\n";
@@ -202,22 +93,87 @@ public class Reconhecedor {
             reconhecerChamadaObjetos(matcher.group(8));
         }
     }
+
+    public void findMethod(String codigo){
+        Scanner scan = new Scanner(codigo);
+        scan.useDelimiter("\n");
+        
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher;
+        
+        while(scan.hasNext()){
+            matcher = pattern.matcher(scan.next());
+            if (matcher.find()) {
+                if(!temCatch(matcher.group(0))){
+                    qtdMetodos++;
+                    
+                    String resultado = "\n--------- INICIO DE METODO ----------------------------\n";
+                    resultado = resultado + matcher.group(0).substring(0, matcher.group(0).length()-1) + "\n";
+                    resultado = resultado + "Método: " + matcher.group(4) + "\n";
+                    if(matcher.group(3) != null){
+                        resultado = resultado + "Encapsulamento: " + matcher.group(1) + " " + matcher.group(2) + "\n";
+                    }else{
+                        resultado = resultado + "Encapsulamento: " + matcher.group(1) + "\n";
+                    }
+                    resultado = resultado + "Retorno: " + matcher.group(3) + "\n";
+                    resultado = resultado + "Parâmetros: " + matcher.group(5) + "\n";
+                    
+                    String corpoMetodo = findBodyMethod(scan);
+                    
+                    resultado = resultado + "Qtd. linhas: " + qtdLinhas(corpoMetodo) + "\n";
+
+                    resultadoParcial.add(resultado);
+                     
+                    reconhecerChamadaObjetos(corpoMetodo);
+                    
+                }
+            }
+        }
+    }
+    
+    public String findBodyMethod(Scanner scan){
+        String corpo = "";
+        Pattern pattern = Pattern.compile(regexChaves, Pattern.MULTILINE);
+        Matcher matcher;
+        pilhaChaves.addFirst("X");
+        while(scan.hasNext()){
+            String linha = scan.next();
+            matcher = pattern.matcher(linha);
+            while (matcher.find()) {
+                if(matcher.group(1) != null){
+                    pilhaChaves.addFirst("X");
+                }else{
+                    pilhaChaves.removeFirst();
+                }
+            }
             
+            if(pilhaChaves.isEmpty()){
+                break;
+            }else{
+                corpo = corpo + linha+"\n";
+            }
+        }
+        
+        return corpo;
+    }
+    
+    public boolean temCatch(String codigo){
+                
+        final Pattern pattern = Pattern.compile(regexCatch);
+        final Matcher matcher = pattern.matcher(codigo.trim());
+
+        if (matcher.find()) {
+            return true;
+        }
+        
+        return false;
+    }
+ 
     public void reconhecerChamadaObjetos(String codigo){
         Pattern pattern = Pattern.compile(regexChamadaObjeto, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(codigo);
         
         while (matcher.find()) {
-            /*System.out.println(matcher.group(0).replaceFirst("\\s*", ""));
-            System.out.println("Classe: " + matcher.group(1));
-            System.out.println("Nome do Objeto: " + matcher.group(2));
-            System.out.println("Instância: " + matcher.group(3));
-            
-            if(matcher.group(4) != null && matcher.group(5) != null && (matcher.group(6) != null && !matcher.group(6).isEmpty())){
-                System.out.println("Objeto " + matcher.group(4).replaceFirst("\\s*", "") + " chama método " + matcher.group(5) + " com os seguintes parâmetros: " + matcher.group(6));
-            }else if(matcher.group(4) != null && matcher.group(5) != null){
-                System.out.println("Objeto " + matcher.group(4).replaceFirst("\\s*", "") + " chama método " + matcher.group(5));
-            }*/
             
             String resultado = "\n--------- INSTANCIA ----------------------------\n";
             resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
@@ -244,19 +200,8 @@ public class Reconhecedor {
                 resultado = resultado + "Parametros: " + matcher.group(17) + "\n";
             }
             
-            /*
-            resultado = resultado + "Classe: " + matcher.group(1) + "\n";
-            resultado = resultado + "Nome do Objeto: " + matcher.group(2) + "\n";
-            resultado = resultado + "Instância: " + matcher.group(3) + "\n";
-            if(matcher.group(4) != null && matcher.group(5) != null && (matcher.group(6) != null && !matcher.group(6).isEmpty())){
-                resultado = resultado + "Instância: " + "Objeto " + matcher.group(4).replaceFirst("\\s*", "") + " chama método " + matcher.group(5) + " com os seguintes parâmetros: " + matcher.group(6) + "\n";
-            }else if(matcher.group(4) != null && matcher.group(5) != null){
-                resultado = resultado + "Objeto " + matcher.group(4).replaceFirst("\\s*", "") + " chama método " + matcher.group(5) + "\n";
-            }*/
-            
             resultadoParcial.add(resultado);
-            
-            //System.out.println("\n---------------------------------------------------------------\n");
+
         }
     }
     

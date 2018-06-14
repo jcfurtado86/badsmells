@@ -27,7 +27,7 @@ public class MainGUI extends JFrame {
     private JMenu jMenuFile;
     private JMenu jMenuHelp;
     private JMenuBar jMenuBar;
-    private JMenuItem jMIOpenProject;
+    private JMenuItem jMIOpenProject,jMIOpenProjectFile;
     private JMenuItem jMIAbout;
     private JMenuItem jMIDocumentation;
     private int pos = 0;
@@ -73,6 +73,30 @@ public class MainGUI extends JFrame {
         
     }
     
+    private void jMenuItemFileActionPerformed(ActionEvent evt) {
+        JFileChooser jFChooser = new JFileChooser(System.getProperty("user.dir"));
+        jFChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int returnValue = jFChooser.showOpenDialog(this);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            OpenProjectGUI projectWindow = new OpenProjectGUI(jFChooser.getSelectedFile());
+            
+            projectWindow.setLocation(pos * 50, pos++ * 50);
+            
+            jDesktopPane.add(projectWindow);
+         
+            try {
+                projectWindow.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+
+    
     private String nomeRepositorio(String url) throws NullPointerException{
         final Pattern pattern = Pattern.compile(reconhecerNomeRepositorio, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(url);
@@ -90,6 +114,7 @@ public class MainGUI extends JFrame {
         jMenuFile = new JMenu();
         jMenuHelp = new JMenu();
         jMIOpenProject = new JMenuItem();
+        jMIOpenProjectFile = new JMenuItem();
         jMIDocumentation = new JMenuItem();
         jMIAbout = new JMenuItem();
 
@@ -99,12 +124,18 @@ public class MainGUI extends JFrame {
         jMIDocumentation.setText("Documentation");
         jMIAbout.setText("About");
 
-        jMIOpenProject.setText("Open Project");
+        jMIOpenProject.setText("Open Remote Project");
         jMIOpenProject.addActionListener((ActionEvent evt) -> {
             jMenuItemActionPerformed(evt);
         });
+        
+        jMIOpenProjectFile.setText("Open File Project");
+        jMIOpenProjectFile.addActionListener((ActionEvent evt) -> {
+            jMenuItemFileActionPerformed(evt);
+        });
 
         jMenuFile.add(jMIOpenProject);
+        jMenuFile.add(jMIOpenProjectFile);
 
         jMenuHelp.add(jMIDocumentation);
         jMenuHelp.add(jMIAbout);
