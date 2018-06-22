@@ -10,7 +10,7 @@ public class Reconhecedor {
     
     private final static String regexClasse = "\\s*((public|protected|private)*\\s*(static|abstract)*\\s*(class)+\\s*(.*?)\\s*)\\{\\s*((.\\}?|\\s?)*)\\s*\\}";
     private final static String regexMetodo = "\\s*((public|protected|private)*\\s*(static)*\\s*(.*?)\\s*([A-Za-z0-9]+)\\s*\\((.*?)\\)\\s*(.*?))\\{\\s*((.?|\\r?\\n)*)\\s*\\}";//"\\s*((public|protected|private)+\\s*(static)*\\s*(.*?)\\s*([A-Za-z0-9]+)\\s*\\((.*?)\\)\\s*(.*?))\\{\\s*((.?|\\s?)*)\\s*\\}";
-    private final static String regexChamadaObjeto = "([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]*)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]*)\\s*\\=*\\s*(new)+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\)\\s*\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*=+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\(*(.*?)\\)*\\s*\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]*)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+\\=\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\((.*?)\\)\\;";
+    private final static String regexChamadaObjeto = "(private|public|protected)*\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]*)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=*\\s*(new)+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\)\\s*\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*=+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\(*(.*?)\\)*\\s*\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]*)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\(+(.*?)\\)+\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+\\=\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\((.*?)\\)\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\);|(private|public|protected)*\\s*(static)*\\s+([A-Z]+[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ<>_]+)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_,]+)\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_,]*)\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_,]+)\\s*\\=\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_\\[\\],]+)\\;";
     private final static String regexComentarios = "(//.*)|(?s)/\\*.*?\\*/|//(?s)\\n";
     
     private final ArrayList<String> resultadoParcial = new ArrayList<>();
@@ -23,7 +23,7 @@ public class Reconhecedor {
     private int qtdMetodos = 0;
     
     public ArrayList<String> executar(String codigo) {
-        String texto = codigo;
+        String texto = codigo.replaceAll(",\\s*", ",");
         reconhecerClasse(texto); 
         
         return resultadoParcial;
@@ -179,36 +179,48 @@ public class Reconhecedor {
             resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
             
             if(matcher.group(3) != null){
-                resultado = resultado + "Classe: " + matcher.group(1) + "\n";
-                resultado = resultado + "Objeto: " + matcher.group(2) + "\n";
-                resultado = resultado + "Classe Instanciada: " + matcher.group(4) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(5) + "\n";
-            }else if(matcher.group(7) != null){
-                resultado = resultado + "Objeto: " + matcher.group(6) + "\n";
-                resultado = resultado + "Método estático: " + matcher.group(7) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(8) + "\n";    
-            }else if(matcher.group(10) != null){
-                resultado = resultado + "Classe: " + matcher.group(9) + "\n";
-                resultado = resultado + "Atributo estático: " + matcher.group(10) + "\n";
-                resultado = resultado + "Método: " + matcher.group(11) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(12) + "\n";
-            }else if(matcher.group(15) != null){
-                resultado = resultado + "Classe: " + matcher.group(13) + "\n";
-                resultado = resultado + "Objeto: " + matcher.group(14) + "\n";
-                resultado = resultado + "Classe Instanciada: " + matcher.group(15) + "\n";
-                resultado = resultado + "Método estático: " + matcher.group(16) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(17) + "\n";
-            }else if(matcher.group(19) != null){
-                resultado = resultado + "Objeto: " + matcher.group(18) + "\n";
-                resultado = resultado + "Método: " + matcher.group(19) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(20) + "\n";
+                resultado = resultado + "Encapsulamento: " + matcher.group(1) + "\n";
+                resultado = resultado + "Classe: " + matcher.group(2) + "\n";
+                resultado = resultado + "Objeto: " + matcher.group(3) + "\n";
+                resultado = resultado + "Classe Instanciada: " + matcher.group(5) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(6) + "\n";
+            }else if(matcher.group(8) != null){    
+                resultado = resultado + "Objeto: " + matcher.group(7) + "\n";
+                resultado = resultado + "Método estático: " + matcher.group(8) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(9) + "\n"; 
+            }else if(matcher.group(11) != null){
+                resultado = resultado + "Classe: " + matcher.group(10) + "\n";
+                resultado = resultado + "Atributo estático: " + matcher.group(11) + "\n";
+                resultado = resultado + "Método: " + matcher.group(12) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(13) + "\n";
+            }else if(matcher.group(16) != null){
+                resultado = resultado + "Classe: " + matcher.group(14) + "\n";
+                resultado = resultado + "Objeto: " + matcher.group(15) + "\n";
+                resultado = resultado + "Classe Instanciada: " + matcher.group(16) + "\n";
+                resultado = resultado + "Método estático: " + matcher.group(17) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(18) + "\n";
+            }else if(matcher.group(20) != null){
+                resultado = resultado + "Objeto: " + matcher.group(19) + "\n";
+                resultado = resultado + "Método: " + matcher.group(20) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(21) + "\n";
+            }else if(matcher.group(22) != null){
+                resultado = resultado + "Método: " + matcher.group(22) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(23) + "\n";
+            }else if(matcher.group(26) != null){
+                resultado = resultado + "Encapsulamento: " + matcher.group(24) + " " + matcher.group(25) + "\n";
+                resultado = resultado + "Classe: " + matcher.group(26) + "\n";
+                resultado = resultado + "Objeto: " + matcher.group(27) + "\n";
+            }else if(matcher.group(29) != null){
+                resultado = resultado + "Classe: " + matcher.group(28) + "\n";
+                resultado = resultado + "Objeto: " + matcher.group(29) + "\n";
+                resultado = resultado + "Valor Atribuído: " + matcher.group(30) + "\n";
             }
             
             resultadoParcial.add(resultado);
 
         }
     }
-    
+        
     public int qtdLinhas(String codigo){
         int cont = 0;
         Scanner scanner = new Scanner(codigo);
