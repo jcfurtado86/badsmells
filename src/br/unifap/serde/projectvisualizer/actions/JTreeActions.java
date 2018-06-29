@@ -32,9 +32,6 @@ import reconhecedor.Reconhecedor;
  */
 public class JTreeActions {
 
-    public JTreeActions() {
-    }
-
     public static void jTreeMouseClicked(MouseEvent evt, JTree jTree, JTabbedPane jTabbedPane) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree.getLastSelectedPathComponent();
         JTree jTTemp = (JTree) evt.getComponent();

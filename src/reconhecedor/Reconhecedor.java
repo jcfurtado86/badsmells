@@ -14,7 +14,6 @@ public class Reconhecedor {
     private final static String regexComentarios = "(//.*)|(?s)/\\*.*?\\*/|//(?s)\\n";
     
     private final ArrayList<String> resultadoParcial = new ArrayList<>();
-    private final ArrayList<String> resultados = new ArrayList<>();
     private static String regex = "(public|protected|private)+\\s*(static)*\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇ<>Ñ_]+)\\s*([A-Za-z0-9_]+)\\s*\\((.*?)\\)\\s*\\{";
     private final static String regexCatch = "catch\\(.*?\\)\\s*\\{";
     private final static String regexChaves = "(\\{)|(\\})";
@@ -62,7 +61,7 @@ public class Reconhecedor {
             findMethod(matcher.group(6));
             //reconhecerMetodo(matcher.group(6));
             
-            resultado = "\nA Classe avaliada possui "+qtdMetodos+" métodos";
+            resultado = "\nA Classe avaliada possui "+qtdMetodos+" método(s)";
             resultado = resultado + "\n---------------------------------------------------------------\n";
             resultadoParcial.add(resultado);
                  
@@ -184,14 +183,18 @@ public class Reconhecedor {
                 resultado = resultado + "Objeto: " + matcher.group(3) + "\n";
                 resultado = resultado + "Classe Instanciada: " + matcher.group(5) + "\n";
                 resultado = resultado + "Parametros: " + matcher.group(6) + "\n";
-            }else if(matcher.group(8) != null){    
-                resultado = resultado + "Objeto: " + matcher.group(7) + "\n";
-                resultado = resultado + "Método estático: " + matcher.group(8) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(9) + "\n"; 
+            }else if(matcher.group(8) != null){  
+                if(matcher.group(7).equals("out") && (matcher.group(8).equals("println") || matcher.group(8).equals("print"))){
+                    resultado = resultado + "Comando de Saída da Classe System\n";
+                }else{
+                    resultado = resultado + "Objeto: " + matcher.group(7) + "\n";
+                    resultado = resultado + "Método estático: " + matcher.group(8) + "\n";
+                    resultado = resultado + "Parametros: " + matcher.group(9) + "\n";
+                } 
             }else if(matcher.group(11) != null){
-                resultado = resultado + "Classe: " + matcher.group(10) + "\n";
+                resultado = resultado + "Classe / Objeto: " + matcher.group(10) + "\n";
                 resultado = resultado + "Atributo estático: " + matcher.group(11) + "\n";
-                resultado = resultado + "Método: " + matcher.group(12) + "\n";
+                resultado = resultado + "Método / Atributo: " + matcher.group(12) + "\n";
                 resultado = resultado + "Parametros: " + matcher.group(13) + "\n";
             }else if(matcher.group(16) != null){
                 resultado = resultado + "Classe: " + matcher.group(14) + "\n";
