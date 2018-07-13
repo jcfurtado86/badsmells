@@ -11,12 +11,15 @@ public class Reconhecedor {
     private final static String regexClasse = "\\s*((public|protected|private)*\\s*(static|abstract)*\\s*(class|interface)+\\s*(.*?)\\s*)\\{\\s*((.\\}?|\\s?)*)\\s*\\}";
     //private final static String regexMetodo = "(public|protected|private)+\\s*(static)*\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇ<>Ñ_]+)\\s*([A-Za-z0-9_]+)\\s*\\((.*?)\\)\\s*\\{";
     private final static String regexMetodo = "(public|protected|private)+\\s*(static)*\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇ<>Ñ_]+)\\s*([A-Za-z0-9_]+)\\s*\\((.*?)\\)\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕ;ÖÚÇ<>Ñ_ ]*)\\s*\\{*";    
-    private final static String regexChamadaObjeto = "(private|public|protected)*\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]*)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=*\\s*(new)+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\)\\s*\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\((.*?)\\)\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*=+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\(*(.*?)\\)*\\s*\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]*)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\)\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+\\=\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\((.*?)\\)\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\);|(private|public|protected)*\\s*(static)*\\s+([A-Z]+[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ<>_]+)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_,]+)\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_,]*)\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_,]+)\\s*\\=\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_\\[\\],]+)\\;|System\\.out\\.(.*?)\\((.*?)\\)\\;";
+    private final static String regexChamadaObjeto = "(private|public|protected)*\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]*)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=*\\s*(new)+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\)\\s*\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\((.*?)\\)\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*=+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\(*(.*?)\\)*\\s*\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]*)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\=+\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\.\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\)\\;+|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s+\\=\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\((.*?)\\)\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_]+)\\s*\\((.*?)\\);|(private|public|protected)*\\s*(static)*\\s+([A-Z]+[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ<>_]+)\\s+([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_,]+)\\;|([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_,]*)\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_,]+)\\s*\\=\\s*([A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚM<>ÇÑ_\\[\\],]+)\\;|System\\.out\\.(.*?)\\((.*?)\\)\\;|(.*?)\\.\\s*(.*?)\\s*\\=\\s*(.*?)\\s*\\.\\s*(.*?)\\((.*?)\\)\\;";
     
     private final static String regexComentarios = "(//.*)|(?s)/\\*.*?\\*/|//(?s)\\n";
     private final static String regexCatch = "catch\\(.*?\\)\\s*\\{";
     private final static String regexChaves = "(\\{)|(\\})";
     private final static String regexSystemOut = "System\\.out\\.(.*?)\\((.*?)\\)\\;";
+    
+    final String sequencia = "([a-zA-Z0-9]+)(\\s*\\.([a-zA-Z0-9]+)\\s*\\((.*?)\\))+\\;";
+    final String metodosDaSequencia = "([a-zA-Z0-9]+)\\s*\\((.*?)\\)";
     
     private ArrayList<String> resultadoFinal = new ArrayList<>();   
     private ArrayDeque<String> pilhaChaves = new ArrayDeque<>();
@@ -148,6 +151,8 @@ public class Reconhecedor {
         Pattern pattern = Pattern.compile(regexChamadaObjeto, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(codigo);
         
+        sequenciaDeMetodos(codigo);
+        
         while (matcher.find()) {
             
             String resultado = "\n--------- INSTANCIA ----------------------------\n";
@@ -161,10 +166,7 @@ public class Reconhecedor {
                 resultado = resultado + "Parametros: " + matcher.group(6) + "\n";
             }else if(matcher.group(8) != null){  
                 resultado = resultado + "Classe / Objeto: " + matcher.group(7) + "\n";
-                resultado = resultado + "Método estático: " + matcher.group(8) + "\n";
-                
-                verificarContinuacao(matcher.group(9));
-                
+                resultado = resultado + "Método estático: " + matcher.group(8) + "\n";                
                 resultado = resultado + "Parametros: " + matcher.group(9) + "\n";
             }else if(matcher.group(11) != null){
                 resultado = resultado + "Classe / Objeto: " + matcher.group(10) + "\n";
@@ -203,8 +205,30 @@ public class Reconhecedor {
         }
     }
       
-    public String verificarContinuacao(String codigo){
-        return "";
+    public void sequenciaDeMetodos(String codigo){
+          
+        String resultado = "";
+                
+        Pattern pattern = Pattern.compile(sequencia, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(codigo);
+
+        while (matcher.find()) {
+            
+            resultado = "\n--------- INSTANCIA ----------------------------\n";
+            resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
+        
+            resultado = resultado + "Objeto: " + matcher.group(1) + "\n";
+                        
+            Pattern pattern2 = Pattern.compile(metodosDaSequencia, Pattern.MULTILINE);
+            Matcher matcher2 = pattern2.matcher(codigo);
+            
+            while (matcher2.find()) {
+                resultado = resultado + "Método: " + matcher2.group(1) + "\n";
+            }
+            
+        }
+        
+        resultadoFinal.add(resultado);
     }
     
     public int qtdLinhas(String codigo){
