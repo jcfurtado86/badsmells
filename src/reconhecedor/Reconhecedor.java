@@ -87,7 +87,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
     
     @Override
     public void identificarAtributosClasse(String codigo){
-
+        
     }
     
     //Identificacao de Metodos
@@ -170,7 +170,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
                     String resultado = "\n--------- INICIO DE METODO ----------------------------\n";
                     resultado = resultado + matcher.group(0).substring(0, matcher.group(0).length()-1) + "\n";
                     resultado = resultado + "Método: " + matcher.group(4) + "\n";
-                    if(matcher.group(3) != null){
+                    if(matcher.group(2) != null){
                         resultado = resultado + "Encapsulamento: " + matcher.group(1) + " " + matcher.group(2) + "\n";
                     }else{
                         resultado = resultado + "Encapsulamento: " + matcher.group(1) + "\n";
@@ -191,94 +191,85 @@ public class Reconhecedor extends Regex implements Identificacoes {
         }
     }
          
-    @Override
-    public void identificarChamadaObjetos(String codigo){
-        Pattern pattern = Pattern.compile(regexChamadaObjeto, Pattern.MULTILINE);
+//    @Override
+//    public void identificarChamadaObjetos(String codigo){
+//        Pattern pattern = Pattern.compile(regexChamadaObjeto, Pattern.MULTILINE);
+//        Matcher matcher = pattern.matcher(codigo);
+//        
+//        while (matcher.find()) {
+//            
+//            String resultado = "\n--------- INSTANCIA ----------------------------\n";
+//            resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
+//            
+//            if(matcher.group(3) != null){
+//                resultado = resultado + "Encapsulamento: " + matcher.group(1) + "\n";
+//                resultado = resultado + "Classe: " + matcher.group(2) + "\n";
+//                resultado = resultado + "Objeto: " + matcher.group(3) + "\n";
+//                resultado = resultado + "Classe Instanciada: " + matcher.group(5) + "\n";
+//                resultado = resultado + "Parametros: " + matcher.group(6) + "\n";
+//            }else if(matcher.group(8) != null){  
+//                resultado = resultado + "Classe / Objeto: " + matcher.group(7) + "\n";
+//                resultado = resultado + "Método estático: " + matcher.group(8) + "\n";                
+//                resultado = resultado + "Parametros: " + matcher.group(9) + "\n";
+//            }else if(matcher.group(11) != null){
+//                resultado = resultado + "Classe / Objeto: " + matcher.group(10) + "\n";
+//                resultado = resultado + "Atributo estático: " + matcher.group(11) + "\n";
+//                resultado = resultado + "Método / Atributo: " + matcher.group(12) + "\n";
+//                resultado = resultado + "Parametros: " + matcher.group(13) + "\n";
+//            }else if(matcher.group(16) != null){
+//                resultado = resultado + "Classe / Tipo de Variavel: " + matcher.group(14) + "\n";
+//                resultado = resultado + "Objeto: " + matcher.group(15) + "\n";
+//                resultado = resultado + "Classe Instanciada: " + matcher.group(16) + "\n";
+//                resultado = resultado + "Método estático: " + matcher.group(17) + "\n";
+//                resultado = resultado + "Parametros: " + matcher.group(18) + "\n";
+//            }else if(matcher.group(20) != null){
+//                resultado = resultado + "Objeto: " + matcher.group(19) + "\n";
+//                resultado = resultado + "Método: " + matcher.group(20) + "\n";
+//                resultado = resultado + "Parametros: " + matcher.group(21) + "\n";
+//            }else if(matcher.group(22) != null){
+//                resultado = resultado + "Método: " + matcher.group(22) + "\n";
+//                resultado = resultado + "Parametros: " + matcher.group(23) + "\n";
+//            }else if(matcher.group(26) != null){
+//                resultado = resultado + "Encapsulamento: " + matcher.group(24) + " " + matcher.group(25) + "\n";
+//                resultado = resultado + "Classe: " + matcher.group(26) + "\n";
+//                resultado = resultado + "Objeto: " + matcher.group(27) + "\n";
+//            }else if(matcher.group(29) != null){
+//                resultado = resultado + "Classe: " + matcher.group(28) + "\n";
+//                resultado = resultado + "Objeto: " + matcher.group(29) + "\n";
+//                resultado = resultado + "Valor Atribuído: " + matcher.group(30) + "\n";
+//            }else if(matcher.group(31) != null){
+//                resultado = resultado + "Método de Saída de System.out \n";
+//                resultado = resultado + "Método: " + matcher.group(31) + "\n";
+//                resultado = resultado + "Parametros: " + matcher.group(32) + "\n";
+//            }else {
+//                resultado = resultado + "Classe / Objeto: " + matcher.group(33).replaceFirst("\\s*", "") + "\n";
+//                resultado = resultado + "Atributo: " + matcher.group(34) + "\n";
+//                resultado = resultado + "Classe / Objeto: " + matcher.group(35) + "\n";
+//                resultado = resultado + "Método: " + matcher.group(36) + "\n";
+//                resultado = resultado + "Parametros: " + matcher.group(37) + "\n";
+//            }
+//            
+//            resultadoFinal.add(resultado);
+//
+//        }
+//    }
+      
+    public String sequenciaDeMetodos(String codigo){
+          
+        String resultado = "";
+                
+        Pattern pattern = Pattern.compile(metodosDaSequencia, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(codigo);
         
         while (matcher.find()) {
-            
-            String resultado = "\n--------- INSTANCIA ----------------------------\n";
-            resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
-            
-            if(matcher.group(3) != null){
-                resultado = resultado + "Encapsulamento: " + matcher.group(1) + "\n";
-                resultado = resultado + "Classe: " + matcher.group(2) + "\n";
-                resultado = resultado + "Objeto: " + matcher.group(3) + "\n";
-                resultado = resultado + "Classe Instanciada: " + matcher.group(5) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(6) + "\n";
-            }else if(matcher.group(8) != null){  
-                resultado = resultado + "Classe / Objeto: " + matcher.group(7) + "\n";
-                resultado = resultado + "Método estático: " + matcher.group(8) + "\n";                
-                resultado = resultado + "Parametros: " + matcher.group(9) + "\n";
-            }else if(matcher.group(11) != null){
-                resultado = resultado + "Classe / Objeto: " + matcher.group(10) + "\n";
-                resultado = resultado + "Atributo estático: " + matcher.group(11) + "\n";
-                resultado = resultado + "Método / Atributo: " + matcher.group(12) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(13) + "\n";
-            }else if(matcher.group(16) != null){
-                resultado = resultado + "Classe / Tipo de Variavel: " + matcher.group(14) + "\n";
-                resultado = resultado + "Objeto: " + matcher.group(15) + "\n";
-                resultado = resultado + "Classe Instanciada: " + matcher.group(16) + "\n";
-                resultado = resultado + "Método estático: " + matcher.group(17) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(18) + "\n";
-            }else if(matcher.group(20) != null){
-                resultado = resultado + "Objeto: " + matcher.group(19) + "\n";
-                resultado = resultado + "Método: " + matcher.group(20) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(21) + "\n";
-            }else if(matcher.group(22) != null){
-                resultado = resultado + "Método: " + matcher.group(22) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(23) + "\n";
-            }else if(matcher.group(26) != null){
-                resultado = resultado + "Encapsulamento: " + matcher.group(24) + " " + matcher.group(25) + "\n";
-                resultado = resultado + "Classe: " + matcher.group(26) + "\n";
-                resultado = resultado + "Objeto: " + matcher.group(27) + "\n";
-            }else if(matcher.group(29) != null){
-                resultado = resultado + "Classe: " + matcher.group(28) + "\n";
-                resultado = resultado + "Objeto: " + matcher.group(29) + "\n";
-                resultado = resultado + "Valor Atribuído: " + matcher.group(30) + "\n";
-            }else if(matcher.group(31) != null){
-                resultado = resultado + "Método de Saída de System.out \n";
-                resultado = resultado + "Método: " + matcher.group(31) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(32) + "\n";
-            }else {
-                resultado = resultado + "Classe / Objeto: " + matcher.group(33).replaceFirst("\\s*", "") + "\n";
-                resultado = resultado + "Atributo: " + matcher.group(34) + "\n";
-                resultado = resultado + "Classe / Objeto: " + matcher.group(35) + "\n";
-                resultado = resultado + "Método: " + matcher.group(36) + "\n";
-                resultado = resultado + "Parametros: " + matcher.group(37) + "\n";
-            }
-            
-            resultadoFinal.add(resultado);
-
+                    
+            resultado = resultado + "Método: " + matcher.group(1) + "\n";
+            resultado = resultado + "Parametros: " + matcher.group(2) + "\n";
+                        
         }
+        
+        return resultado;
     }
-      
-//    public void sequenciaDeMetodos(String codigo){
-//          
-//        String resultado = "";
-//                
-//        Pattern pattern = Pattern.compile(sequencia, Pattern.MULTILINE);
-//        Matcher matcher = pattern.matcher(codigo);
-//
-//        while (matcher.find()) {
-//            
-//            resultado = "\n--------- INSTANCIA ----------------------------\n";
-//            resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
-//        
-//            resultado = resultado + "Objeto: " + matcher.group(1) + "\n";
-//                        
-//            Pattern pattern2 = Pattern.compile(metodosDaSequencia, Pattern.MULTILINE);
-//            Matcher matcher2 = pattern2.matcher(codigo);
-//            
-//            while (matcher2.find()) {
-//                resultado = resultado + "Método: " + matcher2.group(1) + "\n";
-//            }
-//            
-//        }
-//        
-//        resultadoFinal.add(resultado);
-//    }
     
     public String identificarCorpoMetodo(Scanner scan){
         String corpo = "";
@@ -331,78 +322,95 @@ public class Reconhecedor extends Regex implements Identificacoes {
         return cont;
     }
     
-//    @Override
-//    public void identificarChamadaObjetos(String codigo){
-//        Pattern pattern = Pattern.compile(regexInstancia, Pattern.MULTILINE);
-//        Matcher matcher = pattern.matcher(codigo);
-//        
-//        while (matcher.find()) {
-//            
-//            String resultado = "\n--------- INSTANCIA ----------------------------\n";
-//            resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
-//            
-//            if(matcher.group(3) != null){
-//                resultado = resultado + "Classe: " + matcher.group(1) + "\n";
-//                resultado = resultado + "Objeto: " + matcher.group(2) + "\n";
-//                resultado = resultado + "Classe Instanciada: " + matcher.group(4) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(5) + "\n";
-//            }else if(matcher.group(7) != null){  
-//                resultado = resultado + "Objeto: " + matcher.group(6) + "\n";
-//                resultado = resultado + "Classe Instanciada: " + matcher.group(8) + "\n";                
-//                resultado = resultado + "Parametros: " + matcher.group(9) + "\n";
-//            }else if(matcher.group(10) != null){
-//                resultado = resultado + "Método: " + matcher.group(10) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(11) + "\n";
-//            }else if(matcher.group(13) != null){
-//                resultado = resultado + "Objeto: " + matcher.group(12) + "\n";
-//                resultado = resultado + "Método: " + matcher.group(13) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(14) + "\n";
-//            }else if(matcher.group(17) != null){
-//                resultado = resultado + "Classe: " + matcher.group(15) + "\n";
-//                resultado = resultado + "Objeto: " + matcher.group(16) + "\n";
-//                resultado = resultado + "Método: " + matcher.group(27) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(18) + "\n";
-//            }else if(matcher.group(19) != null){
-//                resultado = resultado + "Objeto: " + matcher.group(19) + "\n";
-//                resultado = resultado + "Valor Atribuído: " + matcher.group(20) + "\n";
-//            }else if(matcher.group(22) != null){
-//                resultado = resultado + "Objeto: " + matcher.group(21) + "\n";
-//                resultado = resultado + "Atributo: " + matcher.group(22) + "\n";
-//                resultado = resultado + "Método: " + matcher.group(23) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(24) + "\n";              
-//            }else if(matcher.group(26) != null){
-//                resultado = resultado + "Objeto: " + matcher.group(25) + "\n";
-//                resultado = resultado + "Método: " + matcher.group(26) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(27) + "\n";
-//                
-//                //sequencia
-//                
-//            }else if(matcher.group(30) != null){
-//                resultado = resultado + "Classe: " + matcher.group(28).replaceFirst("\\s*", "") + "\n";
-//                resultado = resultado + "Objeto1: " + matcher.group(29) + "\n";
-//                resultado = resultado + "Objeto2: " + matcher.group(30) + "\n";
-//                resultado = resultado + "Método: " + matcher.group(31) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(32) + "\n";
-//                
-//                //sequencia
-//                
-//            }else if(matcher.group(34) != null){
-//                resultado = resultado + "Objeto1: " + matcher.group(33) + "\n";
-//                resultado = resultado + "Objeto2: " + matcher.group(34) + "\n";
-//                resultado = resultado + "Método: " + matcher.group(35) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(36) + "\n";
-//                
-//                //sequencia
-//                
-//            }else {
-//                resultado = resultado + "Método de Saída de System.out \n";
-//                resultado = resultado + "Método: " + matcher.group(37) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(38) + "\n";
-//            }
-//            
-//            resultadoFinal.add(resultado);
-//
-//        }
-//    }
+    @Override
+    public void identificarChamadaObjetos(String codigo){
+        Pattern pattern = Pattern.compile(regexInstancia, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(codigo);
+        
+        while (matcher.find()) {
+            
+            String resultado = "\n--------- INSTANCIA ----------------------------\n";
+            resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
+            
+            if(matcher.group(3) != null){
+                resultado = resultado + "Classe: " + matcher.group(1) + "\n";
+                resultado = resultado + "Objeto: " + matcher.group(2) + "\n";
+                resultado = resultado + "Classe Instanciada: " + matcher.group(4) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(5) + "\n";
+            }else if(matcher.group(7) != null){  
+                resultado = resultado + "Objeto: " + matcher.group(6) + "\n";
+                resultado = resultado + "Classe Instanciada: " + matcher.group(8) + "\n";                
+                resultado = resultado + "Parametros: " + matcher.group(9) + "\n";
+            }else if(matcher.group(10) != null){
+                resultado = resultado + "Método: " + matcher.group(10) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(11) + "\n";
+            }else if(matcher.group(13) != null){
+                resultado = resultado + "Objeto: " + matcher.group(12) + "\n";
+                resultado = resultado + "Método: " + matcher.group(13) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(14) + "\n";
+            }else if(matcher.group(17) != null){
+                resultado = resultado + "Classe: " + matcher.group(15) + "\n";
+                resultado = resultado + "Objeto: " + matcher.group(16) + "\n";
+                resultado = resultado + "Método: " + matcher.group(17) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(18) + "\n";
+            }else if(matcher.group(19) != null){
+                resultado = resultado + "Objeto: " + matcher.group(19) + "\n";
+                resultado = resultado + "Valor Atribuído: " + matcher.group(20) + "\n";
+            }else if(matcher.group(22) != null){
+                resultado = resultado + "Objeto: " + matcher.group(21) + "\n";
+                resultado = resultado + "Atributo: " + matcher.group(22) + "\n";
+                resultado = resultado + "Método: " + matcher.group(23) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(24) + "\n";              
+            }else if(matcher.group(26) != null){
+                resultado = resultado + "Objeto: " + matcher.group(25) + "\n";
+                resultado = resultado + "Método: " + matcher.group(26) + "\n";
+                //resultado = resultado + "Parametros: " + matcher.group(27) + "\n";
+                
+                //sequencia
+                resultado = resultado + sequenciaDeMetodos(matcher.group(0));
+                
+            }else if(matcher.group(30) != null){
+                resultado = resultado + "Classe: " + matcher.group(28).replaceFirst("\\s*", "") + "\n";
+                resultado = resultado + "Objeto1: " + matcher.group(29) + "\n";
+                resultado = resultado + "Objeto2: " + matcher.group(30) + "\n";
+                resultado = resultado + "Método: " + matcher.group(31) + "\n";
+                //resultado = resultado + "Parametros: " + matcher.group(32) + "\n";
+                
+                //sequencia
+                resultado = resultado + sequenciaDeMetodos(matcher.group(0));
+                
+            }else if(matcher.group(34) != null){
+                resultado = resultado + "Objeto1: " + matcher.group(33) + "\n";
+                resultado = resultado + "Objeto2: " + matcher.group(34) + "\n";
+                resultado = resultado + "Método: " + matcher.group(35) + "\n";
+                //resultado = resultado + "Parametros: " + matcher.group(36) + "\n";
+                
+                //sequencia
+                resultado = resultado + sequenciaDeMetodos(matcher.group(0));
+                
+            }else if(matcher.group(40) != null) {
+                resultado = resultado + "Objeto: " + matcher.group(39) + "\n";
+                resultado = resultado + "Atributo: " + matcher.group(40) + "\n";
+                resultado = resultado + "Valor Atribuido: " + matcher.group(41) + "\n";
+            }else if(matcher.group(43) != null){
+                resultado = resultado + "Objeto1: " + matcher.group(42) + "\n";
+                resultado = resultado + "Atributo: " + matcher.group(43) + "\n";
+                resultado = resultado + "Objeto2: " + matcher.group(44) + "\n";
+                resultado = resultado + "Método: " + matcher.group(45) + "\n";
+                //resultado = resultado + "Parametros: " + matcher.group(46) + "\n";
+                
+                //sequencia
+                resultado = resultado + sequenciaDeMetodos(matcher.group(0));
+                
+            }else{
+                resultado = resultado + "Método de Saída de System.out \n";
+                resultado = resultado + "Método: " + matcher.group(37) + "\n";
+                resultado = resultado + "Parametros: " + matcher.group(38) + "\n";
+            }
+            
+            resultadoFinal.add(resultado);
+
+        }
+    }
     
 }
