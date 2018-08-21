@@ -1,0 +1,29 @@
+//1- [Encapsulamento]+[Classe]+[objeto]+[=]+[new]+[Instância da Classe]+[;]
+private ImageIcon iconePag = new ImageIcon();
+
+//2- [Encapsulamento]+[objeto]+[;]
+private Icon volatil;
+
+//3- [Encapsulamento]+[Classe]+[objeto]+[,]+[objeto]+[,]+.....+[;]
+private MouseListener ml, ml2, ml3, ml4, ml5;
+
+//4- [Encapsulamento]+[Classe]+[<]+[Classe]+[>]+[objeto]+[;]
+private ArrayList<Pagina> papeis;
+
+//5- [Encapsulamento]+[Static]+[Classe]+[objeto]+[;]
+private static String fileTemp;
+
+//6- [this]+[.]+[objeto]+[=]+[objeto]+[;]
+this.maximoDeQuestoes = numMaxQuest;
+
+//7- [objeto]+[=]+[new]+[Instância da Classe]+[;]
+janela = new JFrame();
+
+//8- [Método da classe]+[;]
+mouse();
+
+//9- [classe]+[objeto]+[=]+[valor]+[;]
+int valorTamanho = 0;
+
+//10- [Classe]+[.]+[atributo]+[=]+[objeto]+[.]+[Método]+[Parametros]+[;]
+this.cor = cores.get(aux);
