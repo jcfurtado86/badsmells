@@ -87,7 +87,38 @@ public class Reconhecedor extends Regex implements Identificacoes {
     
     @Override
     public void identificarAtributosClasse(String codigo){
+        //System.out.println("XXX: "+codigo);
+        Pattern pattern = Pattern.compile(regexAtributos, Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(codigo);
         
+        String resultado = "\n----------- ATRIBUTOS GLOBAIS ------------------------\n";
+        while (matcher.find()) {
+            
+            System.out.println(matcher.group(0));
+            resultado = resultado + matcher.group(0) + "\n";
+//            resultado = resultado + matcher.group(1) + "\n";
+//            resultado = resultado + "Classe: " + matcher.group(5) + "\n";
+//            if(matcher.group(3) != null){
+//                resultado = resultado + "Encapsulamento: " + matcher.group(2) + " " + matcher.group(3) + "\n";
+//            }else{
+//                resultado = resultado + "Encapsulamento: " + matcher.group(2) + "\n";
+//            } 
+//            resultado = resultado + "Qtd. linhas: " + qtdLinhas(matcher.group(6)) + "\n";
+//            
+//            resultadoFinal.add(resultado);
+//            
+//            identificarAtributosClasse(matcher.group(6));
+//            String codigoSemConstrutor = identificarConstrutor(matcher.group(6));
+//            identificarMetodosAbstratos(codigoSemConstrutor);
+//            identificarMetodos(codigoSemConstrutor);
+//            
+//            resultado = "\nA Classe avaliada possui "+qtdMetodos+" método(s)";
+            
+            
+                 
+        }
+        resultado = resultado + "\n---------------------------------------------------------------\n";
+        resultadoFinal.add(resultado);
     }
     
     //Identificacao de Metodos
