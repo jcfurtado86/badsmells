@@ -394,7 +394,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
                 resultado = resultado + "Parametros: " + matcher.group(24) + "\n";              
             }else if(matcher.group(26) != null){
                 resultado = resultado + "Objeto: " + matcher.group(25) + "\n";
-                resultado = resultado + "Método: " + matcher.group(26) + "\n";
+                //resultado = resultado + "Método: " + matcher.group(26) + "\n";
                 //resultado = resultado + "Parametros: " + matcher.group(27) + "\n";
                 
                 //sequencia
@@ -404,7 +404,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
                 resultado = resultado + "Classe: " + matcher.group(28).replaceFirst("\\s*", "") + "\n";
                 resultado = resultado + "Objeto1: " + matcher.group(29) + "\n";
                 resultado = resultado + "Objeto2: " + matcher.group(30) + "\n";
-                resultado = resultado + "Método: " + matcher.group(31) + "\n";
+                //resultado = resultado + "Método: " + matcher.group(31) + "\n";
                 //resultado = resultado + "Parametros: " + matcher.group(32) + "\n";
                 
                 //sequencia
@@ -413,7 +413,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
             }else if(matcher.group(34) != null){
                 resultado = resultado + "Objeto1: " + matcher.group(33) + "\n";
                 resultado = resultado + "Objeto2: " + matcher.group(34) + "\n";
-                resultado = resultado + "Método: " + matcher.group(35) + "\n";
+                //resultado = resultado + "Método: " + matcher.group(35) + "\n";
                 //resultado = resultado + "Parametros: " + matcher.group(36) + "\n";
                 
                 //sequencia
@@ -427,7 +427,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
                 resultado = resultado + "Objeto1: " + matcher.group(42) + "\n";
                 resultado = resultado + "Atributo: " + matcher.group(43) + "\n";
                 resultado = resultado + "Objeto2: " + matcher.group(44) + "\n";
-                resultado = resultado + "Método: " + matcher.group(45) + "\n";
+                //resultado = resultado + "Método: " + matcher.group(45) + "\n";
                 //resultado = resultado + "Parametros: " + matcher.group(46) + "\n";
                 
                 //sequencia

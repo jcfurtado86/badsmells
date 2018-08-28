@@ -34,6 +34,12 @@ objeto.atributo = valor;
 objeto.atributo = objeto.metodo1().metodo2().metodo3();
 ([A-Za-z0-9αΰβγιθκνοστυφϊηρΑΐΒΓΙΘΝΟΣΤΥΦΪΗΡ_]+)\s*\.([A-Za-z0-9αΰβγιθκνοστυφϊηρΑΐΒΓΙΘΝΟΣΤΥΦΪΗΡ_]+)\s*\=+\s*([A-Za-z0-9αΰβγιθκνοστυφϊηρΑΐΒΓΙΘΝΟΣΤΥΦΪΗΡ_]+)\s*\.\s*([A-Za-z0-9αΰβγιθκνοστυφϊηρΑΐΒΓΙΘΝΟΣΤΥΦΪΗΡ_]+)\s*\((.*?)\)\;
 
+opcao = new Scanner(System.in).nextInt();
+
+conta.setSaldo(new Scanner(System.in).nextDouble());
+
+While();
+
 obs.:
 System\.out\.(.*?)\((.*?)\)\;
 

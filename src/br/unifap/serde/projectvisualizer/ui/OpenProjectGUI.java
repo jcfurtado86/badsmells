@@ -61,6 +61,7 @@ public class OpenProjectGUI extends JInternalFrame {
         jTree.setCellRenderer(new MyTreeCellRenderer());
         jTree.setShowsRootHandles(true);
         jTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        
         jTree.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -68,7 +69,9 @@ public class OpenProjectGUI extends JInternalFrame {
                 setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
-
+        
+        jTree.addKeyListener(new JTreeActions(jTree, jTabbedPane));
+                
         jSPRight.setViewportView(jTabbedPane);
 
         jSplitPane1.setRightComponent(jSPRight);
