@@ -12,8 +12,6 @@ public abstract class ClasseTeste {
 	private static String fileTemp;
 	
 	protected String a;
-	double b;
-	public int c;
 	
 	public ClasseTeste(){
 		
