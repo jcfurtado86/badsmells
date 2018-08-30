@@ -30,8 +30,8 @@ public class ChampsTree extends JFrame {
                 node.add(new node(2,"nó "+i+".1", n));
                 node.add(new node(2,"nó "+i+".2", n));
                 node.add(new node(2,"nó "+i+".3", n));
-//                node.add(new node(2,"nó "+i+".4", n));
-//                node.add(new node(2,"nó "+i+".5", n));
+                node.add(new node(2,"nó "+i+".4", n));
+                node.add(new node(2,"nó "+i+".5", n));
             
         }
         
