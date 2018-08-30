@@ -17,6 +17,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
     
     public ArrayList<String> executar(String codigo) {
         codigo = codigo.replaceAll(",\\s*", ",");
+        codigo = codigo.replaceAll("\\s*\\=\\s*", "=");
         codigo = removerComentarios(codigo);
         identificarPacotes(codigo); 
         identificarImports(codigo); 
@@ -97,9 +98,13 @@ public class Reconhecedor extends Regex implements Identificacoes {
         Pattern pattern = Pattern.compile(regexAtributos, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(codigo);
         
+        String resultado = "\n--------- ATRIBUTOS DE CLASSE ----------------------\n";
+        
         while (matcher.find()) {
-            System.out.println("Atributo: "+matcher.group(0));
+            resultado = resultado + matcher.group(0) + "\n";
         }
+        
+        resultadoFinal.add(resultado);
     }
     
     //Identificacao de Metodos

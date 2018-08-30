@@ -7,7 +7,7 @@ public abstract class ClasseTeste {
 	
 	private ImageIcon iconePag = new ImageIcon();
 	private Icon volatil;
-	private MouseListener ml, ml2, ml3, ml4, ml5;
+	private MouseListener ml = 5, ml2, ml3, ml4, ml5;
 	private ArrayList<Pagina> papeis;
 	private static String fileTemp;
 	
