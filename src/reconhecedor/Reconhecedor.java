@@ -12,6 +12,9 @@ public class Reconhecedor extends Regex implements Identificacoes {
     private ArrayDeque<String> pilhaChaves = new ArrayDeque<>();   
     private int qtdMetodos = 0;
     
+    private static String codigoFinal;
+    private static ArrayList<String> corposMetodo = new ArrayList<>();
+    
     public ArrayList<String> executar(String codigo) {
         codigo = codigo.replaceAll(",\\s*", ",");
         codigo = removerComentarios(codigo);
@@ -73,11 +76,15 @@ public class Reconhecedor extends Regex implements Identificacoes {
             
             resultadoFinal.add(resultado);
             
-            identificarAtributosClasse(matcher.group(6));
             String codigoSemConstrutor = identificarConstrutor(matcher.group(6));
             identificarMetodosAbstratos(codigoSemConstrutor);
             identificarMetodos(codigoSemConstrutor);
             
+            codigoFinal = codigoSemConstrutor;
+            
+            retirarCorpoMetodo();
+            identificarAtributosClasse(codigoFinal);
+                        
             resultado = "\nA Classe avaliada possui "+qtdMetodos+" método(s)";
             resultado = resultado + "\n---------------------------------------------------------------\n";
             resultadoFinal.add(resultado);
@@ -87,38 +94,12 @@ public class Reconhecedor extends Regex implements Identificacoes {
     
     @Override
     public void identificarAtributosClasse(String codigo){
-        //System.out.println("XXX: "+codigo);
         Pattern pattern = Pattern.compile(regexAtributos, Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(codigo);
         
-        String resultado = "\n----------- ATRIBUTOS GLOBAIS ------------------------\n";
         while (matcher.find()) {
-            
-            System.out.println(matcher.group(0));
-            resultado = resultado + matcher.group(0) + "\n";
-//            resultado = resultado + matcher.group(1) + "\n";
-//            resultado = resultado + "Classe: " + matcher.group(5) + "\n";
-//            if(matcher.group(3) != null){
-//                resultado = resultado + "Encapsulamento: " + matcher.group(2) + " " + matcher.group(3) + "\n";
-//            }else{
-//                resultado = resultado + "Encapsulamento: " + matcher.group(2) + "\n";
-//            } 
-//            resultado = resultado + "Qtd. linhas: " + qtdLinhas(matcher.group(6)) + "\n";
-//            
-//            resultadoFinal.add(resultado);
-//            
-//            identificarAtributosClasse(matcher.group(6));
-//            String codigoSemConstrutor = identificarConstrutor(matcher.group(6));
-//            identificarMetodosAbstratos(codigoSemConstrutor);
-//            identificarMetodos(codigoSemConstrutor);
-//            
-//            resultado = "\nA Classe avaliada possui "+qtdMetodos+" método(s)";
-            
-            
-                 
+            System.out.println("Atributo: "+matcher.group(0));
         }
-        resultado = resultado + "\n---------------------------------------------------------------\n";
-        resultadoFinal.add(resultado);
     }
     
     //Identificacao de Metodos
@@ -154,6 +135,8 @@ public class Reconhecedor extends Regex implements Identificacoes {
                     identificarChamadaObjetos(corpoMetodo);
                     
                     codigoSemConstrutor = codigoSemConstrutor.replace(matcher.group(0), "");
+                    
+                    corposMetodo.add(corpoMetodo);
                 }
             }
         }
@@ -179,6 +162,8 @@ public class Reconhecedor extends Regex implements Identificacoes {
             }
             resultado = resultado + "Retorno: " + matcher.group(3) + "\n";
             resultado = resultado + "Parâmetros: " + matcher.group(5) + "\n";
+            
+            corposMetodo.add(matcher.group(0));
             
             resultadoFinal.add(resultado);
         }
@@ -216,75 +201,13 @@ public class Reconhecedor extends Regex implements Identificacoes {
                     resultadoFinal.add(resultado);
                      
                     identificarChamadaObjetos(corpoMetodo);
-                    
+                                        
+                    corposMetodo.add(corpoMetodo); 
                 }
             }
         }
     }
-         
-//    @Override
-//    public void identificarChamadaObjetos(String codigo){
-//        Pattern pattern = Pattern.compile(regexChamadaObjeto, Pattern.MULTILINE);
-//        Matcher matcher = pattern.matcher(codigo);
-//        
-//        while (matcher.find()) {
-//            
-//            String resultado = "\n--------- INSTANCIA ----------------------------\n";
-//            resultado = resultado + matcher.group(0).replaceFirst("\\s*", "") + "\n";
-//            
-//            if(matcher.group(3) != null){
-//                resultado = resultado + "Encapsulamento: " + matcher.group(1) + "\n";
-//                resultado = resultado + "Classe: " + matcher.group(2) + "\n";
-//                resultado = resultado + "Objeto: " + matcher.group(3) + "\n";
-//                resultado = resultado + "Classe Instanciada: " + matcher.group(5) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(6) + "\n";
-//            }else if(matcher.group(8) != null){  
-//                resultado = resultado + "Classe / Objeto: " + matcher.group(7) + "\n";
-//                resultado = resultado + "Método estático: " + matcher.group(8) + "\n";                
-//                resultado = resultado + "Parametros: " + matcher.group(9) + "\n";
-//            }else if(matcher.group(11) != null){
-//                resultado = resultado + "Classe / Objeto: " + matcher.group(10) + "\n";
-//                resultado = resultado + "Atributo estático: " + matcher.group(11) + "\n";
-//                resultado = resultado + "Método / Atributo: " + matcher.group(12) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(13) + "\n";
-//            }else if(matcher.group(16) != null){
-//                resultado = resultado + "Classe / Tipo de Variavel: " + matcher.group(14) + "\n";
-//                resultado = resultado + "Objeto: " + matcher.group(15) + "\n";
-//                resultado = resultado + "Classe Instanciada: " + matcher.group(16) + "\n";
-//                resultado = resultado + "Método estático: " + matcher.group(17) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(18) + "\n";
-//            }else if(matcher.group(20) != null){
-//                resultado = resultado + "Objeto: " + matcher.group(19) + "\n";
-//                resultado = resultado + "Método: " + matcher.group(20) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(21) + "\n";
-//            }else if(matcher.group(22) != null){
-//                resultado = resultado + "Método: " + matcher.group(22) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(23) + "\n";
-//            }else if(matcher.group(26) != null){
-//                resultado = resultado + "Encapsulamento: " + matcher.group(24) + " " + matcher.group(25) + "\n";
-//                resultado = resultado + "Classe: " + matcher.group(26) + "\n";
-//                resultado = resultado + "Objeto: " + matcher.group(27) + "\n";
-//            }else if(matcher.group(29) != null){
-//                resultado = resultado + "Classe: " + matcher.group(28) + "\n";
-//                resultado = resultado + "Objeto: " + matcher.group(29) + "\n";
-//                resultado = resultado + "Valor Atribuído: " + matcher.group(30) + "\n";
-//            }else if(matcher.group(31) != null){
-//                resultado = resultado + "Método de Saída de System.out \n";
-//                resultado = resultado + "Método: " + matcher.group(31) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(32) + "\n";
-//            }else {
-//                resultado = resultado + "Classe / Objeto: " + matcher.group(33).replaceFirst("\\s*", "") + "\n";
-//                resultado = resultado + "Atributo: " + matcher.group(34) + "\n";
-//                resultado = resultado + "Classe / Objeto: " + matcher.group(35) + "\n";
-//                resultado = resultado + "Método: " + matcher.group(36) + "\n";
-//                resultado = resultado + "Parametros: " + matcher.group(37) + "\n";
-//            }
-//            
-//            resultadoFinal.add(resultado);
-//
-//        }
-//    }
-      
+          
     public String sequenciaDeMetodos(String codigo){
           
         String resultado = "";
@@ -351,6 +274,14 @@ public class Reconhecedor extends Regex implements Identificacoes {
         }
         
         return cont;
+    }
+    
+    public void retirarCorpoMetodo(){
+        for(int i=0;i<corposMetodo.size();i++){
+            if(!corposMetodo.get(i).trim().isEmpty()){
+                codigoFinal = codigoFinal.replace(corposMetodo.get(i), "");  
+            }
+        }
     }
     
     @Override

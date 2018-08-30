@@ -10,6 +10,7 @@ public abstract class ClasseTeste {
 	private MouseListener ml, ml2, ml3, ml4, ml5;
 	private ArrayList<Pagina> papeis;
 	private static String fileTemp;
+	private static String s = "String", x, a = '', z = new ArrayList<>();
 	
 	protected String a;
 	
