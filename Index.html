@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  <script>
+    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+  </script>
+  <style>
+    html,
+    body,
+    #myChart {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='myChart'></div>
+  <script>
+    var myConfig = {
+      "graphset": [{
+        "type": "treemap",
+        "plotarea": {
+          "margin": "0 0 30 0"
+        },
+        "options": {
+          "aspect-type": "transition",
+          "color-start": "#c00",
+          "color-end": "#300"
+        },
+        "series": [{
+          "text": "Atributos de Classe",
+          "children": [{
+            "text": "private ImageIcon iconePag = new ImageIcon();",
+            "value": 20
+          }, {
+            "text": "private Icon volatil;",
+            "value": 20
+          }, {
+            "text": "private MouseListener ml = 5, ml2, ml3, ml4, ml5;",
+            "value" : 20
+          }, {
+            "text": "private ArrayList<Pagina> papeis;",
+            "value" : 20
+          }, {
+            "text": "private static String fileTemp;",
+            "value" : 20
+          }]
+        }, {
+          "text": "Metodos Abstratos",
+          "children": [{
+            "text": "protected abstract void metodoAbstratoTeste(String a1);",
+            "value": 19
+          }]
+        }, {
+          "text": "public void metodoTeste(String sei)",
+          "children": [{
+            "text": "System.out.println(\"oi\");",
+            "value": 21,
+          }, {
+            "text": "this.cor = cores.get(aux);",
+            "value": 21,
+          }, {
+            "text": "this.maximoDeQuestoes = numMaxQuest;",
+            "value": 21,
+          }, {
+            "text": "Try Catch",
+            "value": 21,
+
+            "children": [{
+              "text": "janela = new JFrame();",
+              "value": 21
+            }, {
+              "text": "mouse();",
+              "value": 21
+            }]
+
+          }]
+        }]
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+      height: "100%",
+      width: "100%"
+    });
+  </script>
+</body>
+
+</html>
