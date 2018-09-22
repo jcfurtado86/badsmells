@@ -3,8 +3,6 @@ package reconhecedor;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
