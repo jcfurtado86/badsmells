@@ -35,7 +35,6 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import com.bluecast.xml.Piccolo;
 
 
 /**
