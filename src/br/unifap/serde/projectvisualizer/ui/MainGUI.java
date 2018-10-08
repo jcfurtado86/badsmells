@@ -16,6 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -128,11 +129,14 @@ public class MainGUI extends JFrame {
         jMIOpenProject.addActionListener((ActionEvent evt) -> {
             jMenuItemActionPerformed(evt);
         });
+        jMIOpenProject.setAccelerator(KeyStroke.getKeyStroke("control R"));
         
         jMIOpenProjectFile.setText("Open File Project");
         jMIOpenProjectFile.addActionListener((ActionEvent evt) -> {
             jMenuItemFileActionPerformed(evt);
         });
+        jMIOpenProjectFile.setAccelerator(KeyStroke.getKeyStroke("control O"));
+        
 
         jMenuFile.add(jMIOpenProject);
         jMenuFile.add(jMIOpenProjectFile);
