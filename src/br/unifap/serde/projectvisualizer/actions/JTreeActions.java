@@ -26,6 +26,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import net.bouthier.treemapSwing.fileViewer.DemoModel;
 import reconhecedor.Reconhecedor;
 
 /**
@@ -87,7 +88,8 @@ public class JTreeActions implements KeyListener {
                             }
                             
                             tempJTA.setText(resultadoSaida);
-
+                            
+                            DemoModel.main();
                         } catch (IOException ex) {
                             Logger.getLogger(OpenProjectGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -96,7 +98,8 @@ public class JTreeActions implements KeyListener {
                     }
                 }
             }
-
+            
+            
         }
     }
     
@@ -126,7 +129,8 @@ public class JTreeActions implements KeyListener {
                         }
 
                         tempJTA.setText(resultadoSaida);
-
+                        
+                        DemoModel.main();
                     } catch (IOException ex) {
                         Logger.getLogger(OpenProjectGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -134,6 +138,7 @@ public class JTreeActions implements KeyListener {
                     jTabbedPane.setSelectedIndex(opened);
                 }
             }
+            
         }
     }
     

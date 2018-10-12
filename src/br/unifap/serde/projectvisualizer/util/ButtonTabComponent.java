@@ -35,6 +35,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.event.*;
+import net.bouthier.treemapSwing.fileViewer.DemoModel;
 
 /**
  * Component to be used as tabComponent; Contains a JLabel to show the text and

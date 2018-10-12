@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import net.bouthier.treemapAWT.TMComputeDrawAdapter;
+import reconhecedor.Reconhecedor;
 
 
 /**
@@ -73,19 +74,20 @@ public class TMFileModelDraw
             File file = (File) node;
             long time = file.lastModified();
             long diff = (new Date()).getTime() - time;
-            if (diff <= 3600000L) { // less than an hour
-                return Color.white;
-            } else if (diff <= 86400000L) { // less than a day
-                return Color.green;
-            } else if (diff <= 604800000L) { // less than a week
-                return Color.yellow;
-            } else if (diff <= 2592000000L) { // less than a month
-                return Color.orange;
-            } else if (diff <= 31536000000L) { // less than a year
-                return Color.red;
-            } else { // more than a year
-                return Color.blue;
-            }
+//            if (diff <= 3600000L) { // less than an hour
+//                return Color.white;
+//            } else if (diff <= 86400000L) { // less than a day
+//                return Color.green;
+//            } else if (diff <= 604800000L) { // less than a week
+//                return Color.yellow;
+//            } else if (diff <= 2592000000L) { // less than a month
+//                return Color.orange;
+//            } else if (diff <= 31536000000L) { // less than a year
+//                return Color.red;
+//            } else { // more than a year
+//                return Color.blue;
+//            }
+            return Color.red;
         }
         return Color.black;
     }
@@ -93,7 +95,12 @@ public class TMFileModelDraw
     public String getTooltipOfObject(Object node) {
         if (node instanceof File) {
             File file = (File) node;
-            String name = file.getName();
+            String name = "";
+            
+            for(int i=1;i<Reconhecedor.badsmells.size();i++){
+                name = name + Reconhecedor.badsmells.get(i).replaceAll("\\n", "<br>") + "<br>";
+            }
+            
             long modTime = file.lastModified();
             DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
             DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT);
@@ -109,17 +116,18 @@ public class TMFileModelDraw
     public String getTitleOfObject(Object node) {
         if (node instanceof File) {
             File file = (File) node;
-            return file.getName();
+            return file.getName().replaceFirst("[.][^.]+$", "");
         }
+        
         return "";
     }
 
     public Paint getColorTitleOfObject(Object node) {
         if (node instanceof File) {
             File file = (File) node;
-            return Color.black;
+            return Color.WHITE;
         }
-        return Color.black;
+        return Color.WHITE;
     }
 
 }

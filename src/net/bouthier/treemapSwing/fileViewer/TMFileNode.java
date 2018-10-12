@@ -124,7 +124,7 @@ public class TMFileNode implements TMNode {
         size = getSize();
         date = getDate();
         name = getName();
-
+        
         if (status != null) {
             status.increment();
         }

@@ -30,9 +30,11 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import net.bouthier.treemapAWT.TMView;
 import net.bouthier.treemapAWT.TreeMap;
+import reconhecedor.Reconhecedor;
 
 
 /**
@@ -50,18 +52,20 @@ public class DemoModel {
     private static TMFileModelNode model   = null; // the model of the demo tree
     private static TreeMap 		   treeMap = null; // the treemap builded
     private static String 		   name    = null; // name for this demo
+    
+    private static JFrame viewFrame = null,janela = null;
 
     /**
      * Display a demo TreeMap.
      */
-    public static void main(String[] args) {
-        String pathRoot = null;
+    public static void main() {
+        String pathRoot = System.getProperty("user.dir")+"\\src\\br\\unifap\\serde\\projectvisualizer";
 
-        if (args.length > 0) {
-            pathRoot = args[0];
-        } else {
-            pathRoot = File.separator;
-        }
+//        if (args.length > 0) {
+//            pathRoot = args[0];
+//        } else {
+//            pathRoot = File.separator;
+//        }
 
         File rootFile = new File(pathRoot);
         try {
@@ -95,9 +99,28 @@ public class DemoModel {
         TMFileModelDraw fDraw = new TMFileModelDraw();
         TMView view = treeMap.getView(fSize, fDraw);
 
-        JFrame viewFrame = new JFrame(name + " : " + count);
+        viewFrame = new JFrame("TREEMAP BADSMELLS");
         viewFrame.setContentPane(view);
+        viewFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         viewFrame.pack();
-        viewFrame.setVisible(true);
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //viewFrame.setVisible(true);
+        
+        JPanel panel = (JPanel) view;
+        janela = new JFrame(Reconhecedor.badsmells.get(0));
+        //janela.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        janela.add(panel);
+        janela.setSize(600,400);
+        //janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        janela.setLocationRelativeTo(null);
+        janela.setVisible(true);
+    }
+    
+    public static void fechar(){
+        try{
+            janela.dispose();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
