@@ -1,6 +1,6 @@
 package BadSmells;
 
-public class LongParameterList {
+public class LongParameterList implements BadSmells {
     
     public boolean muitosParametros(String p){
         if(!p.contains(",")) return false;

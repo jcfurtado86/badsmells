@@ -7,6 +7,8 @@ package br.unifap.serde.projectvisualizer.util;
 
 import br.unifap.serde.projectvisualizer.entities.FileNode;
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -46,10 +48,23 @@ public class CreateChildNodes implements Runnable {
 
         for (File file : files) {
             if (file.isFile()) {
-                DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(new FileNode(file));
-                node.add(childNode);
+                if(java(file.getPath())){
+                    DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(new FileNode(file));
+                    node.add(childNode);
+                }
             }
         }
+    }
+    
+    private boolean java(String file){
+        final String regex = "(.*?).java|(.*?).txt";
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(file);
+
+        while (matcher.find()) {
+            return true;
+        }
+        return false;
     }
 
 }

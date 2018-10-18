@@ -9,9 +9,7 @@ public abstract class ClasseTeste {
 	private Icon volatil;
 	private MouseListener ml = 5, ml2, ml3, ml4, ml5;
 	private ArrayList<Pagina> papeis;
-	private static String fileTemp;
-	private static String s = "String", x, a = '', z = new ArrayList<>();
-	
+	private static String fileTemp;	
 	protected String a;
 	
 	public ClasseTeste(){

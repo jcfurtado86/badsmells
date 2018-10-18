@@ -1,6 +1,6 @@
 package BadSmells;
 
-public class LongMethod {
+public class LongMethod implements BadSmells {
     
     public boolean metodoLongo(int linhas){
         return linhas > 25;

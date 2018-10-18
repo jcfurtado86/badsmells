@@ -74,7 +74,7 @@ public abstract class TMAlgorithm
 
     private static final ColorModel cModel = ColorModel.getRGBdefault();
 
-    private static final int 	 	dimMax = 32;
+    private static final int 	 	dimMax = 102;
     private static WritableRaster[][] cachedRasters = 
     								new WritableRaster[dimMax + 1][dimMax + 1];
     private static int[][][] cachedBuffers = new int[dimMax + 1][dimMax + 1][];
