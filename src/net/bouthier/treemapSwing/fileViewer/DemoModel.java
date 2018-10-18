@@ -59,6 +59,8 @@ public class DemoModel {
      * Display a demo TreeMap.
      */
     public static void main() throws IOException {
+        File file1 = new File(System.getProperty("user.dir")+"\\TESTE");
+        file1.mkdir();
         String pathRoot = System.getProperty("user.dir")+"\\TESTE";
 
 //        if (args.length > 0) {
@@ -93,7 +95,16 @@ public class DemoModel {
         }
 
         TMFileModelDraw.cont = 0;
-         
+        
+        File file2 = new File(pathRoot+"\\1-ClasseGeral");
+        file2.mkdir();
+        File file3 = new File(pathRoot+"\\2-MetodosConstrutores");
+        file3.mkdir();
+        File file4 = new File(pathRoot+"\\3-MetodosAbstratos");
+        file4.mkdir();
+        File file5 = new File(pathRoot+"\\4-MetodosNormais");
+        file5.mkdir();
+        
         File dir = new File(pathRoot);
         if( dir.isDirectory() ){
             File[] arqs = dir.listFiles();
@@ -140,8 +151,8 @@ public class DemoModel {
         janela = new JFrame(Reconhecedor.badsmells.get(0).getNome());
         //janela.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         janela.add(panel);
-        janela.setSize(900,600);
-        //janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        janela.setSize(1200,800);
+        janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
         janela.setLocationRelativeTo(null);
         janela.setVisible(true);
     }

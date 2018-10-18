@@ -90,7 +90,7 @@ public class TMFileModelDraw
 //            } else { // more than a year
 //                return Color.blue;
 //            }
-            return Color.red;
+            return Color.RED;
         }
         return Color.black;
     }
@@ -99,8 +99,6 @@ public class TMFileModelDraw
         if (node instanceof File) {
             File file = (File) node;
             String name = "";
-            
-            System.out.println(file.getName());
             
             if(java(file.getName())){
                 cont++;
@@ -123,7 +121,7 @@ public class TMFileModelDraw
         if (node instanceof File) {
             File file = (File) node;
             if(java(file.getName())){
-                return Reconhecedor.badsmells.get(cont-1).getNome();
+                return Reconhecedor.badsmells.get(cont-1).getTipo()+ ": " +Reconhecedor.badsmells.get(cont-1).getNome();
             }   
         }
         
