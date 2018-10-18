@@ -58,8 +58,8 @@ public class DemoModel {
     /**
      * Display a demo TreeMap.
      */
-    public static void main() {
-        String pathRoot = System.getProperty("user.dir")+"\\src\\br\\unifap\\serde\\projectvisualizer";
+    public static void main() throws IOException {
+        String pathRoot = System.getProperty("user.dir")+"\\TESTE";
 
 //        if (args.length > 0) {
 //            pathRoot = args[0];
@@ -92,6 +92,36 @@ public class DemoModel {
             return;
         }
 
+        TMFileModelDraw.cont = 0;
+         
+        File dir = new File(pathRoot);
+        if( dir.isDirectory() ){
+            File[] arqs = dir.listFiles();
+            for(File nome : arqs){
+                File[] files = nome.listFiles();
+                for(File java : files){
+                    java.delete();
+                }
+            }
+        }
+        
+        for(int i=0;i<Reconhecedor.badsmells.size();i++){
+            if(Reconhecedor.badsmells.get(i).getTipo().equals("ClasseGeral")){
+                File file = new File(pathRoot+"\\1-ClasseGeral\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+                file.createNewFile();
+            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosConstrutores")){
+                File file = new File(pathRoot+"\\2-MetodosConstrutores\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+                file.createNewFile();
+            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosAbstratos")){
+                File file = new File(pathRoot+"\\3-MetodosAbstratos\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+                file.createNewFile();
+            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosNormais")){
+                File file = new File(pathRoot+"\\4-MetodosNormais\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+                file.createNewFile();
+            }    
+        }
+        
+
         treeMap = new TreeMap(model);
         name = rootFile.getAbsolutePath();
 
@@ -99,18 +129,18 @@ public class DemoModel {
         TMFileModelDraw fDraw = new TMFileModelDraw();
         TMView view = treeMap.getView(fSize, fDraw);
 
-        viewFrame = new JFrame("TREEMAP BADSMELLS");
-        viewFrame.setContentPane(view);
-        viewFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        viewFrame.pack();
-        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //viewFrame = new JFrame("TREEMAP BADSMELLS");
+        //viewFrame.setContentPane(view);
+        //viewFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //viewFrame.pack();
+        //viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //viewFrame.setVisible(true);
         
         JPanel panel = (JPanel) view;
-        janela = new JFrame(Reconhecedor.badsmells.get(0));
+        janela = new JFrame(Reconhecedor.badsmells.get(0).getNome());
         //janela.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         janela.add(panel);
-        janela.setSize(600,400);
+        janela.setSize(900,600);
         //janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
         janela.setLocationRelativeTo(null);
         janela.setVisible(true);
