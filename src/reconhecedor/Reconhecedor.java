@@ -1,5 +1,6 @@
 package reconhecedor;
 
+import BadSmells.DuplicatedCode;
 import BadSmells.LargeClasses;
 import BadSmells.LongMethod;
 import BadSmells.LongParameterList;
@@ -20,7 +21,9 @@ public class Reconhecedor extends Regex implements Identificacoes {
     
     public static ArrayList<String> badsmells = new ArrayList<>();
     
+    //BadSmells
     LargeClasses lclasse = new LargeClasses();
+    DuplicatedCode dcode = new DuplicatedCode();
     
     public ArrayList<String> executar(String codigo) {
         badsmells = new ArrayList<>();
@@ -34,6 +37,8 @@ public class Reconhecedor extends Regex implements Identificacoes {
         
         identificarClasse(codigo); 
         
+        
+        dcode.compararMetodos();
         
         return resultadoFinal;
     }
@@ -287,6 +292,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
             }
         }
         
+        dcode.armazenarMetodo(corpo);
         return corpo;
     }
     

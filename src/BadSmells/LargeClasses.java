@@ -27,7 +27,7 @@ public class LargeClasses implements BadSmells {
             
         }
         
-        linhas = linha_final - linha_inicial;
+        linhas = linha_final - linha_inicial - 1;
         System.out.println("========= linhas: "+linhas+" (inicial: "+linha_inicial+", final:"+linha_final+")");
     }
     
