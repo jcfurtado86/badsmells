@@ -8,7 +8,10 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyVetoException;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.GroupLayout;
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
@@ -88,7 +91,7 @@ public class OpenProjectGUI extends JInternalFrame {
 
         pack();
 
-        this.setSize(800, 600);
+        this.setSize(1500, 800);
         this.setTitle(projectFile);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setIconifiable(true);
