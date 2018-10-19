@@ -88,6 +88,7 @@ public class MainGUI extends JFrame {
             jDesktopPane.add(projectWindow);
          
             try {
+                projectWindow.setMaximum(true);
                 projectWindow.setSelected(true);
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
