@@ -19,7 +19,7 @@ public class TabbedPaneGUI extends JPanel {
     public TabbedPaneGUI() {
     }
 
-    public static JPanel createTab() {
+    public static JPanel createTab() {        
         JPanel tabPanel = new JPanel();
         JTextArea jTextArea = new JTextArea();
         jTextArea.setEditable(false);
@@ -33,5 +33,5 @@ public class TabbedPaneGUI extends JPanel {
 
         return tabPanel;
     }
-
+    
 }

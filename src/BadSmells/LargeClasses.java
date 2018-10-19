@@ -1,6 +1,6 @@
 package BadSmells;
 
-public class LargeClasses implements BadSmells {
+public class LargeClasses {
     String classe;
     int linhas;
     

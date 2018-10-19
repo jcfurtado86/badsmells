@@ -31,6 +31,8 @@ import java.awt.Paint;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.bouthier.treemapAWT.TMComputeDrawAdapter;
 import reconhecedor.Reconhecedor;
@@ -57,7 +59,8 @@ import reconhecedor.Reconhecedor;
  */
 public class TMFileModelDraw 
 	extends TMComputeDrawAdapter {
-
+    
+    public static int cont = 0;
 
     /* --- TMComputeSizeAdapter -- */
 
@@ -87,7 +90,7 @@ public class TMFileModelDraw
 //            } else { // more than a year
 //                return Color.blue;
 //            }
-            return Color.red;
+            return Color.RED;
         }
         return Color.black;
     }
@@ -97,10 +100,11 @@ public class TMFileModelDraw
             File file = (File) node;
             String name = "";
             
-            for(int i=1;i<Reconhecedor.badsmells.size();i++){
-                name = name + Reconhecedor.badsmells.get(i).replaceAll("\\n", "<br>") + "<br>";
+            if(java(file.getName())){
+                cont++;
+                name = Reconhecedor.badsmells.get(cont-1).getDescricao().replaceAll("\\n", "<br>") + "<br>";
             }
-            
+
             long modTime = file.lastModified();
             DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
             DateFormat tf = DateFormat.getTimeInstance(DateFormat.SHORT);
@@ -116,7 +120,9 @@ public class TMFileModelDraw
     public String getTitleOfObject(Object node) {
         if (node instanceof File) {
             File file = (File) node;
-            return file.getName().replaceFirst("[.][^.]+$", "");
+            if(java(file.getName())){
+                return Reconhecedor.badsmells.get(cont-1).getTipo()+ ": " +Reconhecedor.badsmells.get(cont-1).getNome();
+            }   
         }
         
         return "";
@@ -128,6 +134,17 @@ public class TMFileModelDraw
             return Color.WHITE;
         }
         return Color.WHITE;
+    }
+    
+    private boolean java(String file){
+        final String regex = "(.*?).java|(.*?).txt";
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(file);
+
+        while (matcher.find()) {
+            return true;
+        }
+        return false;
     }
 
 }

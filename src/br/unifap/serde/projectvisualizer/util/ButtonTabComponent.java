@@ -132,7 +132,7 @@ public class ButtonTabComponent extends JPanel {
             if (component instanceof AbstractButton) {
                 AbstractButton button = (AbstractButton) component;
                 button.setContentAreaFilled(true);
-                button.setBackground(Color.GREEN);
+                button.setBackground(Color.RED);
             }
         }
 
