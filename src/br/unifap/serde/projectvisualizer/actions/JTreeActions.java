@@ -70,16 +70,18 @@ public class JTreeActions implements KeyListener {
                 if (info.getFile().isFile()) {
                     int opened = jTabbedPane.indexOfTab(node.toString());
                     if (opened == -1) {
+                                               
                         JPanel newTab = TabbedPaneGUI.createTab();
-                        jTabbedPane.add(node.toString(), newTab);
-                        jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
-                        jTabbedPane.setSelectedComponent(newTab);
+                         
+//                        jTabbedPane.add(node.toString(), newTab);
+//                        jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
+//                        jTabbedPane.setSelectedComponent(newTab);
                         try {
                             BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(info.getFile())));
                             JScrollPane tempJSCP = (JScrollPane) newTab.getComponent(0);
                             JTextArea tempJTA = (JTextArea) tempJSCP.getViewport().getComponent(0);
                             tempJTA.read(input, info.getFile().getName());
-                            
+                                                        
                             Reconhecedor find = new Reconhecedor();
                             ArrayList<String> resultado = find.executar(tempJTA.getText());                           
                             String resultadoSaida = "";
@@ -89,7 +91,15 @@ public class JTreeActions implements KeyListener {
                             
                             tempJTA.setText(resultadoSaida);
                             
-                            DemoModel.main();
+                            try{
+                                newTab = DemoModel.main();
+                                jTabbedPane.add(node.toString(), newTab);
+                                jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
+                                jTabbedPane.setSelectedComponent(newTab);
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                            
                         } catch (IOException ex) {
                             Logger.getLogger(OpenProjectGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -112,9 +122,9 @@ public class JTreeActions implements KeyListener {
                 int opened = jTabbedPane.indexOfTab(node.toString());
                 if (opened == -1) {
                     JPanel newTab = TabbedPaneGUI.createTab();
-                    jTabbedPane.add(node.toString(), newTab);
-                    jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
-                    jTabbedPane.setSelectedComponent(newTab);
+//                    jTabbedPane.add(node.toString(), newTab);
+//                    jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
+//                    jTabbedPane.setSelectedComponent(newTab);
                     try {
                         BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(info.getFile())));
                         JScrollPane tempJSCP = (JScrollPane) newTab.getComponent(0);
@@ -130,7 +140,15 @@ public class JTreeActions implements KeyListener {
 
                         tempJTA.setText(resultadoSaida);
                         
-                        DemoModel.main();
+                        try{
+                            newTab = DemoModel.main();
+                            jTabbedPane.add(node.toString(), newTab);
+                            jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
+                            jTabbedPane.setSelectedComponent(newTab);
+                        }catch(Exception e){
+                            System.out.println(e.getMessage());
+                        }
+                        
                     } catch (IOException ex) {
                         Logger.getLogger(OpenProjectGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }

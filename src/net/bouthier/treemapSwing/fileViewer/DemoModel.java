@@ -58,7 +58,7 @@ public class DemoModel {
     /**
      * Display a demo TreeMap.
      */
-    public static void main() throws IOException {
+    public static JPanel main() throws IOException {
         File file1 = new File(System.getProperty("user.dir")+"\\TESTE");
         file1.mkdir();
         String pathRoot = System.getProperty("user.dir")+"\\TESTE";
@@ -75,7 +75,7 @@ public class DemoModel {
                 "Starting the treemap from " + rootFile.getCanonicalPath());
         } catch (IOException e) {
             e.printStackTrace();
-            return;
+            return null;
         }
 
         if (!rootFile.exists()) {
@@ -83,7 +83,7 @@ public class DemoModel {
                 "Can't start treemap : "
                     + rootFile.getName()
                     + " does not exist.");
-            return;
+            return null;
         }
 
         model = new TMFileModelNode(rootFile);
@@ -91,7 +91,7 @@ public class DemoModel {
             System.err.println(
                 "Error : can't start treemap from "
                     + rootFile.getAbsolutePath());
-            return;
+            return null;
         }
 
         TMFileModelDraw.cont = 0;
@@ -139,22 +139,17 @@ public class DemoModel {
         TMFileModelSize fSize = new TMFileModelSize();
         TMFileModelDraw fDraw = new TMFileModelDraw();
         TMView view = treeMap.getView(fSize, fDraw);
-
-        //viewFrame = new JFrame("TREEMAP BADSMELLS");
-        //viewFrame.setContentPane(view);
-        //viewFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //viewFrame.pack();
-        //viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //viewFrame.setVisible(true);
         
         JPanel panel = (JPanel) view;
-        janela = new JFrame(Reconhecedor.badsmells.get(0).getNome());
+        //janela = new JFrame(Reconhecedor.badsmells.get(0).getNome());
         //janela.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        janela.add(panel);
-        janela.setSize(1200,800);
-        janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        janela.setLocationRelativeTo(null);
-        janela.setVisible(true);
+        //janela.add(panel);
+        //janela.setSize(1200,800);
+        //janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //janela.setLocationRelativeTo(null);
+        //janela.setVisible(true);
+        
+        return panel;
     }
     
     public static void fechar(){
