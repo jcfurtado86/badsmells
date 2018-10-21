@@ -40,6 +40,16 @@ public class Reconhecedor extends Regex implements Identificacoes {
         
         dcode.compararMetodos();
         
+        //Mostra linhas duplicadas
+        for(int i=0; i<dcode.linhas_repetidas.size(); i++){
+            Metodos_DuplicatedCode d = dcode.linhas_repetidas.get(i);
+            System.out.println("\n----- Método '"+d.nome_metodo1
+                                + "' comparando método '"+d.nome_metodo2
+                                + "' -----\n#Linhas duplicadas:\n"+d.corpo
+                                + "\n#Total de linhas: "+d.qtdLinhas);
+        }
+        
+        
         return resultadoFinal;
     }
         
@@ -156,17 +166,15 @@ public class Reconhecedor extends Regex implements Identificacoes {
                     resultado = resultado + "Encapsulamento: " + matcher.group(1) + "\n";
                     resultado = resultado + "Parâmetros: " + matcher.group(3) + "\n";
                     
-                    String corpoMetodo = identificarCorpoMetodo(scan);
+                    String corpoMetodo = identificarCorpoMetodo(scan, matcher.group(2)),
+                           string = "Método construtor longo: "
+                                    + new LongMethod().metodoLongo(qtdLinhas(corpoMetodo))
+                                    + " ("+qtdLinhas(corpoMetodo)+" linhas)"
+                                    + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(3));
                                         
-                    badsmells.add(new BadSmells(matcher.group(2),"Método construtor longo: "
-                        + new LongMethod().metodoLongo(qtdLinhas(corpoMetodo))
-                        + " ("+qtdLinhas(corpoMetodo)+" linhas)"
-                        + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(3)),"MetodosConstrutores"));
+                    badsmells.add(new BadSmells(matcher.group(2),string,"MetodosConstrutores"));
                     
-                    System.out.println("Método construtor longo: "
-                        + new LongMethod().metodoLongo(qtdLinhas(corpoMetodo))
-                        + " ("+qtdLinhas(corpoMetodo)+" linhas)"
-                        + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(3)));
+                    System.out.println(string);
                                         
                     resultado = resultado + "Qtd. linhas: " + qtdLinhas(corpoMetodo) + "\n";
 
@@ -202,12 +210,13 @@ public class Reconhecedor extends Regex implements Identificacoes {
             }
             resultado = resultado + "Retorno: " + matcher.group(3) + "\n";
             resultado = resultado + "Parâmetros: " + matcher.group(5) + "\n";
-                        
-            badsmells.add(new BadSmells(matcher.group(4),"Método absrato "+matcher.group(4)
-                        + " muitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5)),"MetodosAbstratos"));
             
-            System.out.println("Método absrato "+matcher.group(4)
-                        + " muitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5)));
+            String string = "Método absrato "+matcher.group(4)
+                            + " muitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5));
+                        
+            badsmells.add(new BadSmells(matcher.group(4),string,"MetodosAbstratos"));
+            
+            System.out.println(string);
             
             corposMetodo.add(matcher.group(0));
             
@@ -240,17 +249,15 @@ public class Reconhecedor extends Regex implements Identificacoes {
                     resultado = resultado + "Retorno: " + matcher.group(3) + "\n";
                     resultado = resultado + "Parâmetros: " + matcher.group(5) + "\n";
                     
-                    String corpoMetodo = identificarCorpoMetodo(scan);
+                    String corpoMetodo = identificarCorpoMetodo(scan, matcher.group(4)),
+                           string = "Método "+matcher.group(4)+" longo: "
+                                    + new LongMethod().metodoLongo(qtdLinhas(corpoMetodo))
+                                    + " ("+qtdLinhas(corpoMetodo)+" linhas)"
+                                    + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5));
                                         
-                    badsmells.add(new BadSmells(matcher.group(4),"Método "+matcher.group(4)+" longo: "
-                        + new LongMethod().metodoLongo(qtdLinhas(corpoMetodo))
-                        + " ("+qtdLinhas(corpoMetodo)+" linhas)"
-                        + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5)),"MetodosNormais"));
+                    badsmells.add(new BadSmells(matcher.group(4),string,"MetodosNormais"));
                     
-                    System.out.println("Método "+matcher.group(4)+" longo: "
-                        + new LongMethod().metodoLongo(qtdLinhas(corpoMetodo))
-                        + " ("+qtdLinhas(corpoMetodo)+" linhas)"
-                        + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5)));
+                    System.out.println(string);
                     
                     resultadoFinal.add(resultado);
                      
@@ -279,7 +286,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
         return resultado;
     }
     
-    public String identificarCorpoMetodo(Scanner scan){
+    public String identificarCorpoMetodo(Scanner scan, String nome_metodo){
         String corpo = "";
         Pattern pattern = Pattern.compile(regexChaves, Pattern.MULTILINE);
         Matcher matcher;
@@ -302,7 +309,7 @@ public class Reconhecedor extends Regex implements Identificacoes {
             }
         }
         
-        dcode.armazenarMetodo(corpo);
+        dcode.armazenarMetodo(corpo, nome_metodo);
         return corpo;
     }
     
