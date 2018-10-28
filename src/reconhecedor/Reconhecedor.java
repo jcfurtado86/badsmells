@@ -41,12 +41,17 @@ public class Reconhecedor extends Regex implements Identificacoes {
         dcode.compararMetodos();
         
         //Mostra linhas duplicadas
-        for(int i=0; i<dcode.linhas_repetidas.size(); i++){
-            Metodos_DuplicatedCode d = dcode.linhas_repetidas.get(i);
+        for(int i=0; i<dcode.codigos_duplicados.size(); i++){
+            Metodos_DuplicatedCode d = dcode.codigos_duplicados.get(i);
             System.out.println("\n----- Método '"+d.nome_metodo1
                                 + "' comparando método '"+d.nome_metodo2
-                                + "' -----\n#Linhas duplicadas:\n"+d.corpo
-                                + "\n#Total de linhas: "+d.qtdLinhas);
+                                + "' -----\n#Linhas duplicadas:");
+            
+            for(String linhas : d.corpo){
+                System.out.println(" > "+linhas);
+            }
+            System.out.println("#Total de linhas: "+d.corpo.size());
+            
         }
         
         
@@ -166,10 +171,13 @@ public class Reconhecedor extends Regex implements Identificacoes {
                     resultado = resultado + "Encapsulamento: " + matcher.group(1) + "\n";
                     resultado = resultado + "Parâmetros: " + matcher.group(3) + "\n";
                     
-                    String corpoMetodo = identificarCorpoMetodo(scan, matcher.group(2)),
-                           string = "Método construtor longo: "
-                                    + new LongMethod().metodoLongo(qtdLinhas(corpoMetodo))
-                                    + " ("+qtdLinhas(corpoMetodo)+" linhas)"
+                    String corpoMetodo = identificarCorpoMetodo(scan, matcher.group(2));
+                            
+                    LongMethod lm = new LongMethod(corpoMetodo);
+                    
+                    String string = "Método construtor longo: "
+                                    + lm.metodoLongo()
+                                    + " ("+lm.qtdLinhas+" linhas)"
                                     + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(3));
                                         
                     badsmells.add(new BadSmells(matcher.group(2),string,"MetodosConstrutores"));
@@ -249,10 +257,13 @@ public class Reconhecedor extends Regex implements Identificacoes {
                     resultado = resultado + "Retorno: " + matcher.group(3) + "\n";
                     resultado = resultado + "Parâmetros: " + matcher.group(5) + "\n";
                     
-                    String corpoMetodo = identificarCorpoMetodo(scan, matcher.group(4)),
-                           string = "Método "+matcher.group(4)+" longo: "
-                                    + new LongMethod().metodoLongo(qtdLinhas(corpoMetodo))
-                                    + " ("+qtdLinhas(corpoMetodo)+" linhas)"
+                    String corpoMetodo = identificarCorpoMetodo(scan, matcher.group(4));
+                    
+                    LongMethod lm = new LongMethod(corpoMetodo);
+                    
+                    String string = "Método "+matcher.group(4)+" longo: "
+                                    + lm.metodoLongo()
+                                    + " ("+lm.qtdLinhas+" linhas)"
                                     + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5));
                                         
                     badsmells.add(new BadSmells(matcher.group(4),string,"MetodosNormais"));

@@ -5,7 +5,12 @@ public class LargeClasses {
     int linhas;
     
     public void getClasse(String codigo){
-        classe = codigo;
+        //Retira todas as linhas em branco
+        classe = codigo.replaceAll("\\s*[\\n]", "\n");
+        
+        //Mantém linhas em branco
+        //classe = codigo;
+        
         contadorClasse();
     }
     
