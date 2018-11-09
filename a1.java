@@ -64,6 +64,212 @@ public abstract class a1 {
 		return c;
 	}
 
+	public int metodoRepetido3(int a, int b){
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+		int c = a + b;
+		
+		for(int i=0; i<10; i++){
+			c += a;
+		}
+		
+		return c;
+	}
 	
 	
 }

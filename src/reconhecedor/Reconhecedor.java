@@ -106,14 +106,14 @@ public class Reconhecedor extends Regex implements Identificacoes {
                 resultado = resultado + "Encapsulamento: " + matcher.group(2) + "\n";
             } 
             
+            String cl = "Classe longa: "
+                    + lclasse.classeLonga()+ " ("
+                    +lclasse.getLinhas()+" linhas)";
             
-             badsmells.add(new BadSmells(matcher.group(5),"Classe longa: "
-                                        + lclasse.classeLonga()
-                                        + " ("+lclasse.getLinhas()+" linhas)","ClasseGeral"));
-             
-            System.out.println("Classe longa: "
-                                        + lclasse.classeLonga()
-                                        + " ("+lclasse.getLinhas()+" linhas)");
+            System.out.println(cl);
+            
+            if(lclasse.classeLonga())
+                badsmells.add(new BadSmells(matcher.group(5),cl,"Large Class"));
             
             resultadoFinal.add(resultado);
             
@@ -179,8 +179,12 @@ public class Reconhecedor extends Regex implements Identificacoes {
                                     + lm.metodoLongo()
                                     + " ("+lm.qtdLinhas+" linhas)"
                                     + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(3));
-                                        
-                    badsmells.add(new BadSmells(matcher.group(2),string,"MetodosConstrutores"));
+                                
+                    if(lm.metodoLongo())
+                        badsmells.add(new BadSmells(matcher.group(2),string,"Long Method"));
+                    
+                    if(new LongParameterList().muitosParametros(matcher.group(3)))
+                        badsmells.add(new BadSmells(matcher.group(2),string,"Long Parameter List"));
                     
                     System.out.println(string);
                                         
@@ -221,8 +225,9 @@ public class Reconhecedor extends Regex implements Identificacoes {
             
             String string = "Método absrato "+matcher.group(4)
                             + " muitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5));
-                        
-            badsmells.add(new BadSmells(matcher.group(4),string,"MetodosAbstratos"));
+                   
+            if(new LongParameterList().muitosParametros(matcher.group(5)))
+                badsmells.add(new BadSmells(matcher.group(4),string,"Long Parameter List"));
             
             System.out.println(string);
             
@@ -265,8 +270,12 @@ public class Reconhecedor extends Regex implements Identificacoes {
                                     + lm.metodoLongo()
                                     + " ("+lm.qtdLinhas+" linhas)"
                                     + "\n\tMuitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5));
-                                        
-                    badsmells.add(new BadSmells(matcher.group(4),string,"MetodosNormais"));
+                          
+                    if(lm.metodoLongo())
+                        badsmells.add(new BadSmells(matcher.group(4),string,"Long Method"));
+                    
+                    if(new LongParameterList().muitosParametros(matcher.group(5)))
+                        badsmells.add(new BadSmells(matcher.group(4),string,"Long Parameter List"));
                     
                     System.out.println(string);
                     

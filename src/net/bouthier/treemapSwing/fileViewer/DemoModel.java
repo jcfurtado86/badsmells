@@ -28,6 +28,7 @@ package net.bouthier.treemapSwing.fileViewer;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -96,14 +97,17 @@ public class DemoModel {
 
         TMFileModelDraw.cont = 0;
         
-        File file2 = new File(pathRoot+"\\1-ClasseGeral");
+        //File file2 = new File(pathRoot+"\\1-ClasseGeral");
+        File file2 = new File(pathRoot+"\\1-Large Class");
         file2.mkdir();
-        File file3 = new File(pathRoot+"\\2-MetodosConstrutores");
+        //File file3 = new File(pathRoot+"\\2-MetodosConstrutores");
+        File file3 = new File(pathRoot+"\\2-Long Method");
         file3.mkdir();
-        File file4 = new File(pathRoot+"\\3-MetodosAbstratos");
+        //File file4 = new File(pathRoot+"\\3-MetodosAbstratos");
+        File file4 = new File(pathRoot+"\\3-Long Parameter List");
         file4.mkdir();
-        File file5 = new File(pathRoot+"\\4-MetodosNormais");
-        file5.mkdir();
+//        File file5 = new File(pathRoot+"\\4-MetodosNormais");
+//        file5.mkdir();
         
         File dir = new File(pathRoot);
         if( dir.isDirectory() ){
@@ -116,18 +120,33 @@ public class DemoModel {
             }
         }
         
+//        for(int i=0;i<Reconhecedor.badsmells.size();i++){
+//            if(Reconhecedor.badsmells.get(i).getTipo().equals("ClasseGeral")){
+//                File file = new File(pathRoot+"\\1-ClasseGeral\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+//                file.createNewFile();
+//            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosConstrutores")){
+//                File file = new File(pathRoot+"\\2-MetodosConstrutores\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+//                file.createNewFile();
+//            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosAbstratos")){
+//                File file = new File(pathRoot+"\\3-MetodosAbstratos\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+//                file.createNewFile();
+//            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosNormais")){
+//                File file = new File(pathRoot+"\\4-MetodosNormais\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+//                file.createNewFile();
+//            }    
+//        }
+        
         for(int i=0;i<Reconhecedor.badsmells.size();i++){
-            if(Reconhecedor.badsmells.get(i).getTipo().equals("ClasseGeral")){
-                File file = new File(pathRoot+"\\1-ClasseGeral\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+            System.out.println("XXXXXXXXXXXXXXX NOME: "+Reconhecedor.badsmells.get(i).getNome());
+            System.out.println("XXXXXXXXXXXXXXX TIPO: "+Reconhecedor.badsmells.get(i).getTipo()+"\n");
+            if(Reconhecedor.badsmells.get(i).getTipo().equals("Large Class")){
+                File file = new File(pathRoot+"\\1-Large Class\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
                 file.createNewFile();
-            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosConstrutores")){
-                File file = new File(pathRoot+"\\2-MetodosConstrutores\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Method")){
+                File file = new File(pathRoot+"\\2-Long Method\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
                 file.createNewFile();
-            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosAbstratos")){
-                File file = new File(pathRoot+"\\3-MetodosAbstratos\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
-                file.createNewFile();
-            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosNormais")){
-                File file = new File(pathRoot+"\\4-MetodosNormais\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List")){
+                File file = new File(pathRoot+"\\3-Long Parameter List\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
                 file.createNewFile();
             }    
         }

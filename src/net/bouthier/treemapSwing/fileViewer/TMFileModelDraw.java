@@ -29,8 +29,11 @@ package net.bouthier.treemapSwing.fileViewer;
 import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,6 +64,7 @@ public class TMFileModelDraw
 	extends TMComputeDrawAdapter {
     
     public static int cont = 0;
+    public static Color cor = Color.darkGray;
 
     /* --- TMComputeSizeAdapter -- */
 
@@ -74,9 +78,9 @@ public class TMFileModelDraw
 
     public Paint getFillingOfObject(Object node) {
         if (node instanceof File) {
-            File file = (File) node;
-            long time = file.lastModified();
-            long diff = (new Date()).getTime() - time;
+//            File file = (File) node;
+//            long time = file.lastModified();
+//            long diff = (new Date()).getTime() - time;
 //            if (diff <= 3600000L) { // less than an hour
 //                return Color.white;
 //            } else if (diff <= 86400000L) { // less than a day
@@ -90,9 +94,18 @@ public class TMFileModelDraw
 //            } else { // more than a year
 //                return Color.blue;
 //            }
-            return Color.RED;
+            
+            String operacao = ((File) node).getName();
+            
+            if(operacao.equals("1-Large Class"))
+                cor = Color.BLUE;
+            if(operacao.equals("2-Long Method"))
+                cor = Color.RED;
+            if(operacao.equals("3-Long Parameter List"))
+                cor = Color.GREEN;
+            
         }
-        return Color.black;
+        return cor;
     }
 
     public String getTooltipOfObject(Object node) {
@@ -121,7 +134,7 @@ public class TMFileModelDraw
         if (node instanceof File) {
             File file = (File) node;
             if(java(file.getName())){
-                return Reconhecedor.badsmells.get(cont-1).getTipo()+ ": " +Reconhecedor.badsmells.get(cont-1).getNome();
+                return Reconhecedor.badsmells.get(cont-1).getNome()+ ": " +Reconhecedor.badsmells.get(cont-1).getTipo();
             }   
         }
         
