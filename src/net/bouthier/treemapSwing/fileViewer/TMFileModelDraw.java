@@ -29,11 +29,8 @@ package net.bouthier.treemapSwing.fileViewer;
 import java.awt.Color;
 import java.awt.Paint;
 import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,10 +61,20 @@ public class TMFileModelDraw
 	extends TMComputeDrawAdapter {
     
     public static int cont = 0;
-    public static Color cor = Color.darkGray;
+    public static Color cor = Color.darkGray, cor1, cor2, cor3;
 
     /* --- TMComputeSizeAdapter -- */
 
+    public TMFileModelDraw() {
+        
+        cor1 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
+        cor2 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
+        cor3 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
+        
+    }
+
+    
+    
     public boolean isCompatibleWithObject(Object node) {
         if (node instanceof File) {
             return true;
@@ -98,11 +105,11 @@ public class TMFileModelDraw
             String operacao = ((File) node).getName();
             
             if(operacao.equals("1-Large Class"))
-                cor = Color.BLUE;
+                cor = cor1;
             if(operacao.equals("2-Long Method"))
-                cor = Color.RED;
+                cor = cor2;
             if(operacao.equals("3-Long Parameter List"))
-                cor = Color.GREEN;
+                cor = cor3;
             
         }
         return cor;
@@ -134,7 +141,9 @@ public class TMFileModelDraw
         if (node instanceof File) {
             File file = (File) node;
             if(java(file.getName())){
-                return Reconhecedor.badsmells.get(cont-1).getNome()+ ": " +Reconhecedor.badsmells.get(cont-1).getTipo();
+                String retorno = (Reconhecedor.badsmells.get(cont-1).getTipo()+ ": " +Reconhecedor.badsmells.get(cont-1).getNome());
+                
+                return retorno;
             }   
         }
         

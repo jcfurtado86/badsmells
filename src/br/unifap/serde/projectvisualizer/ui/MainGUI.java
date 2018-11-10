@@ -2,6 +2,8 @@ package br.unifap.serde.projectvisualizer.ui;
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.logging.Level;
@@ -56,8 +58,26 @@ public class MainGUI extends JFrame {
                 OpenProjectGUI projectWindow = new OpenProjectGUI(jFChooser.getSelectedFile());
 
                 projectWindow.setLocation(pos * 50, pos++ * 50);
-
+                
                 jDesktopPane.add(projectWindow);
+                
+//                projectWindow.requestFocus();
+//                projectWindow.addKeyListener(new KeyListener() {
+//                    @Override
+//                    public void keyPressed(KeyEvent e) {
+////                        if((e.getKeyCode() == KeyEvent.VK_0)){
+////                            System.out.println("deu certo");
+////                        }
+//                        System.out.println("key pressed: "+e);
+//                    }
+//
+//                    @Override
+//                    public void keyTyped(KeyEvent ke) { System.out.println("key typed "+ ke);}
+//
+//                    @Override
+//                    public void keyReleased(KeyEvent ke) {System.out.println("keu released: "+ke);}
+//                });
+
 
                 try {
                     projectWindow.setSelected(true);

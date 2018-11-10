@@ -35,6 +35,7 @@ import javax.swing.JPanel;
 
 import net.bouthier.treemapAWT.TMView;
 import net.bouthier.treemapAWT.TreeMap;
+import reconhecedor.BadSmells;
 import reconhecedor.Reconhecedor;
 
 
@@ -97,17 +98,12 @@ public class DemoModel {
 
         TMFileModelDraw.cont = 0;
         
-        //File file2 = new File(pathRoot+"\\1-ClasseGeral");
         File file2 = new File(pathRoot+"\\1-Large Class");
         file2.mkdir();
-        //File file3 = new File(pathRoot+"\\2-MetodosConstrutores");
         File file3 = new File(pathRoot+"\\2-Long Method");
         file3.mkdir();
-        //File file4 = new File(pathRoot+"\\3-MetodosAbstratos");
         File file4 = new File(pathRoot+"\\3-Long Parameter List");
         file4.mkdir();
-//        File file5 = new File(pathRoot+"\\4-MetodosNormais");
-//        file5.mkdir();
         
         File dir = new File(pathRoot);
         if( dir.isDirectory() ){
@@ -120,25 +116,42 @@ public class DemoModel {
             }
         }
         
-//        for(int i=0;i<Reconhecedor.badsmells.size();i++){
-//            if(Reconhecedor.badsmells.get(i).getTipo().equals("ClasseGeral")){
-//                File file = new File(pathRoot+"\\1-ClasseGeral\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
-//                file.createNewFile();
-//            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosConstrutores")){
-//                File file = new File(pathRoot+"\\2-MetodosConstrutores\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
-//                file.createNewFile();
-//            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosAbstratos")){
-//                File file = new File(pathRoot+"\\3-MetodosAbstratos\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
-//                file.createNewFile();
-//            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("MetodosNormais")){
-//                File file = new File(pathRoot+"\\4-MetodosNormais\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
-//                file.createNewFile();
-//            }    
-//        }
         
+        //Ordenar ArrayList com os badsmells
+        ArrayList<BadSmells> aux1 = new ArrayList<>(),
+                             aux2 = new ArrayList<>(),
+                             aux3 = new ArrayList<>();
+        
+        //Inserir os badsmells nos respectivos arraylists
+        for(int i=0; i<Reconhecedor.badsmells.size(); i++){
+            
+            if(Reconhecedor.badsmells.get(i).getTipo().equals("Large Class"))
+                aux1.add(Reconhecedor.badsmells.get(i));
+            
+            if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Method"))
+                aux2.add(Reconhecedor.badsmells.get(i));
+                
+            if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List"))
+                aux3.add(Reconhecedor.badsmells.get(i));
+            
+        }
+        
+        //Reiniciar badsmells e dps inserir na sequência
+        Reconhecedor.badsmells = new ArrayList<>();
+        
+        for(int i=0; i<aux1.size(); i++)
+            Reconhecedor.badsmells.add(aux1.get(i));
+        
+        for(int i=0; i<aux2.size(); i++)
+            Reconhecedor.badsmells.add(aux2.get(i));
+        
+        for(int i=0; i<aux3.size(); i++)
+            Reconhecedor.badsmells.add(aux3.get(i));
+            
+        
+
         for(int i=0;i<Reconhecedor.badsmells.size();i++){
-            System.out.println("XXXXXXXXXXXXXXX NOME: "+Reconhecedor.badsmells.get(i).getNome());
-            System.out.println("XXXXXXXXXXXXXXX TIPO: "+Reconhecedor.badsmells.get(i).getTipo()+"\n");
+            
             if(Reconhecedor.badsmells.get(i).getTipo().equals("Large Class")){
                 File file = new File(pathRoot+"\\1-Large Class\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
                 file.createNewFile();
