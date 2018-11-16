@@ -37,21 +37,22 @@ public class Reconhecedor extends Regex implements Identificacoes {
         
         identificarClasse(codigo); 
         
-        
+        //Duplicated Code
         dcode.compararMetodos();
         
-        //Mostra linhas duplicadas
+        //Armazena no arraylist de badsmells
         for(int i=0; i<dcode.codigos_duplicados.size(); i++){
             Metodos_DuplicatedCode d = dcode.codigos_duplicados.get(i);
-            System.out.println("\n----- Método '"+d.nome_metodo1
-                                + "' comparando método '"+d.nome_metodo2
-                                + "' -----\n#Linhas duplicadas:");
+//            System.out.println("\n----- Método '"+d.nome_metodo1
+//                                + "' comparando método '"+d.nome_metodo2
+//                                + "' -----\n#Linhas duplicadas:");
             
+            String desc = d.nome_metodo1+" -> "+d.nome_metodo2+"\n-#Linhas duplicadas:\n";
             for(String linhas : d.corpo){
-                System.out.println(" > "+linhas);
+                desc += linhas+"\n";
             }
-            System.out.println("#Total de linhas: "+d.corpo.size());
             
+            badsmells.add(new BadSmells(d.nome_metodo1,desc,"Duplicated Code"));
         }
         
         

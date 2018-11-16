@@ -36,7 +36,7 @@ public class DuplicatedCode {
     
     public void compararLinhas(Metodos_DuplicatedCode m1, Metodos_DuplicatedCode m2){
         ArrayList<String> linhas1 = m1.corpo, linhas2 = m2.corpo;
-        int linha_comparada = -1, contador = 0;
+        int linha_comparada = -1, contador = 0, ultima_linha = 0;
         blocoDuplicado = new ArrayList<>();
         
         try{
@@ -48,10 +48,14 @@ public class DuplicatedCode {
                 //Linhas 2º método
                 for(int j=linha_comparada+1; j<linhas2.size(); j++){
                     
-                    if(linhas1.get(i).equals(linhas2.get(j))){
+                    if(linhas1.get(i).equals(linhas2.get(j)) && ultima_linha == 0){
                         blocoDuplicado.add(linhas1.get(i));
                         contador++;
                         linha_comparada = j;
+                        
+                        //Verifica se é a última linha do 2º método
+                        if(j == linhas2.size()-1) ultima_linha = 1;
+                        
                         break;
                     }else{
                         if(contador != 0)
@@ -60,6 +64,7 @@ public class DuplicatedCode {
                         blocoDuplicado = new ArrayList<>();
                         contador = 0;
                         linha_comparada = -1;
+                        ultima_linha = 0;
                    }   
                 }   
             }

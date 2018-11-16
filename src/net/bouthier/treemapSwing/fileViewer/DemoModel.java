@@ -104,6 +104,8 @@ public class DemoModel {
         file3.mkdir();
         File file4 = new File(pathRoot+"\\3-Long Parameter List");
         file4.mkdir();
+        File file5 = new File(pathRoot+"\\4-Duplicated Code");
+        file5.mkdir();
         
         File dir = new File(pathRoot);
         if( dir.isDirectory() ){
@@ -120,7 +122,8 @@ public class DemoModel {
         //Ordenar ArrayList com os badsmells
         ArrayList<BadSmells> aux1 = new ArrayList<>(),
                              aux2 = new ArrayList<>(),
-                             aux3 = new ArrayList<>();
+                             aux3 = new ArrayList<>(),
+                             aux4 = new ArrayList<>();
         
         //Inserir os badsmells nos respectivos arraylists
         for(int i=0; i<Reconhecedor.badsmells.size(); i++){
@@ -133,6 +136,9 @@ public class DemoModel {
                 
             if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List"))
                 aux3.add(Reconhecedor.badsmells.get(i));
+            
+            if(Reconhecedor.badsmells.get(i).getTipo().equals("Duplicated Code"))
+                aux4.add(Reconhecedor.badsmells.get(i));
             
         }
         
@@ -147,6 +153,9 @@ public class DemoModel {
         
         for(int i=0; i<aux3.size(); i++)
             Reconhecedor.badsmells.add(aux3.get(i));
+        
+        for(int i=0; i<aux4.size(); i++)
+            Reconhecedor.badsmells.add(aux4.get(i));
             
         
 
@@ -160,6 +169,9 @@ public class DemoModel {
                 file.createNewFile();
             }else if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List")){
                 File file = new File(pathRoot+"\\3-Long Parameter List\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
+                file.createNewFile();
+            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("Duplicated Code")){
+                File file = new File(pathRoot+"\\4-Duplicated Code\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
                 file.createNewFile();
             }    
         }

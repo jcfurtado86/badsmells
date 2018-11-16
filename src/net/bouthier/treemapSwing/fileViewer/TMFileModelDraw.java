@@ -61,7 +61,7 @@ public class TMFileModelDraw
 	extends TMComputeDrawAdapter {
     
     public static int cont = 0;
-    public static Color cor = Color.darkGray, cor1, cor2, cor3;
+    public static Color cor = Color.darkGray, cor1, cor2, cor3, cor4;
 
     /* --- TMComputeSizeAdapter -- */
 
@@ -70,6 +70,7 @@ public class TMFileModelDraw
         cor1 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
         cor2 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
         cor3 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
+        cor4 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
         
     }
 
@@ -110,6 +111,8 @@ public class TMFileModelDraw
                 cor = cor2;
             if(operacao.equals("3-Long Parameter List"))
                 cor = cor3;
+            if(operacao.equals("4-Duplicated Code"))
+                cor = cor4;
             
         }
         return cor;
