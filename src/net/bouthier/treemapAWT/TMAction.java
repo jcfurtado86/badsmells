@@ -23,12 +23,10 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-
 package net.bouthier.treemapAWT;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 
 /**
  * The TMAction class manages the action on the treemap.
@@ -36,18 +34,18 @@ import java.awt.event.MouseEvent;
  * @author Christophe Bouthier [bouthier@loria.fr]
  * @version 2.5.2
  */
-public class TMAction 
-	extends MouseAdapter {
+public class TMAction
+        extends MouseAdapter {
 
     private TMView view = null; // the view managed
+    private static boolean ultimo = false;
 
 
     /* --- Constructor --- */
-
     /**
      * Constructor.
      *
-     * @param view    the view managed
+     * @param view the view managed
      */
     public TMAction(TMView view) {
         this.view = view;
@@ -55,18 +53,44 @@ public class TMAction
 
 
     /* --- MouseAdapter --- */
-
     /**
-     * Called when a user clicked on the treemap.
-     * Used to zoom or unzoom.
+     * Called when a user clicked on the treemap. Used to zoom or unzoom.
      *
-     * @param e    the MouseEvent generated when clicking
+     * @param e the MouseEvent generated when clicking
      */
     public void mouseClicked(MouseEvent e) {
         if (e.isShiftDown()) {
             view.unzoom();
         } else {
-            view.zoom(e.getX(), e.getY());
+            boolean finalNode = view.zoom(e.getX(), e.getY());
+
+            boolean ultimoNo = false;
+            if (TMAction.ultimo) {
+                while (true) {
+                    if (!ultimoNo) {
+                        try {
+                            view.unzoom();
+                        } catch (Error e2) {
+                            System.out.println(e2.getMessage());
+                            TMAction.ultimo = false;
+                            break;
+                        };
+                    } else {
+                        TMAction.ultimo = false;
+                        break;
+                    }
+                }
+            } else {
+                while (true) {
+                    if (!finalNode) {
+                        //JOptionPane.showMessageDialog(null,view.getToolTipText(e));
+                        finalNode = view.zoom(e.getX(), e.getY());
+                    } else {
+                        TMAction.ultimo = true;
+                        break;
+                    }
+                }
+            }
         }
     }
 

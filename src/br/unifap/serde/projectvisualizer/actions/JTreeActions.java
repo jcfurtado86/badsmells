@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.unifap.serde.projectvisualizer.actions;
 
 import br.unifap.serde.projectvisualizer.util.ButtonTabComponent;
@@ -34,45 +33,47 @@ import reconhecedor.Reconhecedor;
  * @author furtado
  */
 public class JTreeActions implements KeyListener {
-    
-    private JTree jTree; 
+
+    private JTree jTree;
     private JTabbedPane jTabbedPane;
-            
-    public JTreeActions(JTree jTree, JTabbedPane jTabbedPane){
+
+    public JTreeActions(JTree jTree, JTabbedPane jTabbedPane) {
         this.jTree = jTree;
         this.jTabbedPane = jTabbedPane;
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             clickedKey(this.jTree, this.jTabbedPane);
         }
     }
-    
-    @Override
-    public void keyTyped(KeyEvent e) {}
 
     @Override
-    public void keyReleased(KeyEvent e) {}
-        
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
     public static void jTreeMouseClicked(MouseEvent evt, JTree jTree, JTabbedPane jTabbedPane) {
         clicked(evt, jTree, jTabbedPane);
     }
-        
-    public static void clicked(MouseEvent evt, JTree jTree, JTabbedPane jTabbedPane){
+
+    public static void clicked(MouseEvent evt, JTree jTree, JTabbedPane jTabbedPane) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree.getLastSelectedPathComponent();
         JTree jTTemp = (JTree) evt.getComponent();
         if (evt.getClickCount() == 2 && jTTemp.getClosestPathForLocation(evt.getX(), evt.getY()).getLastPathComponent() == node) {
-            
+
             if (node != null) {
                 FileNode info = (FileNode) node.getUserObject();
                 if (info.getFile().isFile()) {
                     int opened = jTabbedPane.indexOfTab(node.toString());
                     if (opened == -1) {
-                                               
+
                         JPanel newTab = TabbedPaneGUI.createTab();
-                         
+
 //                        jTabbedPane.add(node.toString(), newTab);
 //                        jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
 //                        jTabbedPane.setSelectedComponent(newTab);
@@ -81,25 +82,25 @@ public class JTreeActions implements KeyListener {
                             JScrollPane tempJSCP = (JScrollPane) newTab.getComponent(0);
                             JTextArea tempJTA = (JTextArea) tempJSCP.getViewport().getComponent(0);
                             tempJTA.read(input, info.getFile().getName());
-                                                        
+
                             Reconhecedor find = new Reconhecedor();
-                            ArrayList<String> resultado = find.executar(tempJTA.getText());                           
+                            ArrayList<String> resultado = find.executar(tempJTA.getText());
                             String resultadoSaida = "";
-                            for(int i=0;i<resultado.size();i++){
+                            for (int i = 0; i < resultado.size(); i++) {
                                 resultadoSaida = resultadoSaida + resultado.get(i);
                             }
-                            
+
                             tempJTA.setText(resultadoSaida);
-                            
-                            try{
+
+                            try {
                                 newTab = DemoModel.main();
                                 jTabbedPane.add(node.toString(), newTab);
                                 jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
                                 jTabbedPane.setSelectedComponent(newTab);
-                            }catch(Exception e){
+                            } catch (Exception e) {
                                 System.out.println(e.getMessage());
                             }
-                            
+
                         } catch (IOException ex) {
                             Logger.getLogger(OpenProjectGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -108,14 +109,13 @@ public class JTreeActions implements KeyListener {
                     }
                 }
             }
-            
-            
+
         }
     }
-    
-    public static void clickedKey(JTree jTree, JTabbedPane jTabbedPane){
+
+    public static void clickedKey(JTree jTree, JTabbedPane jTabbedPane) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) jTree.getLastSelectedPathComponent();
-        
+
         if (node != null) {
             FileNode info = (FileNode) node.getUserObject();
             if (info.getFile().isFile()) {
@@ -132,23 +132,28 @@ public class JTreeActions implements KeyListener {
                         tempJTA.read(input, info.getFile().getName());
 
                         Reconhecedor find = new Reconhecedor();
-                        ArrayList<String> resultado = find.executar(tempJTA.getText());                           
+                        ArrayList<String> resultado = find.executar(tempJTA.getText());
                         String resultadoSaida = "";
-                        for(int i=0;i<resultado.size();i++){
+                        for (int i = 0; i < resultado.size(); i++) {
                             resultadoSaida = resultadoSaida + resultado.get(i);
                         }
 
                         tempJTA.setText(resultadoSaida);
-                        
-                        try{
+
+                        try {
                             newTab = DemoModel.main();
-                            jTabbedPane.add(node.toString(), newTab);
+
+                            JScrollPane scrollPane = new JScrollPane(newTab);
+//                            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//                            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+                            jTabbedPane.add(node.toString(), scrollPane);
                             jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
-                            jTabbedPane.setSelectedComponent(newTab);
-                        }catch(Exception e){
+                            jTabbedPane.setSelectedComponent(scrollPane);
+                        } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
-                        
+
                     } catch (IOException ex) {
                         Logger.getLogger(OpenProjectGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -156,8 +161,8 @@ public class JTreeActions implements KeyListener {
                     jTabbedPane.setSelectedIndex(opened);
                 }
             }
-            
+
         }
     }
-    
+
 }

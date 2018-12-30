@@ -40,6 +40,7 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
 
@@ -332,9 +333,11 @@ public class TMView
      * @param x    the x coord
      * @param y    the y coord
      */
-    public void zoom(int x,
+    public boolean zoom(int x,
     				 int y) {
-        root.zoom(x, y);
+        boolean finalNode = root.zoom(x, y);
+        
+        return finalNode;
     }
 
     /**

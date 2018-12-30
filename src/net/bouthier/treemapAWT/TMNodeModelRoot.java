@@ -105,11 +105,19 @@ class TMNodeModelRoot {
      * @param x    the x coord
      * @param y    the y coord
      */
-    public void zoom(int x, 
+    public boolean zoom(int x, 
     				 int y) {
+        
+        boolean retorno  = false;
+        
         TMNodeModel endNode = nodeContaining(x, y);
         if (endNode != null) {
             TMNodeModel ancestor = endNode.getParent();
+            
+            if((ancestor != null) && (ancestor == root)){
+                retorno = true;
+            }
+            
             while ((ancestor != null) && (ancestor != root)) {
                 endNode = ancestor;
                 ancestor = endNode.getParent();
@@ -117,17 +125,22 @@ class TMNodeModelRoot {
             root = endNode;
             view.repaint();
         }
+        
+        return retorno;
     }
 
     /**
      * Unzooms.
      * Does nothing if already at the root.
      */
-    public void unzoom() {
+    public boolean unzoom() {
         TMNodeModel ancestor = root.getParent();
         if (ancestor != null) {
             root = ancestor;
             view.repaint();
+            return false;
+        }else{
+            return true;
         }
     }
 

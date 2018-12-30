@@ -23,7 +23,6 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-
 package net.bouthier.treemapSwing.fileViewer;
 
 import java.io.File;
@@ -38,43 +37,41 @@ import net.bouthier.treemapAWT.TreeMap;
 import reconhecedor.BadSmells;
 import reconhecedor.Reconhecedor;
 
-
 /**
- * The DemoModel class implements a demo for Treemap.
- * It's the same than the Demo class, but it use TMModelNode
- * instead of TMNode to describe the user's tree.
+ * The DemoModel class implements a demo for Treemap. It's the same than the
+ * Demo class, but it use TMModelNode instead of TMNode to describe the user's
+ * tree.
  *
  * @author Christophe Bouthier [bouthier@loria.fr]
  * @version 2.5
  */
 public class DemoModel {
 
-    private static int 			   count   = 1;    // to have unique view name
+    private static int count = 1;    // to have unique view name
 
-    private static TMFileModelNode model   = null; // the model of the demo tree
-    private static TreeMap 		   treeMap = null; // the treemap builded
-    private static String 		   name    = null; // name for this demo
-    
-    private static JFrame viewFrame = null,janela = null;
+    private static TMFileModelNode model = null; // the model of the demo tree
+    private static TreeMap treeMap = null; // the treemap builded
+    private static String name = null; // name for this demo
+
+    private static JFrame viewFrame = null, janela = null;
 
     /**
      * Display a demo TreeMap.
      */
     public static JPanel main() throws IOException {
-        File file1 = new File(System.getProperty("user.dir")+"\\TESTE");
+        File file1 = new File(System.getProperty("user.dir") + "\\TESTE");
         file1.mkdir();
-        String pathRoot = System.getProperty("user.dir")+"\\TESTE";
+        String pathRoot = System.getProperty("user.dir") + "\\TESTE";
 
 //        if (args.length > 0) {
 //            pathRoot = args[0];
 //        } else {
 //            pathRoot = File.separator;
 //        }
-
         File rootFile = new File(pathRoot);
         try {
             System.out.println(
-                "Starting the treemap from " + rootFile.getCanonicalPath());
+                    "Starting the treemap from " + rootFile.getCanonicalPath());
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -82,7 +79,7 @@ public class DemoModel {
 
         if (!rootFile.exists()) {
             System.out.println(
-                "Can't start treemap : "
+                    "Can't start treemap : "
                     + rootFile.getName()
                     + " does not exist.");
             return null;
@@ -91,91 +88,95 @@ public class DemoModel {
         model = new TMFileModelNode(rootFile);
         if (model == null) {
             System.err.println(
-                "Error : can't start treemap from "
+                    "Error : can't start treemap from "
                     + rootFile.getAbsolutePath());
             return null;
         }
 
         TMFileModelDraw.cont = 0;
-        
-        File file2 = new File(pathRoot+"\\1-Large Class");
+
+        File file2 = new File(pathRoot + "\\1-Large Class");
         file2.mkdir();
-        File file3 = new File(pathRoot+"\\2-Long Method");
+        File file3 = new File(pathRoot + "\\2-Long Method");
         file3.mkdir();
-        File file4 = new File(pathRoot+"\\3-Long Parameter List");
+        File file4 = new File(pathRoot + "\\3-Long Parameter List");
         file4.mkdir();
-        File file5 = new File(pathRoot+"\\4-Duplicated Code");
+        File file5 = new File(pathRoot + "\\4-Duplicated Code");
         file5.mkdir();
-        
+
         File dir = new File(pathRoot);
-        if( dir.isDirectory() ){
+        if (dir.isDirectory()) {
             File[] arqs = dir.listFiles();
-            for(File nome : arqs){
+            for (File nome : arqs) {
                 File[] files = nome.listFiles();
-                for(File java : files){
+                for (File java : files) {
                     java.delete();
                 }
             }
         }
-        
-        
+
         //Ordenar ArrayList com os badsmells
         ArrayList<BadSmells> aux1 = new ArrayList<>(),
-                             aux2 = new ArrayList<>(),
-                             aux3 = new ArrayList<>(),
-                             aux4 = new ArrayList<>();
-        
+                aux2 = new ArrayList<>(),
+                aux3 = new ArrayList<>(),
+                aux4 = new ArrayList<>();
+
         //Inserir os badsmells nos respectivos arraylists
-        for(int i=0; i<Reconhecedor.badsmells.size(); i++){
-            
-            if(Reconhecedor.badsmells.get(i).getTipo().equals("Large Class"))
+        for (int i = 0; i < Reconhecedor.badsmells.size(); i++) {
+
+            if (Reconhecedor.badsmells.get(i).getTipo().equals("Large Class")) {
                 aux1.add(Reconhecedor.badsmells.get(i));
-            
-            if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Method"))
+            }
+
+            if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Method")) {
                 aux2.add(Reconhecedor.badsmells.get(i));
-                
-            if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List"))
+            }
+
+            if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List")) {
                 aux3.add(Reconhecedor.badsmells.get(i));
-            
-            if(Reconhecedor.badsmells.get(i).getTipo().equals("Duplicated Code"))
+            }
+
+            if (Reconhecedor.badsmells.get(i).getTipo().equals("Duplicated Code")) {
                 aux4.add(Reconhecedor.badsmells.get(i));
-            
+            }
+
         }
-        
+
         //Reiniciar badsmells e dps inserir na sequência
         Reconhecedor.badsmells = new ArrayList<>();
-        
-        for(int i=0; i<aux1.size(); i++)
-            Reconhecedor.badsmells.add(aux1.get(i));
-        
-        for(int i=0; i<aux2.size(); i++)
-            Reconhecedor.badsmells.add(aux2.get(i));
-        
-        for(int i=0; i<aux3.size(); i++)
-            Reconhecedor.badsmells.add(aux3.get(i));
-        
-        for(int i=0; i<aux4.size(); i++)
-            Reconhecedor.badsmells.add(aux4.get(i));
-            
-        
 
-        for(int i=0;i<Reconhecedor.badsmells.size();i++){
-            
-            if(Reconhecedor.badsmells.get(i).getTipo().equals("Large Class")){
-                File file = new File(pathRoot+"\\1-Large Class\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
-                file.createNewFile();
-            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Method")){
-                File file = new File(pathRoot+"\\2-Long Method\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
-                file.createNewFile();
-            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List")){
-                File file = new File(pathRoot+"\\3-Long Parameter List\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
-                file.createNewFile();
-            }else if(Reconhecedor.badsmells.get(i).getTipo().equals("Duplicated Code")){
-                File file = new File(pathRoot+"\\4-Duplicated Code\\"+Reconhecedor.badsmells.get(i).getNome()+i+".java");
-                file.createNewFile();
-            }    
+        for (int i = 0; i < aux1.size(); i++) {
+            Reconhecedor.badsmells.add(aux1.get(i));
         }
-        
+
+        for (int i = 0; i < aux2.size(); i++) {
+            Reconhecedor.badsmells.add(aux2.get(i));
+        }
+
+        for (int i = 0; i < aux3.size(); i++) {
+            Reconhecedor.badsmells.add(aux3.get(i));
+        }
+
+        for (int i = 0; i < aux4.size(); i++) {
+            Reconhecedor.badsmells.add(aux4.get(i));
+        }
+
+        for (int i = 0; i < Reconhecedor.badsmells.size(); i++) {
+
+            if (Reconhecedor.badsmells.get(i).getTipo().equals("Large Class")) {
+                File file = new File(pathRoot + "\\1-Large Class\\" + Reconhecedor.badsmells.get(i).getNome() + i + ".java");
+                file.createNewFile();
+            } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Method")) {
+                File file = new File(pathRoot + "\\2-Long Method\\" + Reconhecedor.badsmells.get(i).getNome() + i + ".java");
+                file.createNewFile();
+            } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List")) {
+                File file = new File(pathRoot + "\\3-Long Parameter List\\" + Reconhecedor.badsmells.get(i).getNome() + i + ".java");
+                file.createNewFile();
+            } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Duplicated Code")) {
+                File file = new File(pathRoot + "\\4-Duplicated Code\\" + Reconhecedor.badsmells.get(i).getNome() + i + ".java");
+                file.createNewFile();
+            }
+        }
 
         treeMap = new TreeMap(model);
         name = rootFile.getAbsolutePath();
@@ -183,7 +184,7 @@ public class DemoModel {
         TMFileModelSize fSize = new TMFileModelSize();
         TMFileModelDraw fDraw = new TMFileModelDraw();
         TMView view = treeMap.getView(fSize, fDraw);
-        
+
         JPanel panel = (JPanel) view;
         //janela = new JFrame(Reconhecedor.badsmells.get(0).getNome());
         //janela.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -192,14 +193,14 @@ public class DemoModel {
         //janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //janela.setLocationRelativeTo(null);
         //janela.setVisible(true);
-        
+
         return panel;
     }
-    
-    public static void fechar(){
-        try{
+
+    public static void fechar() {
+        try {
             janela.dispose();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

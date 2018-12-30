@@ -81,7 +81,7 @@ public abstract class TMAlgorithm
 
     private TMCushionPaint painter;
 
-    private final Font  titleFont   = new Font("Dialog", Font.PLAIN, 10);
+    private final Font  titleFont   = new Font("Dialog", Font.PLAIN, 20);
     private final Color borderColor = Color.black;
 
     protected double  h 	  = 0.50;
@@ -380,7 +380,17 @@ public abstract class TMAlgorithm
         if (nodesTitles) {
             g.setPaint(node.getColorTitle());
             g.setFont(titleFont);
-            g.drawString(node.getTitle(), area.x + 1, area.y + 10);
+            
+            
+            
+            //É aqui : 1 ; 10
+            g.drawString(node.getTitle(), area.x + 10, area.y + 20);
+            
+            int altura = area.y + 20;
+            for (String line : node.getTooltip().split("\n")){
+                g.drawString (line, area.x + 10, altura += g.getFontMetrics().getHeight());
+            }
+            
         }
     }
 

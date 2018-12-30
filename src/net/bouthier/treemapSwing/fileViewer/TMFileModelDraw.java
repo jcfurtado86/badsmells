@@ -125,7 +125,7 @@ public class TMFileModelDraw
             
             if(java(file.getName())){
                 cont++;
-                name = Reconhecedor.badsmells.get(cont-1).getDescricao().replaceAll("\\n", "<br>") + "<br>";
+                name = Reconhecedor.badsmells.get(cont-1).getDescricao();
             }
 
             long modTime = file.lastModified();
@@ -134,12 +134,12 @@ public class TMFileModelDraw
             String date = df.format(new Date(modTime));
             String time = tf.format(new Date(modTime));
 
-            String tooltip = "<html>" + name + "<p>" + date + " : " + time;
+            String tooltip = name;
             return tooltip;
         }
         return "";
     }
-
+    
     public String getTitleOfObject(Object node) {
         if (node instanceof File) {
             File file = (File) node;
