@@ -7,6 +7,8 @@ package br.unifap.serde.projectvisualizer.util;
 
 import br.unifap.serde.projectvisualizer.entities.FileNode;
 import java.awt.Component;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -30,6 +32,9 @@ public class MyTreeCellRenderer extends DefaultTreeCellRenderer {
                 FileNode file = (FileNode) node.getUserObject();
                 if (file.getFile().isDirectory() && node.isLeaf()) {
                     setIcon(UIManager.getIcon("Tree.closedIcon"));
+                }else if(!file.getFile().isDirectory()){
+                    URL imageUrl = getClass().getResource("cafeVermelho.png");
+                    setIcon(new ImageIcon(imageUrl));
                 }
             }
         }

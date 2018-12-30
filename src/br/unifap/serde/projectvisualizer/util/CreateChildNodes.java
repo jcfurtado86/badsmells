@@ -57,7 +57,7 @@ public class CreateChildNodes implements Runnable {
     }
     
     private boolean java(String file){
-        final String regex = "(.*?).java|(.*?).txt";
+        final String regex = "(.*?).java";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(file);
 
