@@ -344,8 +344,8 @@ public class TMView
      * Unzooms. 
      * Does nothing if already at the root.
      */
-    public void unzoom() {
-        root.unzoom();
+    public boolean unzoom() {
+        return root.unzoom();
     }
 
 

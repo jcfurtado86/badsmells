@@ -69,7 +69,7 @@ public class TMAction
                 while (true) {
                     if (!ultimoNo) {
                         try {
-                            view.unzoom();
+                            ultimoNo = view.unzoom();
                         } catch (Error e2) {
                             System.out.println(e2.getMessage());
                             TMAction.ultimo = false;
