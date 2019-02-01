@@ -35,6 +35,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.bouthier.treemapAWT.TMComputeDrawAdapter;
+import reconhecedor.BadSmells;
 import reconhecedor.Reconhecedor;
 
 
@@ -67,10 +68,10 @@ public class TMFileModelDraw
 
     public TMFileModelDraw() {
         
-        cor1 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
-        cor2 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
-        cor3 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
-        cor4 = new Color((int)(Math.random()*256), (int)(Math.random()*256), (int)(Math.random()*256));
+        cor1 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        cor2 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        cor3 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        cor4 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
         
     }
 
@@ -86,23 +87,6 @@ public class TMFileModelDraw
 
     public Paint getFillingOfObject(Object node) {
         if (node instanceof File) {
-//            File file = (File) node;
-//            long time = file.lastModified();
-//            long diff = (new Date()).getTime() - time;
-//            if (diff <= 3600000L) { // less than an hour
-//                return Color.white;
-//            } else if (diff <= 86400000L) { // less than a day
-//                return Color.green;
-//            } else if (diff <= 604800000L) { // less than a week
-//                return Color.yellow;
-//            } else if (diff <= 2592000000L) { // less than a month
-//                return Color.orange;
-//            } else if (diff <= 31536000000L) { // less than a year
-//                return Color.red;
-//            } else { // more than a year
-//                return Color.blue;
-//            }
-            
             String operacao = ((File) node).getName();
             
             if(operacao.equals("1-Large Class"))
@@ -113,7 +97,6 @@ public class TMFileModelDraw
                 cor = cor3;
             if(operacao.equals("4-Duplicated Code"))
                 cor = cor4;
-            
         }
         return cor;
     }
@@ -126,6 +109,9 @@ public class TMFileModelDraw
             if(java(file.getName())){
                 cont++;
                 name = Reconhecedor.badsmells.get(cont-1).getDescricao();
+                
+//                BadSmells badsmell = Reconhecedor.badsmells.get(cont-1);
+//                name = "Badsmell: "+badsmell.getTipo()+" ("+badsmell.getNome()+")";
             }
 
             long modTime = file.lastModified();

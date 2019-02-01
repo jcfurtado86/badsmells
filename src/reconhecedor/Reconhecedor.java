@@ -47,12 +47,9 @@ public class Reconhecedor extends Regex implements Identificacoes {
 //                                + "' comparando método '"+d.nome_metodo2
 //                                + "' -----\n#Linhas duplicadas:");
             
-            String desc = d.nome_metodo1+" -> "+d.nome_metodo2+"\n-#Linhas duplicadas:\n";
-            for(String linhas : d.corpo){
-                desc += linhas+"\n";
-            }
             
-            badsmells.add(new BadSmells(d.nome_metodo1,desc,"Duplicated Code"));
+            
+            badsmells.add(new BadSmells(d.nome_metodo1,d.comentario(),"Duplicated Code"));
         }
         
         
@@ -107,13 +104,8 @@ public class Reconhecedor extends Regex implements Identificacoes {
                 resultado = resultado + "Encapsulamento: " + matcher.group(2) + "\n";
             } 
             
-            String cl = "Classe longa: "
-                    + lclasse.classeLonga()+ " ("
-                    +lclasse.getLinhas()+" linhas)";
-            
-            
             if(lclasse.classeLonga())
-                badsmells.add(new BadSmells(matcher.group(5),cl,"Large Class"));
+                badsmells.add(new BadSmells(matcher.group(5),lclasse.mensagem(matcher.group(5)),"Large Class"));
             
             resultadoFinal.add(resultado);
             
@@ -175,17 +167,16 @@ public class Reconhecedor extends Regex implements Identificacoes {
                             
                     LongMethod lm = new LongMethod(corpoMetodo);
                     
-                    String metodo_longo = "Método construtor longo: "
-                                    + lm.metodoLongo()
-                                    + " ("+lm.qtdLinhas+" linhas)",
-                           mts_parametros = "Muitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(3));
+                    LongParameterList lp = new LongParameterList(matcher.group(2), matcher.group(3));
                                 
-                    if(lm.metodoLongo())
-                        badsmells.add(new BadSmells(matcher.group(2),metodo_longo,"Long Method"));
+                    if(lm.metodoLongo()){
+                        String mensagem = lm.mensagem(matcher.group(2));
+                        badsmells.add(new BadSmells(matcher.group(2),mensagem,"Long Method"));   
+                    }
                     
-                    if(new LongParameterList().muitosParametros(matcher.group(3)))
-                        badsmells.add(new BadSmells(matcher.group(2),mts_parametros,"Long Parameter List"));
-                    
+                    if(lp.muitosParametros())
+                        badsmells.add(new BadSmells(lp.nomeMetodo,lp.mensagem(),"Long Parameter List"));
+
                                         
                     resultado = resultado + "Qtd. linhas: " + qtdLinhas(corpoMetodo) + "\n";
 
@@ -221,12 +212,11 @@ public class Reconhecedor extends Regex implements Identificacoes {
             }
             resultado = resultado + "Retorno: " + matcher.group(3) + "\n";
             resultado = resultado + "Parâmetros: " + matcher.group(5) + "\n";
+
+            LongParameterList lp = new LongParameterList(matcher.group(4), matcher.group(5));
             
-            String string = "Método abstrato "+matcher.group(4)
-                            + " muitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5));
-                   
-            if(new LongParameterList().muitosParametros(matcher.group(5)))
-                badsmells.add(new BadSmells(matcher.group(4),string,"Long Parameter List"));
+            if(lp.muitosParametros())
+                badsmells.add(new BadSmells(lp.nomeMetodo,lp.mensagem(),"Long Parameter List"));
             
             corposMetodo.add(matcher.group(0));
             
@@ -263,16 +253,15 @@ public class Reconhecedor extends Regex implements Identificacoes {
                     
                     LongMethod lm = new LongMethod(corpoMetodo);
                     
-                    String metodo_longo = "Método "+matcher.group(4)+" longo: "
-                                    + lm.metodoLongo()
-                                    + " ("+lm.qtdLinhas+" linhas)",
-                           lplist = "Muitos parâmetros: "+ new LongParameterList().muitosParametros(matcher.group(5));
+                    LongParameterList lp = new LongParameterList(matcher.group(4), matcher.group(5));
                           
-                    if(lm.metodoLongo())
-                        badsmells.add(new BadSmells(matcher.group(4),metodo_longo,"Long Method"));
+                    if(lm.metodoLongo()){
+                        String mensagem = lm.mensagem(matcher.group(4));
+                        badsmells.add(new BadSmells(matcher.group(4),mensagem,"Long Method"));   
+                    }   
                     
-                    if(new LongParameterList().muitosParametros(matcher.group(5)))
-                        badsmells.add(new BadSmells(matcher.group(4),lplist,"Long Parameter List"));
+                    if(lp.muitosParametros())
+                        badsmells.add(new BadSmells(lp.nomeMetodo,lp.mensagem(),"Long Parameter List"));
                     
                     resultadoFinal.add(resultado);
                      
