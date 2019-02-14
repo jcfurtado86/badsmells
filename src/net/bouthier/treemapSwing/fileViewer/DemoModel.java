@@ -25,6 +25,7 @@
  */
 package net.bouthier.treemapSwing.fileViewer;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -184,16 +185,11 @@ public class DemoModel {
         TMFileModelSize fSize = new TMFileModelSize();
         TMFileModelDraw fDraw = new TMFileModelDraw();
         TMView view = treeMap.getView(fSize, fDraw);
-
+        
+        System.out.println(aux4.size());
         JPanel panel = (JPanel) view;
-        //janela = new JFrame(Reconhecedor.badsmells.get(0).getNome());
-        //janela.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        //janela.add(panel);
-        //janela.setSize(1200,800);
-        //janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //janela.setLocationRelativeTo(null);
-        //janela.setVisible(true);
-
+        panel.setPreferredSize(new Dimension(1600, aux4.size()*450));
+        
         return panel;
     }
 

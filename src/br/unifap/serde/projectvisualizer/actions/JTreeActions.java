@@ -9,6 +9,7 @@ import br.unifap.serde.projectvisualizer.util.ButtonTabComponent;
 import br.unifap.serde.projectvisualizer.entities.FileNode;
 import br.unifap.serde.projectvisualizer.ui.OpenProjectGUI;
 import br.unifap.serde.projectvisualizer.ui.TabbedPaneGUI;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -141,11 +142,13 @@ public class JTreeActions implements KeyListener {
                         tempJTA.setText(resultadoSaida);
 
                         try {
+                            //JPanel newTab = TabbedPaneGUI.createTab(DemoModel.main());
                             newTab = DemoModel.main();
-
+                            newTab.setPreferredSize(new Dimension(1000, 800));
                             JScrollPane scrollPane = new JScrollPane(newTab);
-//                            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//                            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        
+                            //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                            //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
                             jTabbedPane.add(node.toString(), scrollPane);
                             jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
@@ -154,7 +157,7 @@ public class JTreeActions implements KeyListener {
                             System.out.println(e.getMessage());
                         }
 
-                    } catch (IOException ex) {
+                    } catch (Exception ex) {
                         Logger.getLogger(OpenProjectGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {

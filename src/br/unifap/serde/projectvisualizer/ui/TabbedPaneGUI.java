@@ -21,11 +21,13 @@ public class TabbedPaneGUI extends JPanel {
 
     public static JPanel createTab() {        
         JPanel tabPanel = new JPanel();
+        
         JTextArea jTextArea = new JTextArea();
         jTextArea.setEditable(false);
         jTextArea.setWrapStyleWord(true);
         JScrollPane jScrollPane = new JScrollPane();
         jScrollPane.setViewportView(jTextArea);
+        
         GroupLayout jPanel1Layout = new GroupLayout(tabPanel);
         tabPanel.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(jScrollPane));

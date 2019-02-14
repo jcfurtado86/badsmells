@@ -83,17 +83,17 @@ public class TMAlgorithmClassic
 
         int maxX = x + w - 1;
         int maxY = y + h - 1;
-
+        
         for (Enumeration e = node.children(); e.hasMoreElements();) {
             child = (TMNodeModel) e.nextElement();
             childArea = child.getArea();
             childArea.x = x;
             childArea.y = y;
             proportion = (child.getSize()) / size;
-
+            
             if (e.hasMoreElements()) {
                 if (axis == HORIZONTAL) {
-                    newDf = proportion * w;
+                    newDf = 400;//proportion * w; // Tamanho proporcional altura
                     newDi = Math.round(newDf);
                     remaining += newDf - newDi;
                     if (remaining >= 1) {
@@ -107,7 +107,7 @@ public class TMAlgorithmClassic
                     childArea.height = h;
                     x += newDi;
                 } else { // VERTICAL
-                    newDf = proportion * h;
+                    newDf = 450;//proportion * h; // Tamanho proporcional Largura
                     newDi = Math.round(newDf);
                     remaining += newDf - newDi;
                     if (remaining >= 1) {
