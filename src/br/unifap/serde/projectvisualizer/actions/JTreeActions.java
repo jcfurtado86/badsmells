@@ -75,9 +75,6 @@ public class JTreeActions implements KeyListener {
 
                         JPanel newTab = TabbedPaneGUI.createTab();
 
-//                        jTabbedPane.add(node.toString(), newTab);
-//                        jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
-//                        jTabbedPane.setSelectedComponent(newTab);
                         try {
                             BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(info.getFile())));
                             JScrollPane tempJSCP = (JScrollPane) newTab.getComponent(0);
@@ -123,9 +120,7 @@ public class JTreeActions implements KeyListener {
                 int opened = jTabbedPane.indexOfTab(node.toString());
                 if (opened == -1) {
                     JPanel newTab = TabbedPaneGUI.createTab();
-//                    jTabbedPane.add(node.toString(), newTab);
-//                    jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
-//                    jTabbedPane.setSelectedComponent(newTab);
+
                     try {
                         BufferedReader input = new BufferedReader(new InputStreamReader(new FileInputStream(info.getFile())));
                         JScrollPane tempJSCP = (JScrollPane) newTab.getComponent(0);
@@ -142,17 +137,10 @@ public class JTreeActions implements KeyListener {
                         tempJTA.setText(resultadoSaida);
 
                         try {
-                            //JPanel newTab = TabbedPaneGUI.createTab(DemoModel.main());
                             newTab = DemoModel.main();
-                            newTab.setPreferredSize(new Dimension(1000, 800));
-                            JScrollPane scrollPane = new JScrollPane(newTab);
-        
-                            //scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-                            //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-                            jTabbedPane.add(node.toString(), scrollPane);
+                            jTabbedPane.add(node.toString(), newTab);
                             jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
-                            jTabbedPane.setSelectedComponent(scrollPane);
+                            jTabbedPane.setSelectedComponent(newTab);
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }

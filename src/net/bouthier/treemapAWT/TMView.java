@@ -357,7 +357,10 @@ public class TMView
      * @param event    the event triggering the tooltip
      * @return         the String to be displayed
      */
-    public String getToolTipText(MouseEvent event) {
+    
+    
+    
+    /*public String getToolTipText(MouseEvent event) {
         int x = event.getX();
         int y = event.getY();
         TMNodeModel node = root.nodeContaining(x, y);
@@ -369,14 +372,14 @@ public class TMView
         } else {
             Insets insets = getInsets();
             if (((x <= insets.left) || (x >= (getWidth() - insets.right - 1)))
-                || ((y <= insets.top)
+                    || ((y <= insets.top)
                     || (y >= (getHeight() - insets.bottom - 1)))) {
                 return "This is the border of the treemap";
             } else {
                 return "This rectangle is due to imprecision in calculs";
             }
         }
-    }
+    }*/
 
     /**
      * Paint the component.

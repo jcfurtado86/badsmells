@@ -186,11 +186,22 @@ public class DemoModel {
         TMFileModelDraw fDraw = new TMFileModelDraw();
         TMView view = treeMap.getView(fSize, fDraw);
         
-        System.out.println(aux4.size());
         JPanel panel = (JPanel) view;
-        panel.setPreferredSize(new Dimension(1600, aux4.size()*450));
+        panel.setPreferredSize(new Dimension(1600, maior(aux1.size(),aux2.size(),aux3.size(), aux4.size())*450));
         
         return panel;
+    }
+    
+    public static int maior(int array1, int array2, int array3, int array4){
+        Integer[] valores = {array1,array2,array3,array4};
+        int maior = valores[0];
+        for(int i=1;i<valores.length;i++){
+            if(valores[i] > maior){
+                maior = valores[i];
+            }
+        }
+        
+        return maior;
     }
 
     public static void fechar() {
