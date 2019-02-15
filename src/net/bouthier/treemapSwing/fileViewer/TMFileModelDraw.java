@@ -68,10 +68,15 @@ public class TMFileModelDraw
 
     public TMFileModelDraw() {
         
-        cor1 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
-        cor2 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
-        cor3 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
-        cor4 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        //cor1 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        //cor2 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        //cor3 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        //cor4 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        
+        cor1 = new Color(190, 15, 66);
+        cor2 = new Color(154, 146, 157);
+        cor3 = new Color(7, 61, 57);
+        cor4 = new Color(70, 77, 151);
         
     }
 

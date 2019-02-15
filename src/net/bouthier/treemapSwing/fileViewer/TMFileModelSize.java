@@ -58,8 +58,8 @@ public class TMFileModelSize
     public float getSizeOfObject(Object node) {
         if (node instanceof File) {
             File file = (File) node;
-            return 580;
+            return 50.0f;
         }
-        return 0.0f;
+        return 50.0f;
     }
 }

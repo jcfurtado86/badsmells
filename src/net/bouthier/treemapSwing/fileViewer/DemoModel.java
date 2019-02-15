@@ -25,6 +25,7 @@
  */
 package net.bouthier.treemapSwing.fileViewer;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -184,17 +185,23 @@ public class DemoModel {
         TMFileModelSize fSize = new TMFileModelSize();
         TMFileModelDraw fDraw = new TMFileModelDraw();
         TMView view = treeMap.getView(fSize, fDraw);
-
+        
         JPanel panel = (JPanel) view;
-        //janela = new JFrame(Reconhecedor.badsmells.get(0).getNome());
-        //janela.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        //janela.add(panel);
-        //janela.setSize(1200,800);
-        //janela.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //janela.setLocationRelativeTo(null);
-        //janela.setVisible(true);
-
+        panel.setPreferredSize(new Dimension(1600, maior(aux1.size(),aux2.size(),aux3.size(), aux4.size())*450));
+        
         return panel;
+    }
+    
+    public static int maior(int array1, int array2, int array3, int array4){
+        Integer[] valores = {array1,array2,array3,array4};
+        int maior = valores[0];
+        for(int i=1;i<valores.length;i++){
+            if(valores[i] > maior){
+                maior = valores[i];
+            }
+        }
+        
+        return maior;
     }
 
     public static void fechar() {
