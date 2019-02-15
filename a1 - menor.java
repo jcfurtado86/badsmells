@@ -19,12 +19,13 @@ public abstract class a1 {
 		
 		tam.getText().isEmpty().ji().jh().fssaa();
 		
-		int c = a + b;
-		
-		for(int i=0; i<10; i++){
-			c += a;
-			}
-		return c;
+int c = a + b;
+
+for(int i=0; i<10; i++){
+c += a;
+}
+
+return c;
 	return c;
 			return c;
 		
@@ -55,13 +56,13 @@ public abstract class a1 {
 	}
 
 	public int metodoRepetido2(int a, int b){
-		int c = a + b;
-		
-		for(int i=0; i<10; i++){
-			c += a;
-		}
-		
-		return c;
+int c = a + b;
+
+for(int i=0; i<10; i++){
+c += a;
+}
+
+return c;
 	}
 
 	
