@@ -93,7 +93,7 @@ public class TMAlgorithmClassic
             
             if (e.hasMoreElements()) {
                 if (axis == HORIZONTAL) {
-                    newDf = 400;//proportion * w; // Tamanho proporcional altura
+                    newDf = 815;//400 proportion * w; // Tamanho proporcional altura
                     newDi = Math.round(newDf);
                     remaining += newDf - newDi;
                     if (remaining >= 1) {

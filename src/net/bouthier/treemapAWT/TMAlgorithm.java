@@ -82,7 +82,7 @@ public abstract class TMAlgorithm
     private TMCushionPaint painter;
 
     private final Font  titleFont   = new Font("Dialog", Font.PLAIN, 20);
-    private final Color borderColor = Color.black;
+    private final Color borderColor = Color.WHITE;
 
     protected double  h 	  = 0.50;
     protected double  f 	  = 1;
@@ -95,8 +95,8 @@ public abstract class TMAlgorithm
     protected final double LZ = 0.9759;
 
     // Axis of separation in the TreeMap
-    protected final static short HORIZONTAL = 0;
-    protected final static short VERTICAL = 1;
+    protected final static short HORIZONTAL = 1;
+    protected final static short VERTICAL = 0;
 
     protected TMNodeModel root = null; // root of the TMNodeModel tree
     protected TMView 	  view = null; // view using this TMAlgorithm

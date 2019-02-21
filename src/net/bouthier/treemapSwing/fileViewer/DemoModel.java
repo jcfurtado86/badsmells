@@ -187,7 +187,8 @@ public class DemoModel {
         TMView view = treeMap.getView(fSize, fDraw);
         
         JPanel panel = (JPanel) view;
-        panel.setPreferredSize(new Dimension(1600, maior(aux1.size(),aux2.size(),aux3.size(), aux4.size())*450));
+        //panel.setPreferredSize(new Dimension(1600, maior(aux1.size(),aux2.size(),aux3.size(), aux4.size())*450));
+        panel.setPreferredSize(new Dimension(maior(aux1.size(),aux2.size(),aux3.size(), aux4.size())*815, 1900));
         
         return panel;
     }

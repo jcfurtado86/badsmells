@@ -38,6 +38,8 @@ public class JTreeActions implements KeyListener {
     private JTree jTree;
     private JTabbedPane jTabbedPane;
 
+    private static JScrollPane jScrollPane;
+
     public JTreeActions(JTree jTree, JTabbedPane jTabbedPane) {
         this.jTree = jTree;
         this.jTabbedPane = jTabbedPane;
@@ -92,9 +94,12 @@ public class JTreeActions implements KeyListener {
 
                             try {
                                 newTab = DemoModel.main();
-                                jTabbedPane.add(node.toString(), newTab);
+
+                                jScrollPane = new JScrollPane(newTab);
+
+                                jTabbedPane.add(node.toString(), jScrollPane);
                                 jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
-                                jTabbedPane.setSelectedComponent(newTab);
+                                jTabbedPane.setSelectedComponent(jScrollPane);
                             } catch (Exception e) {
                                 System.out.println(e.getMessage());
                             }
@@ -138,9 +143,12 @@ public class JTreeActions implements KeyListener {
 
                         try {
                             newTab = DemoModel.main();
-                            jTabbedPane.add(node.toString(), newTab);
+
+                            jScrollPane = new JScrollPane(newTab);
+
+                            jTabbedPane.add(node.toString(), jScrollPane);
                             jTabbedPane.setTabComponentAt(jTabbedPane.getTabCount() - 1, new ButtonTabComponent(jTabbedPane));
-                            jTabbedPane.setSelectedComponent(newTab);
+                            jTabbedPane.setSelectedComponent(jScrollPane);
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
