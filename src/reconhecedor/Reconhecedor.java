@@ -104,8 +104,11 @@ public class Reconhecedor extends Regex implements Identificacoes {
                 resultado = resultado + "Encapsulamento: " + matcher.group(2) + "\n";
             } 
             
-            if(lclasse.classeLonga())
+            if(lclasse.classeLonga()){
                 badsmells.add(new BadSmells(matcher.group(5),lclasse.mensagem(matcher.group(5)),"Large Class"));
+            }else{
+                badsmells.add(new BadSmells(matcher.group(5),"Parabéns!","Large Class"));
+            }
             
             resultadoFinal.add(resultado);
             

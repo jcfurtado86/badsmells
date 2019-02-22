@@ -360,13 +360,13 @@ public class TMView
     
     
     
-    /*public String getToolTipText(MouseEvent event) {
+    public String getToolTipText(MouseEvent event) {
         int x = event.getX();
         int y = event.getY();
         TMNodeModel node = root.nodeContaining(x, y);
         if (node != null) {
             root.getLock().lock();
-            String tooltip = node.getTooltip();
+            String tooltip = node.getTitle().split(":")[0];//node.getTooltip();
             root.getLock().unlock();
             return tooltip;
         } else {
@@ -379,7 +379,7 @@ public class TMView
                 return "This rectangle is due to imprecision in calculs";
             }
         }
-    }*/
+    }
 
     /**
      * Paint the component.

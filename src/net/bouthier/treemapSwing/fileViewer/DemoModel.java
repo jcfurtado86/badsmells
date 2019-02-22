@@ -25,6 +25,7 @@
  */
 package net.bouthier.treemapSwing.fileViewer;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
@@ -185,23 +186,23 @@ public class DemoModel {
         TMFileModelSize fSize = new TMFileModelSize();
         TMFileModelDraw fDraw = new TMFileModelDraw();
         TMView view = treeMap.getView(fSize, fDraw);
-        
+
         JPanel panel = (JPanel) view;
         //panel.setPreferredSize(new Dimension(1600, maior(aux1.size(),aux2.size(),aux3.size(), aux4.size())*450));
-        panel.setPreferredSize(new Dimension(maior(aux1.size(),aux2.size(),aux3.size(), aux4.size())*815, 1900));
-        
+        panel.setPreferredSize(new Dimension(maior(aux1.size(), aux2.size(), aux3.size(), aux4.size()) * 815, 1900));
+
         return panel;
     }
-    
-    public static int maior(int array1, int array2, int array3, int array4){
-        Integer[] valores = {array1,array2,array3,array4};
+
+    public static int maior(int array1, int array2, int array3, int array4) {
+        Integer[] valores = {array1, array2, array3, array4};
         int maior = valores[0];
-        for(int i=1;i<valores.length;i++){
-            if(valores[i] > maior){
+        for (int i = 1; i < valores.length; i++) {
+            if (valores[i] > maior) {
                 maior = valores[i];
             }
         }
-        
+
         return maior;
     }
 

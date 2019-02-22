@@ -82,7 +82,7 @@ public abstract class TMAlgorithm
     private TMCushionPaint painter;
 
     private final Font  titleFont   = new Font("Dialog", Font.PLAIN, 20);
-    private final Color borderColor = Color.WHITE;
+    private final Color borderColor = Color.BLACK;
 
     protected double  h 	  = 0.50;
     protected double  f 	  = 1;
@@ -375,8 +375,15 @@ public abstract class TMAlgorithm
         // they are really too slow !!!
         g.setPaint(node.getFilling());
         g.fillRect(area.x, area.y, area.width, area.height);
+        
         g.setPaint(borderColor);
         g.drawRect(area.x, area.y, area.width, area.height);
+        g.drawRect(area.x+1, area.y+1, area.width, area.height);
+        g.drawRect(area.x+2, area.y+2, area.width, area.height);
+        g.drawRect(area.x+3, area.y+3, area.width, area.height);
+        g.drawRect(area.x+4, area.y+4, area.width, area.height);
+        g.drawRect(area.x+5, area.y+5, area.width, area.height);
+        
         if (nodesTitles) {
             g.setPaint(node.getColorTitle());
             g.setFont(titleFont);
@@ -384,11 +391,11 @@ public abstract class TMAlgorithm
             
             
             //É aqui : 1 ; 10
-            g.drawString(node.getTitle(), area.x + 10, area.y + 20);
+            g.drawString(node.getTitle(), area.x + 15, area.y + 25);
             
-            int altura = area.y + 20;
+            int altura = area.y + 25;
             for (String line : node.getTooltip().split("\n")){
-                g.drawString (line, area.x + 10, altura += g.getFontMetrics().getHeight());
+                g.drawString (line, area.x + 15, altura += g.getFontMetrics().getHeight());
             }
             
         }
