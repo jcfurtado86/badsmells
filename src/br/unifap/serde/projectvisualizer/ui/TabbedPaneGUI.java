@@ -25,6 +25,7 @@ public class TabbedPaneGUI extends JPanel {
         JTextArea jTextArea = new JTextArea();
         jTextArea.setEditable(false);
         jTextArea.setWrapStyleWord(true);
+        
         JScrollPane jScrollPane = new JScrollPane();
         jScrollPane.setViewportView(jTextArea);
         

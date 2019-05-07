@@ -32,7 +32,7 @@ public class Metodos_DuplicatedCode {
         return al;
     }
 
-    public String comentario() {
+    public String[] comentario() {
         int contador = 0;
         String retorno = "\n#Métodos comparados:" + "\n     " + nome_metodo1 + " => " + nome_metodo2 + "\n\n#Linhas duplicadas:\n";
         for (String linhas : corpo) {
@@ -49,7 +49,8 @@ public class Metodos_DuplicatedCode {
             retorno += "\nPor se tratarem de menos de 5 linhas duplicadas (quantidade desprezível), a refatoração \ndo código é arbitrária.";
         }
 
-        return retorno;
+        String[] ret = {retorno, String.valueOf(contador)};
+        return ret;
     }
 
 }

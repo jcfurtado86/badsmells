@@ -38,7 +38,7 @@ public class TMAction
         extends MouseAdapter {
 
     private TMView view = null; // the view managed
-    private static boolean ultimo = false;
+    public static boolean ultimo = false;
 
 
     /* --- Constructor --- */

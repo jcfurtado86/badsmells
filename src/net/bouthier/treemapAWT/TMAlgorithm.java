@@ -23,7 +23,6 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-
 package net.bouthier.treemapAWT;
 
 import java.awt.BorderLayout;
@@ -53,15 +52,13 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
 /**
- * The TMAlgorithm abstract class represent the algorithm
- * of the TreeMap. It should be subclassed by every class
- * that want to implement a particular treemap (classic treemap,
- * squarified treemap, ...).
+ * The TMAlgorithm abstract class represent the algorithm of the TreeMap. It
+ * should be subclassed by every class that want to implement a particular
+ * treemap (classic treemap, squarified treemap, ...).
  * <P>
- * A subclass can also override the drawNode() method
- * to have a customized drawing of a node.
+ * A subclass can also override the drawNode() method to have a customized
+ * drawing of a node.
  * <P>
  * And now with cushion treemap, thanks to Jarke J. van Wijk :-)
  *
@@ -69,26 +66,26 @@ import javax.swing.event.ChangeListener;
  * @author Vesselin Markovsky [markovsky@semantec.bg]
  * @version 2.5
  */
-public abstract class TMAlgorithm 
-	extends Observable {
+public abstract class TMAlgorithm
+        extends Observable {
 
     private static final ColorModel cModel = ColorModel.getRGBdefault();
 
-    private static final int 	 	dimMax = 32;
-    private static WritableRaster[][] cachedRasters = 
-    								new WritableRaster[dimMax + 1][dimMax + 1];
+    private static final int dimMax = 32;
+    private static WritableRaster[][] cachedRasters
+            = new WritableRaster[dimMax + 1][dimMax + 1];
     private static int[][][] cachedBuffers = new int[dimMax + 1][dimMax + 1][];
 
     private TMCushionPaint painter;
 
-    private final Font  titleFont   = new Font("Dialog", Font.PLAIN, 20);
+    private final Font titleFont = new Font("Dialog", Font.PLAIN, 20);
     private final Color borderColor = Color.BLACK;
 
-    protected double  h 	  = 0.50;
-    protected double  f 	  = 1;
+    protected double h = 0.50;
+    protected double f = 1;
     protected boolean cushion = false;
-    protected boolean border  = false;
-    protected int 	  IS 	  = 215;
+    protected boolean border = false;
+    protected int IS = 215;
 
     protected final double LX = 0.09759;
     protected final double LY = -0.19518;
@@ -99,24 +96,23 @@ public abstract class TMAlgorithm
     protected final static short VERTICAL = 0;
 
     protected TMNodeModel root = null; // root of the TMNodeModel tree
-    protected TMView 	  view = null; // view using this TMAlgorithm
+    protected TMView view = null; // view using this TMAlgorithm
 
-    protected int borderSize  = 0; // size of the border
+    protected int borderSize = 0; // size of the border
     protected int borderLimit = 0; // limit to draw nested border
 
     protected boolean nodesTitles = true; // draw the nodes titles.
 
 
     /* --- Initialization --- */
-
     /**
      * Initialize the algorithm.
      *
-     * @param root     the root of the TMNodeModel tree
-     * @param view     the view using this algorithm
+     * @param root the root of the TMNodeModel tree
+     * @param view the view using this algorithm
      */
-    public void initialize(TMNodeModel root, 
-    					   TMView 	   view) {
+    public void initialize(TMNodeModel root,
+            TMView view) {
         this.root = root;
         this.view = view;
         painter = new TMCushionPaint();
@@ -124,7 +120,6 @@ public abstract class TMAlgorithm
 
 
     /* --- Nodes titles --- */
-
     /**
      * Draws the nodes titles.
      */
@@ -142,6 +137,7 @@ public abstract class TMAlgorithm
     public boolean isDrawingTitles() {
         return nodesTitles;
     }
+
     public void setDrawingTitles(boolean drawing) {
         nodesTitles = drawing;
         view.repaint();
@@ -151,7 +147,6 @@ public abstract class TMAlgorithm
 
 
     /* --- Cushion management --- */
-
     public void setCushion(boolean cushion) {
         this.cushion = cushion;
         view.repaint();
@@ -209,11 +204,10 @@ public abstract class TMAlgorithm
 
 
     /* --- Nested management --- */
-
     /**
      * Sets the border size.
      *
-     * @param size    the border size
+     * @param size the border size
      */
     public void setBorderSize(int size) {
         borderSize = size;
@@ -226,7 +220,7 @@ public abstract class TMAlgorithm
     /**
      * Returns the border size.
      *
-     * @return    the border size
+     * @return the border size
      */
     public int getBorderSize() {
         return borderSize;
@@ -235,7 +229,7 @@ public abstract class TMAlgorithm
     /**
      * Returns a view for configuring this algorithm.
      *
-     * @return    the configuring view
+     * @return the configuring view
      */
     public JPanel getConfiguringView() {
         return new TMBorderConf();
@@ -243,15 +237,14 @@ public abstract class TMAlgorithm
 
 
     /* --- Drawing --- */
-
     /**
      * Starts the process of drawing the treemap.
      *
-     * @param g       the graphic context
-     * @param root    the root
+     * @param g the graphic context
+     * @param root the root
      */
-    void draw(Graphics2D  g, 
-    		  TMNodeModel root) {
+    void draw(Graphics2D g,
+            TMNodeModel root) {
         this.root = root;
         drawNodes(g, root, HORIZONTAL, 1);
     }
@@ -259,15 +252,15 @@ public abstract class TMAlgorithm
     /**
      * Draws the node and recurses the drawing on its children.
      *
-     * @param g        the graphic context
-     * @param node     the node to draw
-     * @param axis     the axis of separation
-     * @param level    the level of deep
+     * @param g the graphic context
+     * @param node the node to draw
+     * @param axis the axis of separation
+     * @param level the level of deep
      */
-    protected void drawNodes(Graphics2D  g,
-        					 TMNodeModel node,
-        					 short 		 axis,
-        					 int 		 level) {
+    protected void drawNodes(Graphics2D g,
+            TMNodeModel node,
+            short axis,
+            int level) {
         Rectangle oldClip = g.getClipBounds();
         Rectangle area = node.getArea();
         TMCushionData data = computeCushionData(node.getParent(), area, axis);
@@ -287,12 +280,11 @@ public abstract class TMAlgorithm
 
 
     /* --- SubClass utility --- */
-
     /**
      * Switch the axis and return the new axis.
      *
-     * @param axis    the axis to switch
-     * @return        the new axis
+     * @param axis the axis to switch
+     * @return the new axis
      */
     protected short switchAxis(short axis) {
         // Axis : Bold as love
@@ -307,8 +299,8 @@ public abstract class TMAlgorithm
      * Compute node's cushion data.
      */
     protected TMCushionData computeCushionData(TMNodeModel father,
-        									   Rectangle   area,
-        									   short 	   axis) {
+            Rectangle area,
+            short axis) {
         TMCushionData data = null;
         if (father == null) {
             data = new TMCushionData();
@@ -320,19 +312,19 @@ public abstract class TMAlgorithm
         if (axis == VERTICAL) {
             data.x2 -= (4 * data.h) / area.width;
             data.x += (4 * data.h * (area.x + area.x + area.width))
-                / area.width;
+                    / area.width;
         } else {
             data.y2 -= (4 * data.h) / area.height;
             data.y += (4 * data.h * (area.y + area.y + area.height))
-                / area.height;
+                    / area.height;
         }
         return data;
     }
 
     protected void fillCushionNode(Graphics2D g,
-        						   TMNodeModel node,
-        						   int level,
-        						   TMCushionData data) {
+            TMNodeModel node,
+            int level,
+            TMCushionData data) {
         Rectangle area = node.getArea();
 
         // WARNING !!!
@@ -357,80 +349,96 @@ public abstract class TMAlgorithm
 
 
     /* --- COULD BE OVERRIDED IN SUBCLASS --- */
-
     /**
      * Fills the node.
      *
-     * @param g        the graphic context
-     * @param node     the TMNodeModel to draw
-     * @param level    the level of deep
+     * @param g the graphic context
+     * @param node the TMNodeModel to draw
+     * @param level the level of deep
      */
-    protected void fillNode(Graphics2D 	g, 
-    						TMNodeModel node, 
-    						int 		level) {
+    protected void fillNode(Graphics2D g,
+            TMNodeModel node,
+            int level) {
         Rectangle area = node.getArea();
 
         // WARNING !!!
         // Don't use g.fill(Shape s) or g.draw(Shape s),
         // they are really too slow !!!
-        g.setPaint(node.getFilling());
-        g.fillRect(area.x, area.y, area.width, area.height);
         
+        Color cor, cor1, cor2, cor3, cor4;
+        
+        cor1 = new Color(190, 15, 66); //vermelho
+        cor2 = new Color(154, 146, 157);//cinza
+        cor3 = new Color(7, 61, 57);//verde
+        cor4 = new Color(70, 77, 151);//azul
+
+        if (node.getTitle().split(":")[0].equals("Large Class")) {
+            cor = cor1;
+        }else if (node.getTitle().split(":")[0].equals("Long Method")) {
+            cor = cor2;
+        }else if (node.getTitle().split(":")[0].equals("Long Parameter List")) {
+            cor = cor3;
+        }else if (node.getTitle().split(":")[0].equals("Duplicated Code")) {
+            cor = cor4;
+        } else{
+            cor = (Color) node.getFilling();
+        }
+        
+        g.setPaint(cor);
+        //g.setPaint(node.getFilling());
+        g.fillRect(area.x, area.y, area.width, area.height);
+
         g.setPaint(borderColor);
         g.drawRect(area.x, area.y, area.width, area.height);
-        g.drawRect(area.x+1, area.y+1, area.width, area.height);
-        g.drawRect(area.x+2, area.y+2, area.width, area.height);
-        g.drawRect(area.x+3, area.y+3, area.width, area.height);
-        g.drawRect(area.x+4, area.y+4, area.width, area.height);
-        g.drawRect(area.x+5, area.y+5, area.width, area.height);
-        
+        g.drawRect(area.x + 1, area.y + 1, area.width, area.height);
+        g.drawRect(area.x + 2, area.y + 2, area.width, area.height);
+        g.drawRect(area.x + 3, area.y + 3, area.width, area.height);
+        g.drawRect(area.x + 4, area.y + 4, area.width, area.height);
+        g.drawRect(area.x + 5, area.y + 5, area.width, area.height);
+
         if (nodesTitles) {
             g.setPaint(node.getColorTitle());
             g.setFont(titleFont);
-            
-            
-            
+
             //É aqui : 1 ; 10
             g.drawString(node.getTitle(), area.x + 15, area.y + 25);
-            
+
             int altura = area.y + 25;
-            for (String line : node.getTooltip().split("\n")){
-                g.drawString (line, area.x + 15, altura += g.getFontMetrics().getHeight());
+            for (String line : node.getTooltip().split("\n")) {
+                if(TMAction.ultimo){
+                    g.drawString(line, area.x + 15, altura += g.getFontMetrics().getHeight());
+                }
             }
-            
+
         }
     }
 
 
     /* --- TO BE IMPLEMENTED IN SUBCLASS --- */
-
     /**
      * Draws the children of a node, by setting their drawing area first,
      * dependant of the algorithm used.
      *
-     * @param g        the graphic context
-     * @param node     the node whose children should be drawn
-     * @param axis     the axis of separation
-     * @param level    the level of deep
+     * @param g the graphic context
+     * @param node the node whose children should be drawn
+     * @param axis the axis of separation
+     * @param level the level of deep
      */
-    protected abstract void drawChildren(Graphics2D 		  g,
-        								 TMNodeModelComposite node,
-        								 short 				  axis,
-        								 int 				  level);
+    protected abstract void drawChildren(Graphics2D g,
+            TMNodeModelComposite node,
+            short axis,
+            int level);
 
 
     /* --- Inner view --- */
-
     /**
-     * The TMBorderConf class implements a configuration view
-     * for the treemap algorithms.
-     * It keeps also the cushion parameters.
-     * It display a JSlider to configure the border size, thus
-     * putting the algorithm into nested.
+     * The TMBorderConf class implements a configuration view for the treemap
+     * algorithms. It keeps also the cushion parameters. It display a JSlider to
+     * configure the border size, thus putting the algorithm into nested.
      */
-    class TMBorderConf 
-    	extends JPanel 
-    	implements Observer {
+    class TMBorderConf
+            extends JPanel
+            implements Observer {
 
         JSlider bSize = null; // the JSlider
         JSlider fSize = null;
@@ -458,9 +466,9 @@ public abstract class TMAlgorithm
 
             JPanel cushionPanel = new JPanel(new BorderLayout());
             cushionPanel.setBorder(
-                BorderFactory.createTitledBorder(
-                    BorderFactory.createEtchedBorder(),
-                    "Cushion"));
+                    BorderFactory.createTitledBorder(
+                            BorderFactory.createEtchedBorder(),
+                            "Cushion"));
             this.add(cushionPanel, BorderLayout.SOUTH);
 
             JPanel checkPanel = new JPanel(new GridLayout(1, 2));
@@ -512,27 +520,27 @@ public abstract class TMAlgorithm
         /**
          * Called by the algorithm when parameters have changed.
          *
-         * @param o      the TMAlgorithm
-         * @param arg    not used here
+         * @param o the TMAlgorithm
+         * @param arg not used here
          */
-        public void update(Observable o, 
-        				   Object 	  arg) {
+        public void update(Observable o,
+                Object arg) {
             bSize.setValue(getBorderSize());
         }
 
         /**
          * Inner's inner listener.
          */
-        class SliderListener 
-        	implements ChangeListener {
+        class SliderListener
+                implements ChangeListener {
 
             public void stateChanged(ChangeEvent e) {
                 setBorderSize(bSize.getValue());
             }
         }
 
-        class fSliderListener 
-        	implements ChangeListener {
+        class fSliderListener
+                implements ChangeListener {
 
             public void stateChanged(ChangeEvent e) {
                 f = ((double) fSize.getValue()) / 10.0;
@@ -542,8 +550,8 @@ public abstract class TMAlgorithm
             }
         }
 
-        class hSliderListener 
-        	implements ChangeListener {
+        class hSliderListener
+                implements ChangeListener {
 
             public void stateChanged(ChangeEvent e) {
                 h = ((double) hSize.getValue()) / 10.0;
@@ -553,8 +561,8 @@ public abstract class TMAlgorithm
             }
         }
 
-        class iSliderListener 
-        	implements ChangeListener {
+        class iSliderListener
+                implements ChangeListener {
 
             public void stateChanged(ChangeEvent e) {
                 setIS(iSize.getValue());
@@ -564,8 +572,8 @@ public abstract class TMAlgorithm
             }
         }
 
-        class CushListener 
-        	implements ActionListener {
+        class CushListener
+                implements ActionListener {
 
             public void actionPerformed(ActionEvent e) {
                 if (cush.isSelected()) {
@@ -579,8 +587,8 @@ public abstract class TMAlgorithm
             }
         }
 
-        class BordListener 
-        	implements ActionListener {
+        class BordListener
+                implements ActionListener {
 
             public void actionPerformed(ActionEvent e) {
                 if (bord.isSelected()) {
@@ -595,20 +603,18 @@ public abstract class TMAlgorithm
         }
     }
 
-
     /**
-     * The TMCushionPaint implements a customized java.awt.Paint 
-     * for the cushion visualization
+     * The TMCushionPaint implements a customized java.awt.Paint for the cushion
+     * visualization
      *
      * @author Christophe Bouthier [bouthier@loria.fr]
      * @version 2.5
      */
+    class TMCushionPaint
+            implements Paint, PaintContext {
 
-    class TMCushionPaint 
-    	implements Paint, PaintContext {
-
-        private Color 		   c 	  = null;
-        private TMCushionData  cData  = null;
+        private Color c = null;
+        private TMCushionData cData = null;
 
         private WritableRaster raster = null;
 
@@ -627,25 +633,22 @@ public abstract class TMAlgorithm
 
 
         /* --- Constructor --- */
-
         /**
          * Constructor.
          */
-        public TMCushionPaint init(Color 		 c, 
-        						   TMCushionData cData) {
+        public TMCushionPaint init(Color c,
+                TMCushionData cData) {
             this.c = c;
             this.cData = cData;
             return this;
         }
 
         /* --- Paint --- */
-
-
-        public PaintContext createContext(ColorModel 	  cm,
-            							  Rectangle 	  deviceBounds,
-            							  Rectangle2D 	  userBounds,
-            							  AffineTransform xform,
-            							  RenderingHints  hints) {
+        public PaintContext createContext(ColorModel cm,
+                Rectangle deviceBounds,
+                Rectangle2D userBounds,
+                AffineTransform xform,
+                RenderingHints hints) {
             // coordinate may be tranlated when repainting a part
             // of the widget.
             tX = (int) xform.getTranslateX();
@@ -655,25 +658,27 @@ public abstract class TMAlgorithm
 
 
         /* --- Transparency, from Paint --- */
-
         public int getTransparency() {
             return c.getTransparency();
         }
 
 
         /* --- Paint context --- */
-
         public void dispose() {
-        };
+        }
+
+        ;
 
         public ColorModel getColorModel() {
             return cModel;
-        };
+        }
 
-        public Raster getRaster(int x, 
-        						int y, 
-        						int w, 
-        						int h) {
+        ;
+
+        public Raster getRaster(int x,
+                int y,
+                int w,
+                int h) {
             raster = createRaster(w, h);
 
             // taking in account the possible translation
@@ -685,8 +690,8 @@ public abstract class TMAlgorithm
                 ny = ((-2) * cData.y2 * (y + j)) - cData.y;
                 for (i = 0; i < w; i++) {
                     nx = ((-2) * cData.x2 * (x + i)) - cData.x;
-                    delta =
-                        ((nx * LX) + (ny * LY) + LZ)
+                    delta
+                            = ((nx * LX) + (ny * LY) + LZ)
                             / Math.sqrt((nx * nx) + (ny * ny) + 1);
 
                     if (delta < 0) {
@@ -709,9 +714,8 @@ public abstract class TMAlgorithm
 
 
         /* --- Raster management --- */
-
-        private int[] createBuffer(int w, 
-        						   int h) {
+        private int[] createBuffer(int w,
+                int h) {
             int[] buffer;
             if ((w <= dimMax) && (h <= dimMax)) {
                 buffer = cachedBuffers[w][h];
@@ -725,15 +729,15 @@ public abstract class TMAlgorithm
             return buffer;
         }
 
-        private WritableRaster createRaster(int w, 
-        									int h) {
+        private WritableRaster createRaster(int w,
+                int h) {
             WritableRaster raster;
 
             if ((w <= dimMax) && (h <= dimMax)) {
                 raster = cachedRasters[w][h];
                 if (raster == null) {
-                    raster =
-                        getColorModel().createCompatibleWritableRaster(w, h);
+                    raster
+                            = getColorModel().createCompatibleWritableRaster(w, h);
                     cachedRasters[w][h] = raster;
                 }
             } else {

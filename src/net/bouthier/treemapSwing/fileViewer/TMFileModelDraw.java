@@ -23,7 +23,6 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-
 package net.bouthier.treemapSwing.fileViewer;
 
 import java.awt.Color;
@@ -38,50 +37,39 @@ import net.bouthier.treemapAWT.TMComputeDrawAdapter;
 import reconhecedor.BadSmells;
 import reconhecedor.Reconhecedor;
 
-
 /**
- * The TMFileModelDraw class implements an example of a TMComputeDrawAdapter
- * for a TMFileModelNode.
- * It use the date of last modification as color,
- * and the name of the file as tooltip.
+ * The TMFileModelDraw class implements an example of a TMComputeDrawAdapter for
+ * a TMFileModelNode. It use the date of last modification as color, and the
+ * name of the file as tooltip.
  * <P>
  * The color legend is :
  * <UL>
- *   <IL> white  for files less than a hour old
- *   <IL> green  for files less than a day old
- *   <IL> yellow for files less than a week old
- *   <IL> orange for files less than a month old
- *   <IL> red    for files less than a year old
- *   <IL> blue   for files more than a year old
+ * <IL> white for files less than a hour old
+ * <IL> green for files less than a day old
+ * <IL> yellow for files less than a week old
+ * <IL> orange for files less than a month old
+ * <IL> red for files less than a year old
+ * <IL> blue for files more than a year old
  * </UL>
  *
  * @author Christophe Bouthier [bouthier@loria.fr]
  * @version 2.5
  */
-public class TMFileModelDraw 
-	extends TMComputeDrawAdapter {
-    
+public class TMFileModelDraw
+        extends TMComputeDrawAdapter {
+
     public static int cont = 0;
     public static Color cor = Color.darkGray, cor1, cor2, cor3, cor4;
 
     /* --- TMComputeSizeAdapter -- */
-
     public TMFileModelDraw() {
-        
-        //cor1 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
-        //cor2 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
-        //cor3 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
-        //cor4 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
-        
-        cor1 = new Color(190, 15, 66);
-        cor2 = new Color(154, 146, 157);
-        cor3 = new Color(7, 61, 57);
-        cor4 = new Color(70, 77, 151);
-        
+
+        /*cor1 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        cor2 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        cor3 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));
+        cor4 = new Color((int)(Math.random()*218), (int)(Math.random()*218), (int)(Math.random()*218));*/
     }
 
-    
-    
     public boolean isCompatibleWithObject(Object node) {
         if (node instanceof File) {
             return true;
@@ -93,15 +81,48 @@ public class TMFileModelDraw
     public Paint getFillingOfObject(Object node) {
         if (node instanceof File) {
             String operacao = ((File) node).getName();
-            
-            if(operacao.equals("1-Large Class"))
-                cor = cor1;
-            if(operacao.equals("2-Long Method"))
-                cor = cor2;
-            if(operacao.equals("3-Long Parameter List"))
-                cor = cor3;
-            if(operacao.equals("4-Duplicated Code"))
-                cor = cor4;
+
+            if (java(operacao)) {
+                operacao = tipo(operacao);
+                //cor = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+                
+                cor1 = new Color(190, 15, 66); //vermelho
+                cor2 = new Color(154, 146, 157);//cinza
+                cor3 = new Color(7, 61, 57);//verde
+                cor4 = new Color(70, 77, 151);//azul
+
+                if (operacao.equals("Large Class")) {
+                    cor = cor1;
+                }
+                if (operacao.equals("Long Method")) {
+                    cor = cor2;
+                }
+                if (operacao.equals("Long Parameter List")) {
+                    cor = cor3;
+                }
+                if (operacao.equals("Duplicated Code")) {
+                    cor = cor4;
+                }
+                
+                /*cor1 = new Color(190, 15, 66);
+                cor2 = new Color(154, 146, 157);
+                cor3 = new Color(7, 61, 57);
+                cor4 = new Color(70, 77, 151);
+
+                if (operacao.equals("1-Large Class")) {
+                    cor = cor1;
+                }
+                if (operacao.equals("2-Long Method")) {
+                    cor = cor2;
+                }
+                if (operacao.equals("3-Long Parameter List")) {
+                    cor = cor3;
+                }
+                if (operacao.equals("4-Duplicated Code")) {
+                    cor = cor4;
+                }*/
+            }
+
         }
         return cor;
     }
@@ -109,12 +130,12 @@ public class TMFileModelDraw
     public String getTooltipOfObject(Object node) {
         if (node instanceof File) {
             File file = (File) node;
-            String name = "";
-            
-            if(java(file.getName())){
+            String name = "0£0";
+
+            if (java(file.getName())) {
                 cont++;
-                name = Reconhecedor.badsmells.get(cont-1).getDescricao();
-                
+                name = Reconhecedor.badsmells.get(cont - 1).getDescricao();// + "£" + Reconhecedor.badsmells.get(cont - 1).getQtdLinhas();
+
 //                BadSmells badsmell = Reconhecedor.badsmells.get(cont-1);
 //                name = "Badsmell: "+badsmell.getTipo()+" ("+badsmell.getNome()+")";
             }
@@ -130,17 +151,17 @@ public class TMFileModelDraw
         }
         return "";
     }
-    
+
     public String getTitleOfObject(Object node) {
         if (node instanceof File) {
             File file = (File) node;
-            if(java(file.getName())){
-                String retorno = (Reconhecedor.badsmells.get(cont-1).getTipo()+ ": " +Reconhecedor.badsmells.get(cont-1).getNome());
-                
+            if (java(file.getName())) {
+                String retorno = (Reconhecedor.badsmells.get(cont - 1).getTipo() + ": " + Reconhecedor.badsmells.get(cont - 1).getNome());
+
                 return retorno;
-            }   
+            }
         }
-        
+
         return "";
     }
 
@@ -151,8 +172,8 @@ public class TMFileModelDraw
         }
         return Color.WHITE;
     }
-    
-    private boolean java(String file){
+
+    private boolean java(String file) {
         final String regex = "(.*?).java|(.*?).txt";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(file);
@@ -161,6 +182,18 @@ public class TMFileModelDraw
             return true;
         }
         return false;
+    }
+
+    private String tipo(String file) {
+        final String regex = "(.*)[0-9]\\.java";
+        final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(file);
+
+        while (matcher.find()) {
+            return matcher.group(1);
+        }
+
+        return "";
     }
 
 }

@@ -26,7 +26,7 @@ public class LongMethod {
         return linhas;
     }
 
-    public String mensagem(String nome_metodo) {
+    public String[] mensagem(String nome_metodo) {
 
         String retorno = "\n\n#Nome do método: '" + nome_metodo + "'"
                 + "\n#Número máximo de linhas: " + limiteDeLinhas + "*"
@@ -36,7 +36,8 @@ public class LongMethod {
                 + "\n\n\nO badsmell identificado mostra que o método '" + nome_metodo + "' possui muitas linhas de código \nem sua composição. É recomendado que a quantidade de linhas seja reduzida, pois facilita tanto \nna leitura/entendimento do código-fonte, quanto na refatoração do mesmo. Tornando o código-fonte \nmais organizado."
                 + "\n\n*Valor grande, arbitrário, usado para avaliação. Não há regra universal de quantas linhas seriam \n'linhas demais'. Portanto, aqui foi considerado " + limiteDeLinhas+".";
 
-        return retorno;
+        String[] ret = {retorno, String.valueOf(qtdSemLinhasBrancas())};
+        return ret;
     }
 
     public int qtdSemLinhasBrancas() {

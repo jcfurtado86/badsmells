@@ -30,6 +30,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -117,6 +118,7 @@ public class DemoModel {
             }
         }
 
+        /*
         //Ordenar ArrayList com os badsmells
         ArrayList<BadSmells> aux1 = new ArrayList<>(),
                 aux2 = new ArrayList<>(),
@@ -161,23 +163,56 @@ public class DemoModel {
 
         for (int i = 0; i < aux4.size(); i++) {
             Reconhecedor.badsmells.add(aux4.get(i));
+        }*/
+
+        Random random = new Random();
+        for (int i = 0; i < (Reconhecedor.badsmells.size() - 1); i++) {
+
+            //sorteia um índice
+            int j = random.nextInt(Reconhecedor.badsmells.size());
+
+            //troca o conteúdo dos índices i e j do vetor
+            BadSmells temp = Reconhecedor.badsmells.get(i);
+
+            //Reconhecedor.badsmells.get(i) = Reconhecedor.badsmells.get(j);
+            Reconhecedor.badsmells.set(i, Reconhecedor.badsmells.get(j));
+
+            //Reconhecedor.badsmells.get(j) = temp;
+            Reconhecedor.badsmells.set(j, temp);
         }
 
         for (int i = 0; i < Reconhecedor.badsmells.size(); i++) {
+            random = new Random();
+            //sorteia um índice
+            int j = random.nextInt(3);
 
-            if (Reconhecedor.badsmells.get(i).getTipo().equals("Large Class")) {
-                File file = new File(pathRoot + "\\1-Large Class\\" + Reconhecedor.badsmells.get(i).getNome() + i + ".java");
+            if (j == 0) {
+                File file = new File(pathRoot + "\\1-Large Class\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
                 file.createNewFile();
-            } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Method")) {
-                File file = new File(pathRoot + "\\2-Long Method\\" + Reconhecedor.badsmells.get(i).getNome() + i + ".java");
+            } else if (j == 1) {
+                File file = new File(pathRoot + "\\2-Long Method\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
                 file.createNewFile();
-            } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List")) {
-                File file = new File(pathRoot + "\\3-Long Parameter List\\" + Reconhecedor.badsmells.get(i).getNome() + i + ".java");
+            } else if (j == 2) {
+                File file = new File(pathRoot + "\\3-Long Parameter List\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
                 file.createNewFile();
-            } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Duplicated Code")) {
-                File file = new File(pathRoot + "\\4-Duplicated Code\\" + Reconhecedor.badsmells.get(i).getNome() + i + ".java");
+            } else {
+                File file = new File(pathRoot + "\\4-Duplicated Code\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
                 file.createNewFile();
             }
+            
+            /*if (Reconhecedor.badsmells.get(i).getTipo().equals("Large Class")) {
+                File file = new File(pathRoot + "\\1-Large Class\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
+                file.createNewFile();
+            } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Method")) {
+                File file = new File(pathRoot + "\\2-Long Method\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
+                file.createNewFile();
+            } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List")) {
+                File file = new File(pathRoot + "\\3-Long Parameter List\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
+                file.createNewFile();
+            } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Duplicated Code")) {
+                File file = new File(pathRoot + "\\4-Duplicated Code\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
+                file.createNewFile();
+            }*/
         }
 
         treeMap = new TreeMap(model);
@@ -189,7 +224,7 @@ public class DemoModel {
 
         JPanel panel = (JPanel) view;
         //panel.setPreferredSize(new Dimension(1600, maior(aux1.size(),aux2.size(),aux3.size(), aux4.size())*450));
-        panel.setPreferredSize(new Dimension(maior(aux1.size(), aux2.size(), aux3.size(), aux4.size()) * 815, 1900));
+        //panel.setPreferredSize(new Dimension(maior(aux1.size(), aux2.size(), aux3.size(), aux4.size()) * 815, 1900));
 
         return panel;
     }

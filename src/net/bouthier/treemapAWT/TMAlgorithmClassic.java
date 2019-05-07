@@ -23,13 +23,14 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-
 package net.bouthier.treemapAWT;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.util.Enumeration;
-
+import reconhecedor.Reconhecedor;
 
 /**
  * The TMAlgorithmClassic class implements a classic treemap drawing algorithm.
@@ -37,25 +38,24 @@ import java.util.Enumeration;
  * @author Christophe Bouthier [bouthier@loria.fr]
  * @version 2.5
  */
-public class TMAlgorithmClassic 
-	extends TMAlgorithm {
+public class TMAlgorithmClassic
+        extends TMAlgorithm {
 
 
     /* --- Drawing --- */
-
     /**
      * Draws the children of a node, by setting their drawing area first,
      * dependant of the algorithm used.
      *
-     * @param g        the graphic context
-     * @param node     the node whose children should be drawn
-     * @param axis     the axis of separation
-     * @param level    the level of deep
+     * @param g the graphic context
+     * @param node the node whose children should be drawn
+     * @param axis the axis of separation
+     * @param level the level of deep
      */
-    protected void drawChildren(Graphics2D 			 g,
-        						TMNodeModelComposite node,
-        						short 				 axis,
-        						int 				 level) {
+    protected void drawChildren(Graphics2D g,
+            TMNodeModelComposite node,
+            short axis,
+            int level) {
         TMNodeModel child = null;
         float size = node.getSize();
         float proportion = 0.0f;
@@ -83,17 +83,56 @@ public class TMAlgorithmClassic
 
         int maxX = x + w - 1;
         int maxY = y + h - 1;
-        
+
         for (Enumeration e = node.children(); e.hasMoreElements();) {
             child = (TMNodeModel) e.nextElement();
             childArea = child.getArea();
             childArea.x = x;
             childArea.y = y;
             proportion = (child.getSize()) / size;
-            
+
+            Toolkit tk = Toolkit.getDefaultToolkit();
+            Dimension d = tk.getScreenSize();
+            //System.out.println("Screen width = " + d.width + " - Screen height = " + d.height);
+            //System.out.println("Screen height = " + d.height);
+
+            int tamanhoLargeClass = 0, tamanhoLongMethod = 0,
+                    tamanhoLongParameter = 0, tamanhoDuplicated = 0;
+
+            for (int i = 0; i < Reconhecedor.badsmells.size(); i++) {
+                if (Reconhecedor.badsmells.get(i).getTipo().equals("Large Class")) {
+                    tamanhoLargeClass++;
+                } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Method")) {
+                    tamanhoLongMethod++;
+                } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Long Parameter List")) {
+                    tamanhoLongParameter++;
+                } else if (Reconhecedor.badsmells.get(i).getTipo().equals("Duplicated Code")) {
+                    tamanhoDuplicated++;
+                }
+            }
+
+            float horizontal = w * proportion;
+            float vertical = h * proportion;
+            int resto = 0;
+
+            /*String tipo = child.getTitle().split(":")[0];
+            int quantidade = Integer.parseInt(child.getTooltip().split("£")[1]);
+
+            for (int i = 0; i < Reconhecedor.badsmells.size(); i++) {
+                if (tipo.equals("Large Class")) {
+                    horizontal = (d.width / tamanhoLargeClass) + (quantidade);
+                } else if (tipo.equals("Long Method")) {
+                    horizontal = (d.width / tamanhoLongMethod) + (quantidade);
+                } else if (tipo.equals("Long Parameter List")) {
+                    horizontal = (d.width / tamanhoLongParameter) + (quantidade * 10);
+                } else if (tipo.equals("Duplicated Code")) {
+                    horizontal = (d.width / tamanhoDuplicated) + (quantidade);
+                }
+            }*/
+
             if (e.hasMoreElements()) {
                 if (axis == HORIZONTAL) {
-                    newDf = 815;//400 proportion * w; // Tamanho proporcional altura
+                    newDf = horizontal; //horizontal;//400;//815;//Tamanho proporcional altura
                     newDi = Math.round(newDf);
                     remaining += newDf - newDi;
                     if (remaining >= 1) {
@@ -107,7 +146,7 @@ public class TMAlgorithmClassic
                     childArea.height = h;
                     x += newDi;
                 } else { // VERTICAL
-                    newDf = 450;//proportion * h; // Tamanho proporcional Largura
+                    newDf = vertical; //vertical;//450;//proportion * h;//Tamanho proporcional Largura
                     newDi = Math.round(newDf);
                     remaining += newDf - newDi;
                     if (remaining >= 1) {

@@ -28,7 +28,7 @@ public class LongParameterList {
         return qtdParametros > limiteParametros;
     }
 
-    public String mensagem() {
+    public String[] mensagem() {
 
         String retorno = "\n\n#Nome do método: '" + nomeMetodo + "'"
                 + "\n#Número máximo de parâmetros: " + limiteParametros + "*"
@@ -36,7 +36,8 @@ public class LongParameterList {
                 + "\n\n\nO badsmell identificado mostra que o método '" + nomeMetodo + "' possui muitos parâmetros em sua assinatura."
                 + "\n\n*Valor grande, arbitrário, usado para avaliação. Não há regra universal de quantos parâmetros seriam \n'parâmetros demais'. Portanto, aqui foi considerado maior que " + limiteParametros + ".";
 
-        return retorno;
+        String[] ret = {retorno,String.valueOf(qtdParametros)};
+        return ret;
     }
 
 }

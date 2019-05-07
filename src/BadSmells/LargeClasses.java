@@ -50,7 +50,7 @@ public class LargeClasses {
         return linhas;
     }
 
-    public String mensagem(String nomeClasse) {
+    public String[] mensagem(String nomeClasse) {
         String retorno = "\n\n#Nome da Classe: '" + nomeClasse + "'"
                 + "\n#Número máximo de linhas: " + limiteDeLinhas + "*"
                 + "\n       Com linhas em branco: " + linhas
@@ -58,7 +58,8 @@ public class LargeClasses {
                 + "\n\n\nO badsmell identificado mostra que a classe avaliada possui muitas linhas. É recomendado que a \nquantidade de linhas seja reduzida, pois facilita tanto na leitura/entendimento do código-fonte, \nquanto na refatoração do mesmo. \n\nPara uma classe ser mais organizada e menor, os métodos que a compõem devem ser pertinente \nao seu propósito. Por exemplo, uma classe 'Cliente' pode ter os métodos 'adicionarCarrinho' e \n'alterarDados', mas o método 'verificarPreco' deveria ficar na classe 'Produto', afim de manter o \ncódigo organizado estéticamente e conceitualmente."
                 + "\n\n*Valor grande, arbitrário, usado para avaliação. Não há regra universal de quantas linhas seriam \n'linhas demais'. Portanto, aqui foi considerado " + limiteDeLinhas + ".";
 
-        return retorno;
+        String[] ret = {retorno,Integer.toString(qtdSemLinhasBrancas())};
+        return ret;
     }
 
     public int qtdSemLinhasBrancas() {
