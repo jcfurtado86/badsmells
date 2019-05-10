@@ -37,6 +37,7 @@ public class MainGUI extends JFrame {
     private JMenuItem jMIAbout;
     private JMenuItem jMIDocumentation;
     private int pos = 0;
+    public static boolean open = false;
 
     private final String reconhecerNomeRepositorio = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ-]+).git";
 
@@ -119,39 +120,47 @@ public class MainGUI extends JFrame {
     }
 
     private void jMenuItemDocumentationActionPerformed(ActionEvent evt) {
-        JFrame frame = new JFrame();
-        frame.setLayout(null);
-        frame.setTitle("Documentação JSniffer");
-        frame.setSize(600, 400);
-        frame.setLocation(200, 200);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setResizable(false);
+        if (!open) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Legenda().setVisible(true);
+                }
+            });
+            MainGUI.open = true;
+        }
 
-        JLabel labelVermelho = new JLabel("My label");
-        labelVermelho.setBounds(10, 10, 2000, 20);
-        labelVermelho.setText("Vermelho: Classe Longa é Uma classe que faz coisa \n"
-                + "demais no sistema");
-
-        JLabel labelCinza = new JLabel("My label");
-        labelCinza.setBounds(10, 40, 2000, 20);
-        labelCinza.setText("Cinza: Método Longo são Métodos que centralizam a \n"
-                + "funcionalidade da classe");
-
-        JLabel labelVerde = new JLabel("My label");
-        labelVerde.setBounds(10, 70, 200, 20);
-        labelVerde.setText("Verde: Longa Lista de Parâmetros");
-
-        JLabel labelAzul = new JLabel("My label");
-        labelAzul.setBounds(10, 100, 200, 20);
-        labelAzul.setText("Azul: Código Duplicado");
-
-        frame.add(labelVermelho);
-        frame.add(labelCinza);
-        frame.add(labelVerde);
-        frame.add(labelAzul);
-
+//        JFrame frame = new JFrame();
+//        frame.setLayout(null);
+//        frame.setTitle("Documentação JSniffer");
+//        frame.setSize(600, 400);
+//        frame.setLocation(200, 200);
+//        frame.setLocationRelativeTo(null);
+//        frame.setVisible(true);
+//        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        frame.setResizable(false);
+//
+//        JLabel labelVermelho = new JLabel("My label");
+//        labelVermelho.setBounds(10, 10, 2000, 20);
+//        labelVermelho.setText("Vermelho: Classe Longa é Uma classe que faz coisa \n"
+//                + "demais no sistema");
+//
+//        JLabel labelCinza = new JLabel("My label");
+//        labelCinza.setBounds(10, 40, 2000, 20);
+//        labelCinza.setText("Cinza: Método Longo são Métodos que centralizam a \n"
+//                + "funcionalidade da classe");
+//
+//        JLabel labelVerde = new JLabel("My label");
+//        labelVerde.setBounds(10, 70, 200, 20);
+//        labelVerde.setText("Verde: Longa Lista de Parâmetros");
+//
+//        JLabel labelAzul = new JLabel("My label");
+//        labelAzul.setBounds(10, 100, 200, 20);
+//        labelAzul.setText("Azul: Código Duplicado");
+//
+//        frame.add(labelVermelho);
+//        frame.add(labelCinza);
+//        frame.add(labelVerde);
+//        frame.add(labelAzul);
 //        JInternalFrame internalFrame = new JInternalFrame();
 //        internalFrame.setContentPane(frame.getContentPane());
 //        internalFrame.pack();
