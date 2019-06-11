@@ -372,14 +372,20 @@ public abstract class TMAlgorithm
         cor3 = new Color(7, 61, 57);//verde
         cor4 = new Color(70, 77, 151);//azul
 
+        String titulo = "";
+        
         if (node.getTitle().split(":")[0].equals("Large Class")) {
             cor = cor1;
+            titulo = "Classe Longa:"+node.getTitle().split(":")[1];
         }else if (node.getTitle().split(":")[0].equals("Long Method")) {
             cor = cor2;
+            titulo = "Método Longo:"+node.getTitle().split(":")[1];
         }else if (node.getTitle().split(":")[0].equals("Long Parameter List")) {
             cor = cor3;
+            titulo = "Lista Longa de Parâmetros:"+node.getTitle().split(":")[1];
         }else if (node.getTitle().split(":")[0].equals("Duplicated Code")) {
             cor = cor4;
+            titulo = "Código Duplicado:"+node.getTitle().split(":")[1];
         } else{
             cor = (Color) node.getFilling();
         }
@@ -401,7 +407,7 @@ public abstract class TMAlgorithm
             g.setFont(titleFont);
 
             //É aqui : 1 ; 10
-            g.drawString(node.getTitle(), area.x + 15, area.y + 25);
+            g.drawString(titulo, area.x + 15, area.y + 25);
 
             int altura = area.y + 25;
             for (String line : node.getTooltip().split("\n")) {

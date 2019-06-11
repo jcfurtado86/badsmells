@@ -1,10 +1,8 @@
 package br.unifap.serde.projectvisualizer.ui;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.util.logging.Level;
@@ -12,22 +10,26 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 
 /**
  *
  * @author furtado
  */
-public class MainGUI extends JFrame {
+public class MainGUI extends JPanel {
 
     private JDesktopPane jDesktopPane;
     private JMenu jMenuFile;
@@ -38,6 +40,9 @@ public class MainGUI extends JFrame {
     private JMenuItem jMIDocumentation;
     private int pos = 0;
     public static boolean open = false;
+
+    public JToolBar toolBar;
+    public String fonts[] = {"Serif", "SansSerif", "Monospaced", "Dialog", "DialogInput"};
 
     private final String reconhecerNomeRepositorio = "([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ-]+).git";
 
@@ -128,60 +133,6 @@ public class MainGUI extends JFrame {
             });
             MainGUI.open = true;
         }
-
-//        JFrame frame = new JFrame();
-//        frame.setLayout(null);
-//        frame.setTitle("Documentação JSniffer");
-//        frame.setSize(600, 400);
-//        frame.setLocation(200, 200);
-//        frame.setLocationRelativeTo(null);
-//        frame.setVisible(true);
-//        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        frame.setResizable(false);
-//
-//        JLabel labelVermelho = new JLabel("My label");
-//        labelVermelho.setBounds(10, 10, 2000, 20);
-//        labelVermelho.setText("Vermelho: Classe Longa é Uma classe que faz coisa \n"
-//                + "demais no sistema");
-//
-//        JLabel labelCinza = new JLabel("My label");
-//        labelCinza.setBounds(10, 40, 2000, 20);
-//        labelCinza.setText("Cinza: Método Longo são Métodos que centralizam a \n"
-//                + "funcionalidade da classe");
-//
-//        JLabel labelVerde = new JLabel("My label");
-//        labelVerde.setBounds(10, 70, 200, 20);
-//        labelVerde.setText("Verde: Longa Lista de Parâmetros");
-//
-//        JLabel labelAzul = new JLabel("My label");
-//        labelAzul.setBounds(10, 100, 200, 20);
-//        labelAzul.setText("Azul: Código Duplicado");
-//
-//        frame.add(labelVermelho);
-//        frame.add(labelCinza);
-//        frame.add(labelVerde);
-//        frame.add(labelAzul);
-//        JInternalFrame internalFrame = new JInternalFrame();
-//        internalFrame.setContentPane(frame.getContentPane());
-//        internalFrame.pack();
-//
-//        JLabel label = new JLabel("My label");
-//        label.setText("<html>This is a<br>multline label!<br> Try it yourself!</html>");
-//
-//        //internalFrame.setVisible(true);
-//        internalFrame.setTitle("Welecome to JavaTutorial.net");
-//        internalFrame.setSize(600, 400);
-//        internalFrame.setLocation(200, 200);
-//        internalFrame.setVisible(true);
-//        internalFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        internalFrame.setResizable(false);
-//        internalFrame.add(label);
-//
-//        internalFrame.setIconifiable(true);
-//        internalFrame.setClosable(true);
-//        internalFrame.setMaximizable(true);
-//
-//        jDesktopPane.add(internalFrame);
     }
 
     private String nomeRepositorio(String url) throws NullPointerException {
@@ -236,22 +187,73 @@ public class MainGUI extends JFrame {
         jMenuBar.add(jMenuFile);
         jMenuBar.add(jMenuHelp);
 
-        this.setJMenuBar(jMenuBar);
+        JFrame frame = new JFrame("Menu Example");
 
-        GroupLayout layout = new GroupLayout(this.getContentPane());
-        this.getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(jDesktopPane));
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(jDesktopPane));
+        //GroupLayout layout = new GroupLayout(frame.getContentPane());
+        //frame.getContentPane().setLayout(layout);
+        //layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(jDesktopPane));
+        //layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(jDesktopPane));
+        frame.setJMenuBar(jMenuBar);
 
-        pack();
+        toolBar = new JToolBar("Legenda");
+        toolBar.setFloatable(false);
 
-        this.setSize(1200, 700);
-        this.setTitle("JSniffer");
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setLocationByPlatform(true);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //for(int i=0;i<140;i++){
+        //    toolBar.addSeparator();
+        //}
+        
+        toolBar.addSeparator();
+        ImageIcon image = new ImageIcon("D:\\NetBeans\\badsmells\\src\\br\\unifap\\serde\\projectvisualizer\\ui\\red.jpg");
+        JLabel imagelabel = new JLabel(image);
+        toolBar.add(imagelabel);
+        toolBar.addSeparator();
+        
+        JLabel label = new JLabel("Classe Longa");
+        toolBar.add(label);
+        toolBar.addSeparator();
+
+        ImageIcon image2 = new ImageIcon("D:\\NetBeans\\badsmells\\src\\br\\unifap\\serde\\projectvisualizer\\ui\\gray.jpg");
+        JLabel imagelabel2 = new JLabel(image2);
+        toolBar.add(imagelabel2);
+        toolBar.addSeparator();
+        
+        JLabel label2 = new JLabel("Método Longo");
+        toolBar.add(label2);
+        toolBar.addSeparator();
+
+        ImageIcon image3 = new ImageIcon("D:\\NetBeans\\badsmells\\src\\br\\unifap\\serde\\projectvisualizer\\ui\\blue.jpg");
+        JLabel imagelabel3 = new JLabel(image3);
+        toolBar.add(imagelabel3);
+        toolBar.addSeparator();
+        
+        JLabel label3 = new JLabel("Código Duplicado");
+        toolBar.add(label3);
+        toolBar.addSeparator();
+
+        ImageIcon image4 = new ImageIcon("D:\\NetBeans\\badsmells\\src\\br\\unifap\\serde\\projectvisualizer\\ui\\green.jpg");
+        JLabel imagelabel4 = new JLabel(image4);
+        toolBar.add(imagelabel4);
+        toolBar.addSeparator();
+        
+        JLabel label4 = new JLabel("Lista Longa de Parâmetros");
+        toolBar.add(label4);
+
+        //toolBar.addSeparator(); 
+        //JComboBox combo = new JComboBox(fonts);
+        ///toolBar.add(combo);
+        frame.getContentPane().add(jDesktopPane);
+        frame.getContentPane().add(toolBar, BorderLayout.NORTH);
+
+        frame.setSize(1200, 700);
+        frame.setTitle("JSniffer");
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        //frame.getContentPane().add(toolBar, BorderLayout.NORTH);
+        frame.pack();
+        frame.setLocationByPlatform(true);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public static void main(String[] args) {
