@@ -164,6 +164,17 @@ public class DemoModel {
         for (int i = 0; i < aux4.size(); i++) {
             Reconhecedor.badsmells.add(aux4.get(i));
         }*/
+        
+        
+        
+        
+        if (Reconhecedor.badsmells.size() == 0) {
+            System.out.println("Parabéns, nenhum BadSmell foi identificado.");
+            Reconhecedor.badsmells.add(new BadSmells("Sucesso!", "", "Especial", 0));
+        }
+        
+        
+        
 
         Random random = new Random();
         for (int i = 0; i < (Reconhecedor.badsmells.size() - 1); i++) {
@@ -199,7 +210,7 @@ public class DemoModel {
                 File file = new File(pathRoot + "\\4-Duplicated Code\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
                 file.createNewFile();
             }
-            
+
             /*if (Reconhecedor.badsmells.get(i).getTipo().equals("Large Class")) {
                 File file = new File(pathRoot + "\\1-Large Class\\" + Reconhecedor.badsmells.get(i).getTipo() + i + ".java");
                 file.createNewFile();
@@ -225,6 +236,17 @@ public class DemoModel {
         JPanel panel = (JPanel) view;
         //panel.setPreferredSize(new Dimension(1600, maior(aux1.size(),aux2.size(),aux3.size(), aux4.size())*450));
         //panel.setPreferredSize(new Dimension(maior(aux1.size(), aux2.size(), aux3.size(), aux4.size()) * 815, 1900));
+
+        dir = new File(pathRoot);
+        if (dir.isDirectory()) {
+            File[] arqs = dir.listFiles();
+            for (File nome : arqs) {
+                File[] files = nome.listFiles();
+                for (File java : files) {
+                    java.delete();
+                }
+            }
+        }
 
         return panel;
     }

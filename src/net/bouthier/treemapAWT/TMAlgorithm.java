@@ -388,6 +388,7 @@ public abstract class TMAlgorithm
             titulo = "Código Duplicado:"+node.getTitle().split(":")[1];
         } else{
             cor = (Color) node.getFilling();
+            titulo = "Sucesso! Parabéns, nenhum BadSmell foi identificado.";
         }
         
         g.setPaint(cor);

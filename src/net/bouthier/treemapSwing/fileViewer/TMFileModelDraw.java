@@ -85,6 +85,7 @@ public class TMFileModelDraw
             if (java(operacao)) {
                 operacao = tipo(operacao);
                 //cor = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+                System.out.println(operacao);
                 
                 cor1 = new Color(190, 15, 66); //vermelho
                 cor2 = new Color(154, 146, 157);//cinza
@@ -102,6 +103,10 @@ public class TMFileModelDraw
                 }
                 if (operacao.equals("Duplicated Code")) {
                     cor = cor4;
+                }
+                
+                if (operacao.equals("Especial")) {
+                    cor = new Color(0, 198, 14);
                 }
                 
                 /*cor1 = new Color(190, 15, 66);

@@ -101,9 +101,9 @@ public class Reconhecedor extends Regex implements Identificacoes {
             
             if(lclasse.classeLonga()){
                 badsmells.add(new BadSmells(matcher.group(5),lclasse.mensagem(matcher.group(5))[0],"Large Class", Integer.valueOf(lclasse.mensagem(matcher.group(5))[1])));
-            }else{
+            }/*else{
                 badsmells.add(new BadSmells(matcher.group(5),"Parabéns!","Large Class", 0));
-            }
+            }*/
             
             resultadoFinal.add(resultado);
             

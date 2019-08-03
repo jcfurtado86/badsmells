@@ -128,7 +128,8 @@ public class MainGUI extends JPanel {
         if (!open) {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new Legenda().setVisible(true);
+                    //new Legenda().setVisible(true);
+                    new TelaAutoria().setVisible(true);
                 }
             });
             MainGUI.open = true;
@@ -242,7 +243,11 @@ public class MainGUI extends JPanel {
         //JComboBox combo = new JComboBox(fonts);
         ///toolBar.add(combo);
         frame.getContentPane().add(jDesktopPane);
-        frame.getContentPane().add(toolBar, BorderLayout.NORTH);
+        
+        JPanel painel = new JPanel();
+        painel.add(toolBar, BorderLayout.EAST);
+        
+        frame.getContentPane().add(painel, BorderLayout.NORTH);
 
         frame.setSize(1200, 700);
         frame.setTitle("JSniffer");
