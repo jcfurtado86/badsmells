@@ -36,7 +36,11 @@ public class Metodos_DuplicatedCode {
         int contador = 0;
         String retorno = "\n#Métodos comparados:" + "\n     " + nome_metodo1 + " => " + nome_metodo2 + "\n\n#Linhas duplicadas:\n";
         for (String linhas : corpo) {
-            retorno += "  >  " + linhas + "\n";
+            if (contador <= 15) {
+                retorno += "  >  " + linhas + "\n";
+            } else if (contador == 16) {
+                retorno += "  >  ... \n";
+            }
             contador++;
         }
 

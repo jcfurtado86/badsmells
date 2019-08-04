@@ -33,6 +33,18 @@ public abstract class a1 {
 		Classe objeto = objeto.metodo();
 		Classe objeto = objeto.metodo1("rgb").metodo2().metodo3();
 		objeto = objeto.metodo1("parametro1").metodo2().metodo3();
+		Classe objeto = new Classe(dd);
+		objeto = new Classe();
+		metodo(fff);
+		objeto = metodo();
+		Classe objeto = metodo(dd);
+		objeto = valor;
+		objeto.variavel = metodo();
+		objeto.metodo(); 
+		objeto.metodo1().metodo2().metodo3();
+		Classe objeto = objeto.metodo();
+		Classe objeto = objeto.metodo1("rgb").metodo2().metodo3();
+		objeto = objeto.metodo1("parametro1").metodo2().metodo3();
 
 		int c = a + b;	
 		for(int i=0; i<10; i++){c += a;}
@@ -50,6 +62,18 @@ public abstract class a1 {
 		
 		return c;
 
+		Classe objeto = new Classe(dd);
+		objeto = new Classe();
+		metodo(fff);
+		objeto = metodo();
+		Classe objeto = metodo(dd);
+		objeto = valor;
+		objeto.variavel = metodo();
+		objeto.metodo(); 
+		objeto.metodo1().metodo2().metodo3();
+		Classe objeto = objeto.metodo();
+		Classe objeto = objeto.metodo1("rgb").metodo2().metodo3();
+		objeto = objeto.metodo1("parametro1").metodo2().metodo3();
 		Classe objeto = new Classe(dd);
 		objeto = new Classe();
 		metodo(fff);

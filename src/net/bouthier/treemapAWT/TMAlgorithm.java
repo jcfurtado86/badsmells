@@ -78,7 +78,7 @@ public abstract class TMAlgorithm
 
     private TMCushionPaint painter;
 
-    private final Font titleFont = new Font("Dialog", Font.PLAIN, 20);
+    private final Font titleFont = new Font("", Font.BOLD, 20);
     private final Color borderColor = Color.BLACK;
 
     protected double h = 0.50;
@@ -377,6 +377,7 @@ public abstract class TMAlgorithm
         if (node.getTitle().split(":")[0].equals("Large Class")) {
             cor = cor1;
             titulo = "Classe Longa:"+node.getTitle().split(":")[1];
+            titulo = "Classe Longa: "+titulo.split(" ")[2];
         }else if (node.getTitle().split(":")[0].equals("Long Method")) {
             cor = cor2;
             titulo = "Método Longo:"+node.getTitle().split(":")[1];
@@ -391,6 +392,8 @@ public abstract class TMAlgorithm
             titulo = "Sucesso! Parabéns, nenhum BadSmell foi identificado.";
         }
         
+        //Font fnt = new Font("Arial", Font.BOLD, 10);
+        //g.setFont(fnt);
         g.setPaint(cor);
         //g.setPaint(node.getFilling());
         g.fillRect(area.x, area.y, area.width, area.height);
@@ -402,6 +405,9 @@ public abstract class TMAlgorithm
         g.drawRect(area.x + 3, area.y + 3, area.width, area.height);
         g.drawRect(area.x + 4, area.y + 4, area.width, area.height);
         g.drawRect(area.x + 5, area.y + 5, area.width, area.height);
+        
+        //JPanel p = new JPanel();
+        //g.drawRect(10, 10, 20, 20);
 
         if (nodesTitles) {
             g.setPaint(node.getColorTitle());
