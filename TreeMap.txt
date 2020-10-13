@@ -1,0 +1,9 @@
+net.bouthier.treemapAWT.TMAction (ação ao clicar na tela - zoom e unzoom).
+net.bouthier.treemapAWT.TMAlgorithm (L84 - fonte);(L386 - Visualização do Texto).
+net.bouthier.treemapAWT.TMNodeModelRoot (implementação de zoom).
+net.bouthier.treemapAWT.TMView (chamada de zoom).
+net.bouthier.treemapSwing.fileViewer.TMFileModelDraw (Cor do Gráfico, Texto Principal e tooltip).
+
+net.bouthier.treemapAWT.TMAlgorithmClassic (largura e altura dos blocos de BadSmells).
+net.bouthier.treemapAWT.TMAlgorithm (L98 e L99 posição dos Blocos).
+net.bouthier.treemapAWT.TMView (legenda titulo ToolTip).

@@ -8,7 +8,7 @@ public abstract class Regex {
     protected final static String regexClasse = "\\s*((public|protected|private)*\\s*(static|abstract)*\\s*(class|interface)+\\s*(.*?)\\s*)\\{\\s*((.\\}?|\\s?)*)\\s*\\}";
     
     protected final static String regexMetodoConstrutor = "(public|private|protected)+\\s*([A-Z]+[A-Za-z0-9]*)\\s*\\((.*?)\\)\\s*\\{+";
-    protected final static String regexMetodoAbstrato = "(public|private|protected)+\\s*(abstract)+\\s*([a-z]+)\\s*(.*?)\\s*\\((.*?)\\)\\s*\\;";
+    protected final static String regexMetodoAbstrato = "(public|private|protected)+\\s*(abstract)+\\s*([a-zA-Z]+)\\s*(.*?)\\s*\\((.*?)\\)\\s*\\;";
     
     protected final static String regexMetodo = "(public|protected|private)+\\s*(static)*\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇ<>Ñ_]+)\\s*([A-Za-z0-9_]+)\\s*\\((.*?)\\)\\s*([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕ;ÖÚÇ<>Ñ_ ]*)\\s*\\{*";    
     
