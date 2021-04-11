@@ -48,7 +48,7 @@ public class Metodos_DuplicatedCode {
                 + "\n\n\nO badsmell identificado mostra que o método '" + nome_metodo1 + "' possui " + contador + " linha(s) duplicada(s) com \no método '" + nome_metodo2 + "'. Linhas duplicadas na codificação de um programa são redundantes \ne desnecessárias, o que resulta em um código maior do que indicado e reduz sua organização.";
 
         if (contador >= 5) {
-            retorno += "\nNeste caso, é aconselhável que o código seja refatorado, pois apresenta mais de 5 linhas \nduplicadas.";
+            retorno += "\nNeste caso, é aconselhável que o código seja refatorado, pois apresenta 5 ou mais linhas \nduplicadas.";
         } else {
             retorno += "\nPor se tratarem de menos de 5 linhas duplicadas (quantidade desprezível), a refatoração \ndo código é arbitrária.";
         }
